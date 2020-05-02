@@ -1,0 +1,153 @@
+:root{
+    --rojo:#E50914;
+    --fondo: #141414;
+}
+/* para toda la pagina */
+*{
+    margin:0;
+    padding: 0;
+    
+    box-sizing: border-box; 
+}
+
+body{
+    
+    font-family: 'Open Sans', sans-serif;
+}
+
+main{
+    color: #FFF;
+    background: var(--fondo);
+}
+
+.contenedor{
+    width: 90%;
+    margin: auto;
+    
+   
+
+}
+
+header{
+    padding: 30px 0;
+}
+/* para que aparezca el menu a la derecha del logo */
+header .contenedor{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contenedor .logo img{
+   
+    color: var(--rojo);
+    width: 170px;
+
+}
+/*
+header .logo img{
+    width: 170px;
+	position: absolute;
+	top: 60%;
+	left: 7%;
+	transform: translate(-50%, -50%);
+	margin-left: 0;
+}*/
+
+/*probandooooooooo*/
+
+.carousel-inner .carrusel img{
+   width: 180px;
+   height: 200px;
+   margin: auto;
+   
+
+}
+
+
+/*----------------------iniciar sesion------------------*/
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+  /*------------*/
+header nav a{
+    color:#AAA;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+header nav a:hover, 
+header nav a.activo{ 
+    color:#FFF;
+}
+
+
+/* ----------------libro principal--------------- */
+.libro-principal {
+    font-size: 16px;
+    min-height: 40.62em;
+    color: #FFF;
+    background: linear-gradient(rgba(0, 0, 0, .50) 0%,rgba(0, 0, 0, .50) 100%), url(../imagen/backdrop.jpg); /* le indico la ruta donde esta la imagen".."vuelve atras"*/
+    background-position: center center;
+    background-size: cover;
+    margin-bottom: 3.12em;
+    display: flex;
+    align-items: flex-end; /*en el tutorial dice end pero no se posiciana abajo con flex-end si*/
+   
+}
+
+.libro-principal .contenedor {
+ margin: 0 auto;
+ margin-bottom: 6.25em;
+}
+
+.libro-principal .titulo {
+  font-weight: 600;
+  font-size: 3.12em;
+  margin-bottom: 0.4em;
+}
+
+.libro-principal .descripcion{
+    font-weight: normal;
+    font-size: 1em;
+    line-height: 1.75em;
+    max-width: 50%;
+    margin-bottom: 1.25em;
+}
+
+.libro-principal .boton{
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 0.31em;
+    padding: 0.93em 1.87em;
+   color: #FFF;
+   margin-right: 1.25em;
+   cursor: pointer;
+   transition: .3s ease all;
+   font-size: 1.12em;
+
+}
+.libro-principal .boton:hover{
+    background: #FFF;
+    color: #000;
+}
+.libro-principal .boton i{
+    margin-right: 1.25em;
+}
+
+
+
+
+  
+/*prueba de estilos formulario registrarse*/

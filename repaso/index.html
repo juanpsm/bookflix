@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Bookflix</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+	
+
+
+    
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="contenedor">
+                
+                <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                    <div class="logo">	 
+					   <a class="" href="index.html">
+						<img  src="imagen/logo.png" alt="Bookflix">
+					   </a>	
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                  
+                    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                      <ul class="navbar-nav mr-auto">
+                        
+                        <li class="nav-item">
+							<a class="nav-link" href="miLista.html">Mi Lista</a>
+						  </li>
+                       <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Genéro</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" href="listaDeGenero.html">Drama</a>
+                            <a class="dropdown-item" href="listaDeGenero.html">Romáticos</a>
+                            <a class="dropdown-item" href="listaDeGenero.html">Acción</a>
+                          </div>
+						</li>
+						<li class="nav-item">
+							<a href="novedades.html" class="nav-link" href="miLista.html">Novedades</a>
+						  </li>
+						   
+                      </ul>
+                      <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+                      </form>
+                    </div>
+                  </nav>
+            </div>
+	</header>
+    <main>
+		<div class="libro-principal">
+			<div class="contenedor">
+			    <h3 class="titulo">Harry Potter</h3>
+			    <p class="descripcion">
+				  Harry Potter regresa a Hogwarts aún sacudido por la tragedia ocurrida en el Torneo de los Tres Magos. Debido a que el Ministro de la Magia niega el regreso de Lord Voldemort, Harry se convierte nuevamente en el centro de atención. Mientras lucha con sus problemas en el colegio, incluyendo a la nueva profesora Dolores Umbridge, intentará aprender más sobre la misteriosa Orden del Fénix.
+				</p>
+			  <a class="" href="descripcion.html">	
+			  <button role="button" class="boton">Leer <svg class="bi bi-book" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001 2.82z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0115 2.82z" clip-rule="evenodd"/>
+			  </svg></button>
+			  </a>
+			  <a class="" href="descripcion.html">
+			  <button  role="button" class="boton">Más informacion <svg class="bi bi-info-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+			  </svg></button>
+			  </a> 
+			</div>
+		</div><!--carrusel-->
+		<main role="main">
+
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<h3>Recomendados</h3>
+			  <ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			  </ol>
+			 <div class="carousel-inner">
+				<div class="carousel-item active" >
+				 <div class="carrusel">
+					<a class="" href="descripcion.html">
+						<img src="imagen/1.jpg" alt="" class="" >
+					</a> 
+					<a class="" href="descripcion.html">
+					  <img src="imagen/2.jpg" alt="" class="">
+					</a>
+					<a class="" href="descripcion.html">  
+					 <img src="imagen/3.png" alt="" class="">
+					</a>
+					<a class="" href="descripcion.html">
+					  <img src="imagen/4.png" alt="" class="">
+					</a>
+					<a class="" href="descripcion.html">
+					   <img src="imagen/5.png" alt="" class="" href="descripcion.html">
+					</a> 
+					<a class="" href="descripcion.html">  
+					  <img src="imagen/6.png" alt="" class="" href="descripcion.html">
+					</a>
+					<a class="" href="descripcion.html"> 
+						 <img src="imagen/7.png" alt="" class="" href="descripcion.html">
+					</a>	 
+				</div>
+				 
+				 
+				</div>
+				<div class="carousel-item">
+				 <div class="carrusel">
+					<img src="imagen/8.png" alt="" class="" href="descripcion.html">
+					<img src="imagen/9.jpg" alt="" class="" href="descripcion.html">
+					<img src="imagen/10.png" alt="" class="" href="descripcion.html">
+					<img src="imagen/11.png" alt="" class="" href="descripcion.html">
+					<img src="imagen/12.png" alt="" class="" href="descripcion.html">
+				  <img src="imagen/13.png" alt="" class="" href="descripcion.html">
+				  <img src="imagen/14.png" alt="" class="" href="descripcion.html">
+				  
+				  </div>
+				</div>
+				<div class="carousel-item">
+				  
+					<div class="carrusel">
+					  <a class="" href="descripcion.html">	
+						<img src="imagen/15.png" alt="" class="">
+					  </a>
+					  <a class="" href="descripcion.html">	
+						<img src="imagen/16.png" alt="" class="">
+					  </a>
+					  <a class="" href="descripcion.html">	
+						<img src="imagen/17.png" alt="" class="">
+					  </a>	
+					  <a class="" href="descripcion.html">
+						<img src="imagen/18.png" alt="" class="">
+					  </a>
+					  <a class="" href="descripcion.html">	
+						<img src="imagen/19.png" alt="" class="">
+					 </a>
+					 <a class="" href="descripcion.html">			 
+					  <img src="imagen/20.png" alt="" class="" >
+					 </a>
+					 <a class="" href="descripcion.html">
+					  <img src="imagen/21.png" alt="" class="" >
+					 </a>
+					  </div>
+			  </div>
+			  <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			  </a>
+			  <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			  </a>
+			</div>
+			<br><br>
+			
+	</main>
+	
+	
+	
+    <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.4/dist/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script></body>
+
+	<script src="js/main.js"></script>
+</body>
+</html>
