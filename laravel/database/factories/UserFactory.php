@@ -1,9 +1,9 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-
+require_once 'vendor/autoload.php';
 use App\User;
-use Faker\Generator as Faker;
+use Faker\Factory;
 use Illuminate\Support\Str;
 
 /*
@@ -16,13 +16,15 @@ use Illuminate\Support\Str;
 | model instances for testing / seeding your application's database.
 |
 */
-
-$factory->define(User::class, function (Faker $faker) {
+$faker = Faker\Factory::create('es_AR');
+$factory->define(User::class, function ($faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
+        'dni'=> $faker->randomNumber($nbDigits = 8, $strict = true), // 79907610
+        'email' => $faker->unique()->freeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'cuenta_activa' => $faker->boolean,
+        'password' => 'aaa', // password de prueba
         'remember_token' => Str::random(10),
     ];
 });
