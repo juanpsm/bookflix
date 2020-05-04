@@ -46,6 +46,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        //agrego el guard que usa Admin
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        //el de user no lo agrego porque no usa guard, parece
+        //'user' => [
+        //    'driver' => 'session',
+        //    'provider' => 'users',
+        //],
     ],
 
     /*
@@ -74,6 +84,17 @@ return [
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
+        // ],
+
+        //agrego los providers de admin
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin::class,
+        ],
+        // el de users ya esta definido arriba no se si va dejo el ejemplo por si despues hay que agregar perfil
+        // 'writers' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Writer::class,
         // ],
     ],
 

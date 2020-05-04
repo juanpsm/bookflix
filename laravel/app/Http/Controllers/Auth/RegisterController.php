@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+// Agrego los admin
+use App\Admin;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+// esta libreria usan los admin
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -39,6 +45,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        //agrego los admin, los users se hacen por otro lado
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -71,5 +79,27 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'dni' => $data['dni'],
         ]);
+    }
+
+    // Esto no se si va, pero crearia la orden de mostrar la pagina de registro de admins..
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['url' => 'admin']);
+    }
+    // otros usuarios que no hay:
+    // public function showWriterRegisterForm()
+    // {
+    //     return view('auth.register', ['url' => 'writer']);
+    // }
+
+    protected function createAdmin(Request $request)
+    {
+        $this->validator($request->all())->validate();//aca no entiendo si llama al validator de mas arriba, tienen distintos campos
+        $admin = Admin::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
+        return redirect()->intended('login/admin');
     }
 }
