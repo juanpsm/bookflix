@@ -6,12 +6,12 @@
         <div class="col-md-8">
             <div class="card">
                 {{-- idem login --}}
-                <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Register') }}</div>
+                <div class="card-header"> {{ __('Register') }} {{ isset($url) ? ucwords($url) : ""}}</div>
                 <div class="card-body">
                     @isset($url)
                     <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
                     @else
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }} aria-label="{{ __('Register') }}">
                     @endisset
                         @csrf
 
@@ -92,11 +92,14 @@
                         </div>
 
                         {{-- Tarjetas --}}
-                        <div class="form-group row mb-1">
-                            <div class="col-md-6 offset-md-4">
-                                <a href="#" class="btn btn-primary btn-sm">Agregar Medio de Pago</a>
+                        @unless (isset($url))
+                            <div class="form-group row mb-1">
+                                <div class="col-md-6 offset-md-4">
+                                    <a href="#" class="btn btn-primary btn-sm">Agregar Medio de Pago</a>
+                                </div>
                             </div>
-                        </div>
+                        @endunless
+
 
                         {{-- Boton registrarse --}}
                         <div class="form-group row mb-0">

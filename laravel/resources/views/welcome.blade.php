@@ -67,15 +67,15 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Inicio</a>
-                    @else
-                        <a href="{{ route('login') }}">Iniciar Sesion</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registrarse</a>
+                    {{-- esto lo hacia laravel con auth, lo cambio por guest y lo doy vuelta--}}
+                    @guest
+                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                        @if (Route::has('register')){{-- esto no se que hace --}}
+                            <a href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
-                    @endauth
+                    @else
+                        <a href="{{ url('/home') }}">{{ __('Home') }}</a>        
+                    @endguest
                 </div>
             @endif
 

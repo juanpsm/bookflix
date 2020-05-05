@@ -21,11 +21,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
-Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm')->name('login/admin');
+Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm')->name('register/admin');
 
-Route::post('/login/admin', 'Auth\LoginController@adminLogin');
-Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
+Route::post('/login/admin', 'Auth\LoginController@adminLogin')->name('login/admin'); //no se si se pisan estos nombres, igual en el codigo estan puestas las rutas
+Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('register/admin');
 
 //Route::view('/home', 'home')->middleware('auth'); //mejor uso el controlador de arriba, es lo mismo
 Route::view('/admin', 'admin')->middleware('auth:admin'); //esto hace que solo los admin puedan acceder
