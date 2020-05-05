@@ -51,10 +51,10 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        //el de user no lo agrego porque no usa guard, parece
-        //'user' => [
+        // si tuviera otro tipo de usuario en mi modelo:
+        //'writer' => [
         //    'driver' => 'session',
-        //    'provider' => 'users',
+        //    'provider' => 'writer',
         //],
     ],
 
@@ -86,12 +86,12 @@ return [
         //     'table' => 'users',
         // ],
 
-        //agrego los providers de admin
+        //agrego los providers de admin 
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
         ],
-        // el de users ya esta definido arriba no se si va dejo el ejemplo por si despues hay que agregar perfil
+        // Otros tipos...
         // 'writers' => [
         //     'driver' => 'eloquent',
         //     'model' => App\Writer::class,

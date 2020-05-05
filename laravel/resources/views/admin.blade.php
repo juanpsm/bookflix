@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('layouts.auth') {{-- no se si deberia usar la misma que los users (app.blade.php) o otra, por ej "auth.blade.php" --}}
 
 @section('content')
     <div class="container">

@@ -18,6 +18,15 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // Agrego una redirección si se autentica un admin
+        if ($guard == "admin" && Auth::guard($guard)->check()) {
+            return redirect('/admin');
+        }
+        // y si hubiera otro tipo de usuario
+        // if ($guard == "writer" && Auth::guard($guard)->check()) {
+        //     return redirect('/writer');
+        // }
+
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }

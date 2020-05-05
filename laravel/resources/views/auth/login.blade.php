@@ -11,7 +11,7 @@
                         {{-- y entonces pregunto --}}
                         @isset($url)
                         <form method="POST" action='{{ url("login/$url") }}' aria-label="{{ __('Login') }}">
-                        @else {{-- VOy a tener dos pormularios uno si vine url y otro si no. --}}
+                        @else {{-- Voy a tener dos acciones para el form uno si vine url y otro si no. --}}
                         <form method="POST" action="{{ route('login') }}">
                         @endisset
                             @csrf

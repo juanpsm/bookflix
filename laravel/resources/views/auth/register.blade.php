@@ -29,7 +29,8 @@
                             </div>
                         </div>
 
-                        {{-- DNI --}}
+                        {{-- DNI  es solo para usuario--}}
+                        @unless (isset($url))
                         <div class="form-group row">
                             <label for="dni" class="col-md-4 col-form-label text-md-right">DNI</label>
 
@@ -43,6 +44,7 @@
                                 @enderror
                             </div>
                         </div>
+                        @endunless
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>

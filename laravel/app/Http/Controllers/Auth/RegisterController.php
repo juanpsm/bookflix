@@ -65,6 +65,16 @@ class RegisterController extends Controller
         ]);
     }
 
+    // el admin valida distintos campos
+    protected function adminValidator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:4', 'confirmed'],
+        ]);
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -86,7 +96,7 @@ class RegisterController extends Controller
     {
         return view('auth.register', ['url' => 'admin']);
     }
-    // otros usuarios que no hay:
+    // otros usuarios que no hay: 
     // public function showWriterRegisterForm()
     // {
     //     return view('auth.register', ['url' => 'writer']);
@@ -94,7 +104,7 @@ class RegisterController extends Controller
 
     protected function createAdmin(Request $request)
     {
-        $this->validator($request->all())->validate();//aca no entiendo si llama al validator de mas arriba, tienen distintos campos
+        $this->adminValidator($request->all())->validate();//aca no entiendo si llama al validator de mas arriba, tienen distintos campos
         $admin = Admin::create([
             'name' => $request['name'],
             'email' => $request['email'],
@@ -102,4 +112,16 @@ class RegisterController extends Controller
         ]);
         return redirect()->intended('login/admin');
     }
+
+    // Y otros...
+    // protected function createWriter(Request $request)
+    // {
+    //     $this->validator($request->all())->validate();
+    //     $writer = Writer::create([
+    //         'name' => $request['name'],
+    //         'email' => $request['email'],
+    //         'password' => Hash::make($request['password']),
+    //     ]);
+    //     return redirect()->intended('login/writer');
+    // }
 }

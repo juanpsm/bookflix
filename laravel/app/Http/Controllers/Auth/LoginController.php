@@ -42,7 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         //agrego a los admins
         $this->middleware('guest:admin')->except('logout');
-        // los users parece que no es necesario por que no usan guard
+        // otros..
         // $this->middleware('guest:writer')->except('logout');
         // esto tiene que ver con las redirecciones
     }
@@ -66,7 +66,7 @@ class LoginController extends Controller
         }
         return back()->withInput($request->only('email', 'remember'));
     }
-    // El login de usuarios ya está definido por laravel
+    // Y si tuviera otros..
     // public function showWriterLoginForm()
     // {
     //     return view('auth.login', ['url' => 'writer']);
