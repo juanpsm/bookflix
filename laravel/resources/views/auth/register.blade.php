@@ -15,8 +15,14 @@
                     @endisset
                         @csrf
 
+                        {{-- Nombre --}}
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Nombre y Apellido{{--{{ __('Name') }}--}}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">
+                                {{ __('Name') }}
+                                @unless (isset($url)) {{-- Apellido  es solo para usuario--}}
+                                    {{ __('and') }} {{ __('Lastname') }}
+                                @endunless
+                            </label> 
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -29,7 +35,7 @@
                             </div>
                         </div>
 
-                        {{-- DNI  es solo para usuario--}}
+                        {{-- DNI  es solo para usuario --}}
                         @unless (isset($url))
                         <div class="form-group row">
                             <label for="dni" class="col-md-4 col-form-label text-md-right">DNI</label>
@@ -45,7 +51,8 @@
                             </div>
                         </div>
                         @endunless
-
+                        
+                        {{-- Email --}}
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -60,6 +67,7 @@
                             </div>
                         </div>
 
+                        {{-- Pass --}}
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -74,6 +82,7 @@
                             </div>
                         </div>
 
+                        {{-- Confirm pass --}}
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
@@ -82,12 +91,14 @@
                             </div>
                         </div>
 
+                        {{-- Tarjetas --}}
                         <div class="form-group row mb-1">
                             <div class="col-md-6 offset-md-4">
                                 <a href="#" class="btn btn-primary btn-sm">Agregar Medio de Pago</a>
                             </div>
                         </div>
 
+                        {{-- Boton registrarse --}}
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -8,7 +8,7 @@
                     <div class="card-header">Dashboard</div>
 
                     <div class="card-body">
-                        Hi boss!
+                        Te logueaste correctamente como Administrador!
                     </div>
                 </div>
             </div>
