@@ -36,4 +36,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function tarjeta()
+    {
+        return $this->hasMany('App\Tarjeta');
+        // con esto le digo que tiene muchas tarjetas 
+        // Si quisiera solo una
+        //
+        // return $this->hasMany('App\Tarjeta');
+        //
+        // luego puedo acceder a la misma con
+        // $tarjeta = User::find(1)->tarjeta;
+    }
+    
+    public function perfiles()
+    {
+        return $this->hasMany('App\Perfil');
+        // luego puedo acceder con
+        // $perfiles = App\Post::find(1)->perfiles;
+        //
+        // foreach ($perfiles as $perfil) {
+        //     //
+        // }
+        // Y tambien encadenar condiciones, por ej
+        // $perfil = App\Post::find(1)->perfiles()->where('name', 'foo')->first();
+    }
 }

@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {   
         Schema::create('users', function (Blueprint $table) {
-            $table->id();//increments('id'); ???
+            $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('dni');
             $table->string('email')->unique();
@@ -26,10 +26,31 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('tarjetas', function (Blueprint $table) {
+            // en realidad es solo para probar dado que no es seguro almacenar esta
+            // informacion en el servidor de la app, para eso existen paquetes tipo de 
+            // Paypal que se encargan de manejar esta informacion de forma segura.
+            // 
             $table->bigIncrements('id');
-            $table->bigInteger('numero');
-            $table->string('emisor');
-            $table->unsignedBigInteger('user_id'); // Relación con usuario
+            $table->string('name_on_card')->nullable();
+            $table->string('card_number');
+            $table->string('security_code')->nullable();
+            // si lo pongo en date me da error porque nullable no es 
+            // lo mismo que no existente y el campo date si esta hay que mandarlo
+            // parece, aunque sea un null, pero no quiero hardcodear ahora un null
+            // que igualmente se va a hacer de otra manera después.
+            // Si queremos hacerlo asi nomas luego hay que ver al tomar los datos 
+            // del formulario de poner un dia y hora por defecto
+            // por ejemplo la medianoche del primer dia de cada mes
+            $table->string('expiration_date')->nullable();
+            // Billing address
+            $table->string('fullname')->nullable();
+            $table->string('email')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->integer('postal_code')->nullable();
+
+            $table->unsignedBigInteger('user_id'); // Relación con usuario (ojo el tipo de dato)
             $table->foreign('user_id')->references('id')->on('users'); // clave foranea para que se haga relac a nivel de bd
             $table->timestamps();
         }); // como la tarjeta aparece en usuario tiene que hacerse primero

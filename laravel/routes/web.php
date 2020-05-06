@@ -30,3 +30,18 @@ Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('reg
 //Route::view('/home', 'home')->middleware('auth'); //mejor uso el controlador de arriba, es lo mismo
 Route::view('/admin', 'admin')->middleware('auth:admin'); //esto hace que solo los admin puedan acceder
 //Route::view('/writer', 'writer')->middleware('auth:writer');; //si quisiera otro tipo de usuario
+
+Route::resource('tarjetas', 'TarjetaController');
+// el recurso genera todas estas rutas
+// por ejemplo con
+// Route::resource('photos', 'PhotoController'); 
+//------------------------------------------------------------
+// Verb	        URI                     Action   Route Name
+//------------------------------------------------------------
+// GET          /photos                 index   photos.index
+// GET	        /photos/create	        create  photos.create
+// POST	        /photos                 store   photos.store
+// GET	        /photos/{photo}         show    photos.show
+// GET          /photos/{photo}/edit    edit    photos.edit
+// PUT/PATCH    /photos/{photo}	        update  photos.update
+// DELETE       /photos/{photo}	        destroy photos.destroy
