@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "caouecs/laravel-lang": "~6.0",
+        "driesvints/blade-icons": "^2.2",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "fzaninotto/faker": "^1.9",
