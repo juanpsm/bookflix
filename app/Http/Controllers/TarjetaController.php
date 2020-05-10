@@ -48,7 +48,7 @@ class TarjetaController extends Controller
         $tarjeta->user_id = auth()->user()->id;
         $tarjeta->save();
     
-        return back()->with('mensaje', 'Tarjeta Agregada!');
+        return redirect()->route('tarjetas.index')->with('mensaje', 'Tarjeta Creada!');
     }
 
     /**
@@ -91,7 +91,7 @@ class TarjetaController extends Controller
         $tarjeta->user_id = auth()->user()->id;
         $tarjeta->save();
     
-        return back()->with('mensaje', 'Tarjeta Actualizada!');
+        return redirect()->route('tarjetas.index')->with('mensaje', 'Tarjeta Actualizada!');
     }
 
     /**
