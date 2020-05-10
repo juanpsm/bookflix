@@ -19,7 +19,7 @@ class TarjetaController extends Controller
     public function index()
     {
         $usuarioId = auth()->user()->id;
-        $tarjetas = Tarjeta::where('user_id', $usuarioId)->paginate(10);  // acá no se como ponerle all()
+        $tarjetas = Tarjeta::where('user_id', $usuarioId)->paginate(10);  // para poner todas get() pero salcar "links" en la vista!
         return view('tarjetas.lista',compact('tarjetas')); // es una sola pero vamos a manejarlo asi por ahora
     }
 
@@ -41,6 +41,12 @@ class TarjetaController extends Controller
      */
     public function store(Request $request)
     {   
+        // Valido datos
+        $request->validate([
+            'name_on_card' => 'required',
+            'card_number' => 'required'
+        ]);
+
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $tarjeta = new Tarjeta();
         $tarjeta->name_on_card = $request->name_on_card;
@@ -84,6 +90,12 @@ class TarjetaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Valido datos
+        $request->validate([
+            'name_on_card' => 'required',
+            'card_number' => 'required'
+        ]);
+
         $tarjeta = Tarjeta::findOrFail($id);
 
         $tarjeta->name_on_card = $request->name_on_card;
