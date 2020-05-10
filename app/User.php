@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tarjeta()
+    public function tarjetas()
     {
         return $this->hasMany('App\Tarjeta');
         // con esto le digo que tiene muchas tarjetas 
