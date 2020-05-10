@@ -21859,8 +21859,8 @@ to bad compositing.
      -moz-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-iosition: center bottom;
-  background-iepeat: no-repeat;
+  background-position: center bottom;
+  background-repeat: no-repeat;
   -webkit-background-size: 100% 100%;
      -moz-background-size: 100%;
           background-size: 100%;
