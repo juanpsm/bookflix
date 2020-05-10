@@ -84,7 +84,14 @@ class TarjetaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tarjeta = Tarjeta::findOrFail($id);
+
+        $tarjeta->name_on_card = $request->name_on_card;
+        $tarjeta->card_number = $request->card_number;
+        $tarjeta->user_id = auth()->user()->id;
+        $tarjeta->save();
+    
+        return back()->with('mensaje', 'Tarjeta Actualizada!');
     }
 
     /**
@@ -95,6 +102,9 @@ class TarjetaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarjeta = Tarjeta::findOrFail($id);
+        $tarjeta->delete();
+
+        return back()->with('mensaje', 'Tarjeta Eliminada!');
     }
 }
