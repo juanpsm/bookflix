@@ -465,7 +465,7 @@ th {
 [class^="icon-"],
 [class*=" icon-"] {
   font-family: 'nf-icon';
-  speak: none;
+  speak-as: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -16275,9 +16275,6 @@ th {
   margin: 0 1rem 0 0 /*!rtl:ignore*/;
 }
 /*** Volume Controller ***/
-.nfp {
-  /*** Recap ***/
-}
 .nfp .volume-controller {
   display: -webkit-box;
   display: -webkit-flex;
