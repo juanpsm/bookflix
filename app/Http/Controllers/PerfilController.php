@@ -19,8 +19,20 @@ class PerfilController extends Controller
     public function index()
     {
         $usuarioId = auth()->user()->id;
-        $perfiles = Perfil::where('user_id', $usuarioId)->paginate(10);  // acá no se como ponerle all()
-        return view('perfiles.seleccionar',compact('perfiles')); // es una sola pero vamos a manejarlo asi por ahora
+        $perfiles = Perfil::where('user_id', $usuarioId)->get();
+        return view('perfiles.lista',compact('perfiles'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function selector()
+    {
+        $usuarioId = auth()->user()->id;
+        $perfiles = Perfil::where('user_id', $usuarioId)->get(); 
+        return view('perfiles.seleccionar',compact('perfiles'));
     }
 
     /**
@@ -30,7 +42,7 @@ class PerfilController extends Controller
      */
     public function create()
     {
-        //
+        return view('perfiles.crear');
     }
 
     /**
@@ -41,7 +53,17 @@ class PerfilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Valido datos
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+
+        $perfil = new Perfil();
+        $perfil->nombre = $request->nombre;
+        $perfil->user_id = auth()->user()->id;
+        $perfil->save();
+    
+        return redirect()->route('perfiles.index')->with('mensaje', 'Perfil Agregado!');
     }
 
     /**
@@ -75,7 +97,18 @@ class PerfilController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Valido datos
+        $request->validate([
+            'nombre' => 'required'
+        ]);
+
+        $perfil = Perfil::findOrFail($id);
+
+        $perfil->nombre = $request->nombre;
+        $perfil->user_id = auth()->user()->id;
+        $perfil->save();
+    
+        return redirect()->route('perfiles.index')->with('mensaje', 'Perfil Actualizado!');
     }
 
     /**
@@ -86,6 +119,9 @@ class PerfilController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $perfil = Perfil::findOrFail($id);
+        $perfil->delete();
+
+        return back()->with('mensaje', 'Perfil Eliminado!');
     }
 }

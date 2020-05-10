@@ -47,12 +47,14 @@
               name="name_on_card"
               placeholder="Nombre Titular"
               class="form-control mb-2"
+              value="{{old('name_on_card')}}" 
             />
             <input
               type="text"
               name="card_number"
               placeholder="Número"
               class="form-control mb-2"
+              value="{{old('card_number')}}" 
             />
 
             <div class="text-right"> 

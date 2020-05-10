@@ -47,3 +47,5 @@ Route::resource('tarjetas', 'TarjetaController');
 // DELETE       /photos/{photo}	        destroy photos.destroy
 
 Route::resource('perfiles', 'PerfilController')->middleware('auth');
+
+Route::get('/seleccionarPerfil', 'PerfilController@selector')->middleware('auth')->name('seleccionar_perfil');

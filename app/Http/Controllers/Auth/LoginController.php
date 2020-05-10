@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
 
+use App\Perfil;
+
 class LoginController extends Controller
 {
     /*
@@ -30,7 +32,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    // intento cambiar la redireccion por defecto a home
+    public function redirectTo()
+    {   
+        $usuarioId = auth()->user()->id;
+        $perfiles = Perfil::where('user_id', $usuarioId)->get();
+        if ($perfiles->isEmpty()) {
+            return route('perfiles.create');
+        } else {
+            return route('seleccionar_perfil');
+        }
+    }
 
     /**
      * Create a new controller instance.
