@@ -39,7 +39,7 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{url('/tarjetas')}}">
+          <form method="POST" action="{{route('tarjetas.store')}}">
             @csrf
 
             <input
