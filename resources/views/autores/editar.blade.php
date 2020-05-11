@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Editar Género: {{ $genero->id }}</span>
+          <span>Editar Autor: {{ $autor->id }}</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
@@ -31,7 +31,7 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{ route('generos.update', $genero->id) }}">{{--mando el id del genero para editarla--}}
+          <form method="POST" action="{{ route('autores.update', $autor->id) }}">{{--mando el id del autor para editarla--}}
             @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
             @csrf
 
@@ -40,11 +40,11 @@
               name="nombre"
               placeholder="Ingrese nombre de genéro"
               class="form-control mb-2"
-              value="{{$genero->nombre }}" 
+              value="{{$autor->nombre }}" 
             /> 
 
             <div class="text-right"> 
-              <a href="{{route('generos.index')}}" class="btn btn-secondary btn-sm">
+              <a href="{{route('autores.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">

@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Agregar Género</span>
+          <span>Agregar Autor</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
@@ -32,7 +32,7 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{route('generos.store')}}">
+          <form method="POST" action="{{route('autores.store')}}">
             @csrf
 
             <input
@@ -44,7 +44,7 @@
             />
            
             <div class="text-right"> 
-              <a href="{{route('generos.index')}}" class="btn btn-secondary btn-sm">
+              <a href="{{route('autores.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
