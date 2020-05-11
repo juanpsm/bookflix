@@ -52,3 +52,6 @@ Route::get('/seleccionarPerfil', 'PerfilController@selector')->middleware('auth'
 
 //genero:
 Route::resource('generos', 'GeneroController');
+
+//editorial:
+Route::resource('editoriales', 'EditorialController');
