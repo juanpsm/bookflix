@@ -58,3 +58,6 @@ Route::resource('editoriales', 'EditorialController');
 
 //autor:
 Route::resource('autores', 'AutorController');
+
+//libro:
+Route::resource('libros', 'LibroController');
