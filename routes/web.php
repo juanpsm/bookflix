@@ -49,3 +49,6 @@ Route::resource('tarjetas', 'TarjetaController');
 Route::resource('perfiles', 'PerfilController')->middleware('auth');
 
 Route::get('/seleccionarPerfil', 'PerfilController@selector')->middleware('auth')->name('seleccionar_perfil');
+
+//genero:
+Route::resource('generos', 'GeneroController');
