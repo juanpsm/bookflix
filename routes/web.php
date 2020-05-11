@@ -55,3 +55,6 @@ Route::resource('generos', 'GeneroController');
 
 //editorial:
 Route::resource('editoriales', 'EditorialController');
+
+//autor:
+Route::resource('autores', 'AutorController');

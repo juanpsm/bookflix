@@ -6,10 +6,10 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Lista de Géneros:</span>
+          <span>Lista de Autores:</span>
           {{-- Agregar --}}
-          <a href="{{route('generos.create')}}" class="btn btn-primary btn-sm btn-icon">
-            Agregar Género
+          <a href="{{route('autores.create')}}" class="btn btn-primary btn-sm btn-icon">
+            Agregar Autor
           </a>
         </div>
         <div class="card-body"> 
@@ -33,13 +33,13 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($generos as $item)
+              @foreach ($autores as $item)
               <tr>
                 {{-- ID --}}
                 <th scope="row">{{ $item->id }}</th>
                 {{-- Titulo y link --}}
                 <td>
-                  <a href="{{route('generos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                  <a href="{{route('autores.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                       {{ $item->nombre }}
                   </a>
                 </td>
@@ -47,11 +47,11 @@
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}
-                  <a href="{{route('generos.edit', $item)}}" class="btn btn-primary btn-sm">
+                  <a href="{{route('autores.edit', $item)}}" class="btn btn-primary btn-sm">
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('generos.destroy', $item)}}" class="d-inline" method="POST">
+                  <form action="{{route('autores.destroy', $item)}}" class="d-inline" method="POST">
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">
@@ -63,7 +63,7 @@
               @endforeach
             </tbody>
           </table>
-          {{$generos->links()}}
+          {{$autores->links()}}
         {{-- fin card body --}}
         </div>
       </div>
