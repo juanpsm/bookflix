@@ -61,3 +61,6 @@ Route::resource('autores', 'AutorController');
 
 //libro:
 Route::resource('libros', 'LibroController');
+
+//novedad:
+Route::resource('novedades', 'NovedadController');
