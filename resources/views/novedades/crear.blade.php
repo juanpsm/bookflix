@@ -49,13 +49,15 @@
               class="form-control mb-2"
               value="{{old('titulo')}}" 
             />
-            <input
+            <!--aca esta el textarea agregado: borre tanto el placeholder como el value y sigue
+            apareciendo los espacios,no se bien en que parte esta el "error"-->
+            <textarea
               type="text"
               name="descripcion"
-              placeholder="Ingrese la descripción"
               class="form-control mb-2"
-              value="{{old('descripcion')}}" 
-            />
+              value="{{old('descripcion')}}"
+              placeholder="Ingrese la descripción" >
+            </textarea>
 
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">

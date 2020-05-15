@@ -46,7 +46,7 @@ class GeneroController extends Controller
          // Valido datos
          $request->validate([
             
-            'nombre' => 'required'
+            'nombre' => ['required', 'unique:generos']
         ]);
 
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!

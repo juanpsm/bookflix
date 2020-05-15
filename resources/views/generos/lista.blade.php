@@ -51,7 +51,8 @@
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('generos.destroy', $item)}}" class="d-inline" method="POST">
+                  <form action="{{route('generos.destroy', $item)}}" class="d-inline" method="POST"
+                  onclick="return confirm('Estas seguro que queres eliminar el género?')">
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">

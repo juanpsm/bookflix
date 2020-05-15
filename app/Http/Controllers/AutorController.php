@@ -45,7 +45,7 @@ class AutorController extends Controller
         // Valido datos
         $request->validate([
             
-            'nombre' => 'required'
+            'nombre' =>  ['required', 'unique:autores']
         ]);
 
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
