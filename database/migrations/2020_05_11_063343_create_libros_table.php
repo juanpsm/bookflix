@@ -17,6 +17,7 @@ class CreateLibrosTable extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->string('autor');
+            $table->string('editorial');
             $table->timestamps();
         });
     }

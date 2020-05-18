@@ -46,7 +46,7 @@
                 </td>
                 {{-- Autor --}}
                 <td>
-                  {{ $item->autor }}
+                  {{ $item->autor->nombre }}
                 </td>
                
                 {{-- Acciones --}}

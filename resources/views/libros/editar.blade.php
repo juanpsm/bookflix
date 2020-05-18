@@ -52,13 +52,36 @@
               value="{{$libro->titulo }}" 
             /> 
 
+            <!--
             <input
               type="text"
               name="autor"
               placeholder="Ingrese nombre de autor"
               class="form-control mb-2"
               value="{{$libro->autor }}" 
-            /> 
+            /> -->
+
+            <select name="generos[]" multiple>
+              @foreach($generos as $genero)
+              <option value="{{$genero->id}}"
+              @if($genero->selected)
+                selected
+              @endif
+              >{{$genero->nombre}}</option>
+              @endforeach
+
+            </select>
+
+            <select name="autor">
+              @foreach($autores as $autor)
+              <option value="{{$autor->id}}"
+              @if($autor->selected)
+                selected
+              @endif
+              >{{$autor->nombre}}</option>
+              @endforeach
+
+            </select>
 
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">

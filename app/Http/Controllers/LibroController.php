@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Libro;
+use App\Genero;
 
 class LibroController extends Controller
 {
@@ -44,27 +45,31 @@ class LibroController extends Controller
         // Valido datos
         $request->validate([
             'titulo' => 'required',
-            'autor' => 'required'
+            'autor' => 'required',
+            'generos'=> 'required|array'
         ]);
 
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro = new Libro();
         $libro->titulo = $request->titulo;
-        $libro->autor = $request->autor;
+        $libro->autor_id = $request->autor;
         $libro->save();
-    
+        $libro->generos()->sync($request->generos);
+        // la linea 56 esta creando las relaciones    
         return redirect()->route('libros.index')->with('mensaje', 'Libro Creado!');
     }
 
     /**
      * Display the specified resource.
-     *
+     * show($id) como estaba antes
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Libro $libro)
     {
-        $libro = Libro::findOrFail($id);
+        //$libro = Libro::findOrFail($id);
+        //Al poner el parametro como se puede ver ahi, la linea de "findOrFail" laravel
+        //la hace automaticamente
         return view('libros.detalle', compact('libro'));
     }
 
@@ -77,7 +82,25 @@ class LibroController extends Controller
     public function edit($id)
     {
         $libro = Libro::findOrFail($id);
-        return view('libros.editar', compact('libro'));
+        $generos = Genero::all();
+        $autores = Autor::all(); //traigo todos los autores de mi sistema
+        foreach($libro->generos as $genero){
+            foreach($generos as $genero2){
+                if($genero2->id == $genero->id){
+                    $genero2->selected= true;
+                }
+            }
+        }
+
+        foreach($autores as $autor){
+             if($autor->id == $libro->autor_id){
+                   $autor->selected= true;
+                    break;
+             }
+        }
+        
+
+        return view('libros.editar', compact('libro', "generos", "autores"));
     }
 
     /**
@@ -87,20 +110,24 @@ class LibroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Libro $libro)
     {
          // Valido datos
          $request->validate([
             'titulo' => 'required',
-            'autor' => 'required'
+            'autor' => 'required',
+            'generos'=> 'required|array',
+            //'editorial' => 'required'
         ]);
 
-        $libro = Libro::findOrFail($id);
-
+        //$libro = Libro::findOrFail($id); ya no hace falta
+        if(Libro::where("titulo", $request->titulo)->where("id","<>",$libro->id)->exists()){
+            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese titulo!');
+        }        
         $libro->titulo = $request->titulo;
-        $libro->autor = $request->autor;
+        $libro->autor_id = $request->autor;
         $libro->save();
-    
+        $libro->generos()->sync($request->generos);    
         return redirect()->route('libros.index')->with('mensaje', 'libro Actualizado!');
     }
 
