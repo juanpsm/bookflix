@@ -30,6 +30,7 @@
               <th scope="col">#</th>
               <th scope="col">Título</th>
               <th scope="col">Descripción</th>
+              <th scope="col">Archivo</th>
               <th scope="col">Acción</th>
               </tr>
             </thead>
@@ -46,7 +47,8 @@
                 </td>
                 {{-- Cuerpo --}}
                 <td>{{ $item->descripcion }}</td>
-                
+                {{--aca deberia mostrar imagen/video--}}
+                <td><img style="width:100%" src="/storage/archivos/{{$item->archivo}}"></td>
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}
