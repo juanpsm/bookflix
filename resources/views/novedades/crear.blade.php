@@ -14,18 +14,18 @@
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               El título es obligatorio
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
           @enderror
 
           @error('descripcion')
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  La descripción es obligatoria
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              La descripción es obligatoria
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
           @enderror
 
           {{--Exito--}}    
@@ -33,7 +33,7 @@
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               {{session('mensaje')}}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true">&times;</span>
             </button>
             </div>
           @endif
@@ -47,27 +47,28 @@
               name="titulo"
               placeholder="Ingrese el título"
               class="form-control mb-2"
-              value="{{old('titulo')}}" 
+              value="{{old('titulo')}}"
             />
             <!--aca esta el textarea agregado: borre tanto el placeholder como el value y sigue
-            apareciendo los espacios,no se bien en que parte esta el "error"-->
+            apareciendo los espacios,no se bien en que parte esta el "error"
+            No hay que dejar espacios entre <textarea> y </textarea>-->
             <textarea
               type="text"
               name="descripcion"
               class="form-control mb-2"
-              value="{{old('descripcion')}}"
-              placeholder="Ingrese la descripción" >
-            </textarea>
+              placeholder="Ingrese la descripción"
+              value="{{old('titulo')}}"></textarea>
+              
             <!-- este es el input del archivo (imagen/video):-->
             <input 
-             type="file" 
-             name="archivo" 
-             accept="image/png, .jpeg, .jpg, image/gif" 
-             class="form-group"
+              type="file" 
+              name="imagen" 
+              accept="image/png, .jpeg, .jpg, image/gif" 
+              class="form-group"
             >
 
             
-             <!--- esto es la estructura de la novedad programada
+            <!--- esto es la estructura de la novedad programada
               pero no sube a la hora que indico.
               este html comentado muestra un input para ingresas fecha y hora de publicacion
               <input

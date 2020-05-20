@@ -48,7 +48,13 @@
                 {{-- Cuerpo --}}
                 <td>{{ $item->descripcion }}</td>
                 {{--aca deberia mostrar imagen/video--}}
-                <td><img style="width:100%" src="/storage/archivos/{{$item->archivo}}"></td>
+                <td>
+                @if ($item->imagen)
+                  <img style="height: 70px; border-radius: 10%;" src="{{url($item->imagen)}}">
+                @else
+                  {{$item->imagen}}
+                @endif
+                </td>
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}

@@ -59,9 +59,9 @@
               value="{{ $novedad->descripcion }}"
             />
             <input 
-             type="file" 
-             name="archivo" 
-             accept=".pdf,.jpg,.png" multiple
+              type="file" 
+              name="archivo" 
+              accept=".pdf,.jpg,.png" multiple
             >
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">

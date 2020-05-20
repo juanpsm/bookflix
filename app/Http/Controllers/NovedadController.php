@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Novedad; //importante!!
+use App\Traits\ImageUpload;
+
 
 class NovedadController extends Controller
 {
@@ -42,38 +44,55 @@ class NovedadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    use ImageUpload; // Uso el Trait creado
     public function store(Request $request)
     {
        // Valido datos
-       $request->validate([
-            
-        'titulo' => 'required',
-        'descripcion' => 'required',
-        'archivo' => 'image|nullable|max:1999'
+        $request->validate([
+            'titulo' => 'required',
+            'descripcion' => 'required',
+            'imagen' => 'image|nullable|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
-
-        // Handle File Upload
-        if($request->hasFile('archivo')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('archivo')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('archivo')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
-        } else {
-            $fileNameToStore = 'noimage.jpg';
-        }
 
         // Create Post
         $novedad = new Novedad;
+
+        $novedad->imagen = $request->imagen;
+
+        // Handle File Upload
+        if ($novedad->imagen) {
+            try {
+                $filePath = $this->UserImageUpload($novedad->imagen);
+
+                $novedad->imagen = $filePath;
+            } catch (Exception $e) {
+                // mensaje de error
+                "error de imagen";
+            }
+        }else{
+            $novedad->imagen = 'noimage.jpg';
+        }
+
+
+
+            // // Get filename with the extension
+            // $filenameWithExt = $request->file('archivo')->getClientOriginalName();
+            // // Get just filename
+            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // // Get just ext
+            // $extension = $request->file('archivo')->getClientOriginalExtension();
+            // // Filename to store
+            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // // Upload Image
+            // $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
+
+
         $novedad->titulo = $request->input('titulo');
         $novedad->descripcion = $request->input('descripcion');
-        //$novedad->user_id = auth()->user()->id; //esto no va ni con admin no?
-        $novedad->archivo = $fileNameToStore;
+
         $novedad->save();
     
         return redirect()->route('novedades.index')->with('mensaje', 'Novedad Creada!');
@@ -114,7 +133,7 @@ class NovedadController extends Controller
     public function update(Request $request, $id)
     {
          // Valido datos
-         $request->validate([
+        $request->validate([
             'titulo' => 'required',
             'descripcion' => 'required'
         ]);
