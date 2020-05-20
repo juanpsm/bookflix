@@ -23,6 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // acá creo que se debería hacer la comprobacion de perfiles en vez de en login y register...
         return view('home');
     }
 }
