@@ -31,7 +31,9 @@ class NovedadController extends Controller
      */
     public function create()
     {
-        return view('novedades.crear');
+       // $now =Carbon::now(); esto seria si no uso el date para los input de fecha
+       //lo deje comentado porque quizas sirva  en este caso o en un futuro
+        return view('novedades.crear');//->whit('now');
     }
 
     /**
@@ -46,13 +48,32 @@ class NovedadController extends Controller
        $request->validate([
             
         'titulo' => 'required',
-        'descripcion' => 'required'
+        'descripcion' => 'required',
+        'archivo' => 'image|nullable|max:1999'
         ]);
 
-        //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
-        $novedad = new Novedad();
-        $novedad->titulo = $request->titulo;
-        $novedad->descripcion = $request->descripcion;
+        // Handle File Upload
+        if($request->hasFile('archivo')){
+            // Get filename with the extension
+            $filenameWithExt = $request->file('archivo')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // Get just ext
+            $extension = $request->file('archivo')->getClientOriginalExtension();
+            // Filename to store
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Upload Image
+            $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
+        } else {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        // Create Post
+        $novedad = new Novedad;
+        $novedad->titulo = $request->input('titulo');
+        $novedad->descripcion = $request->input('descripcion');
+        //$novedad->user_id = auth()->user()->id; //esto no va ni con admin no?
+        $novedad->archivo = $fileNameToStore;
         $novedad->save();
     
         return redirect()->route('novedades.index')->with('mensaje', 'Novedad Creada!');
@@ -67,6 +88,7 @@ class NovedadController extends Controller
     public function show($id)
     {
         $novedad = Novedad::findOrFail($id);
+        
         return view('novedades.detalle', compact('novedad'));
     }
 
@@ -98,11 +120,29 @@ class NovedadController extends Controller
         ]);
 
         $novedad = Novedad::findOrFail($id);
+ // Handle File Upload
+ if($request->hasFile('archivo')){
+    // Get filename with the extension
+    $filenameWithExt = $request->file('archivo')->getClientOriginalName();
+    // Get just filename
+    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    // Get just ext
+    $extension = $request->file('archivo')->getClientOriginalExtension();
+    // Filename to store
+    $fileNameToStore= $filename.'_'.time().'.'.$extension;
+    // Upload Image
+    $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
+    // Delete file if exists
+    Storage::delete('public/archivos/'.$novedad->archivo);
+}
 
-        $novedad->titulo = $request->titulo;
-        $novedad->descripcion = $request->descripcion;
-        //$tarjeta->user_id = auth()->user()->id;
-        $novedad->save();
+    // Update Post
+    $novedad->titulo = $request->input('titulo');
+    $novedad->descripcion = $request->input('descripcion');
+    if($request->hasFile('archivo')){
+    $novedad->archivo = $fileNameToStore;
+    }
+    $novedad->save();
     
         return redirect()->route('novedades.index')->with('mensaje', 'Novedad Actualizada!');
     }

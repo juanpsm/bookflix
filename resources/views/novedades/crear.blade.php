@@ -39,7 +39,7 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{route('novedades.store')}}">
+          <form method="POST" action="{{route('novedades.store')}}" enctype="multipart/form-data">
             @csrf
 
             <input
@@ -58,7 +58,29 @@
               value="{{old('descripcion')}}"
               placeholder="Ingrese la descripción" >
             </textarea>
+            <!-- este es el input del archivo (imagen/video):-->
+            <input 
+             type="file" 
+             name="archivo" 
+             accept="image/png, .jpeg, .jpg, image/gif" 
+             class="form-group"
+            >
 
+            
+             <!--- esto es la estructura de la novedad programada
+              pero no sube a la hora que indico.
+              este html comentado muestra un input para ingresas fecha y hora de publicacion
+              <input
+                type="date"
+                class="form-control"
+                name="scheduled_date" 
+                value="{{old('scheduled_date',date('d/m/Y'))}}"> 
+                <br>
+                <input
+                  type="time"
+                  class="form-group"
+                  name="scheduled_time" 
+                  value="{{old('scheduled_time',date('H:i'))}}">-->
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

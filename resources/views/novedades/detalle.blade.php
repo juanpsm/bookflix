@@ -13,6 +13,7 @@
         <h4>#id: {{$novedad -> id}} </h4>
         <h4>Título: {{$novedad -> titulo}} </h4>
         <h4>Descripción: {{$novedad -> descripcion}} </h4>
+        <img style="width:100%" src="/storage/archivos/{{$novedad->archivo}}"> <!--aca deberia mostrar archivo-->
         </div>
       </div>
     </div>

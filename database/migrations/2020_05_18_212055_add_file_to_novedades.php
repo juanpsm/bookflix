@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNovedadesTable extends Migration
+class AddFileToNovedades extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateNovedadesTable extends Migration
      */
     public function up()
     {
-        Schema::create('novedades', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('titulo');
-            $table->string('descripcion');
-           
-            $table->timestamps();
+        Schema::table('novedades', function (Blueprint $table) {
+            $table->string('archivo');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateNovedadesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('novedades');
+        Schema::table('novedades', function (Blueprint $table) {
+            $table->dropColumn('archivo');
+        });
     }
 }

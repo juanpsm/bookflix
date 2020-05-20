@@ -39,7 +39,8 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{ route('novedades.update', $novedad->id) }}">{{--mando el id de la novedad para editarla--}}
+          <form method="POST" action="{{ route('novedades.update', $novedad->id) }}" 
+            enctype="multipart/form-data" >{{--mando el id de la novedad para editarla--}}
             @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
             @csrf
 
@@ -57,7 +58,11 @@
               class="form-control mb-2"
               value="{{ $novedad->descripcion }}"
             />
-
+            <input 
+             type="file" 
+             name="archivo" 
+             accept=".pdf,.jpg,.png" multiple
+            >
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar
