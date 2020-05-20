@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Perfil extends Authenticatable
 {
-    protected $guard = 'profile';
+    protected $guard = 'perfil';
 
     protected $fillable = [
         'name',

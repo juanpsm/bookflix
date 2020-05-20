@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
     <link type="text/css" rel="stylesheet"
-        href="https://codex.nflxext.com/%5E3.0.0/truthBundle/webui/0.0.1-shakti-css-v405e4bb1/css/css/less%7Cpages%7CakiraClient.less/1/0FxN3twi9EKM/none/true/none">
+    {{-- href="https://codex.nflxext.com/%5E3.0.0/truthBundle/webui/0.0.1-shakti-css-v405e4bb1/css/css/less%7Cpages%7CakiraClient.less/1/0FxN3twi9EKM/none/true/none"> --}}
+href="{{url('/css/perfiles.css')}}">
 </head>
 
 <body>
@@ -21,58 +22,22 @@
                             <div class="pinning-header-container"
                                 style="top: 0px; position: relative; background: transparent;">
                                 <div class="main-header on-profiles-gate menu-navigation" role="navigation">
-                                    <a aria-label="Netflix"
-                                        class="logo icon-logoUpdate"
-                                        href="/browse">
+                                    {{-- <a aria-label="Netflix" 
+                                        class="logo icon-logoUpdate active" 
+                                        href="">
+                                    </a> --}}
+
+                                    <a>
+                                        <img src="{{url('/image/logo.png')}}" class="img-fluid" alt="Bookflix" width="50%">
                                     </a>
+
                                 </div>
                             </div>
                         </div>
                         <div class="profiles-gate-container">
-                            <div class="centered-div"
-                                style="opacity: 1; transform: scale(1); transition-duration: 450ms; transition-delay: 200ms;">
-                                <div class="profile-actions-container">
-                                    <h1>Editar perfil</h1>
-                                    <div class="profile-metadata profile-entry">
-                                        <div class="main-profile-avatar">
-                                            <div class="avatar-box">
-                                                <img
-                                                    src="https://occ-0-1259-1567.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABXzsLeXLYRgDrrvM99HCFtTGST5PVo50MVlNTlINCoCsHtph6L9OjNyqpd6tqydjEN-_HIR0nvgEnka3H0eKOroCi8WJ.png?r=318"
-                                                    alt=""
-                                                    style="opacity: 1; transform: scale(1); transition-duration: 400ms;">
-                                                <div class="avatar-edit-icon">
-                                                  <svg class="svg-icon svg-icon-edit" focusable="true">
-                                                      <use filter="" xlink:href="#edit"></use>
-                                                  </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="profile-edit-parent">
-                                            <div class="profile-edit-inputs">
-                                              
-                                                <input type="text" class=""
-                                                      placeholder="Nombre" 
-                                                      value="?">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span data-uia="profile-save-button" class="profile-button preferred-action">
-                                        <span>
-                                            GUARDAR
-                                        </span>
-                                    </span>
-                                    <span data-uia="profile-cancel-button" class="profile-button">
-                                        <span>
-                                          CANCELAR
-                                        </span>
-                                    </span>
-                                    <span data-uia="profile-delete-button" class="profile-button">
-                                      <span>
-                                        ELIMINAR PERFIL
-                                      </span>
-                                    </span>
-                                </div>
-                            </div>
+
+                            @yield('content')
+
                         </div>
                         <div class="image-preloaders"><span class="jawbone-images"></span></div>
                     </div>

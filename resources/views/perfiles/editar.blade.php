@@ -4,11 +4,12 @@
 <div class="centered-div"
     style="opacity: 1; transform: scale(1); transition-duration: 450ms; transition-delay: 200ms;">
     <div class="profile-actions-container">
-    
-        <h1>Crear perfil</h1>
 
-        <form method="POST" action="{{route('perfiles.store')}}">
-        @csrf
+        <h1>Editar perfil</h1>
+        
+        <form method="POST" action="{{route('perfiles.update', $perfil->id)}}">
+            @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
+            @csrf
             <div class="profile-metadata profile-entry">
                 <div class="main-profile-avatar">
                     <div class="avatar-box">
@@ -17,9 +18,9 @@
                             alt=""
                             style="opacity: 1; transform: scale(1); transition-duration: 400ms;">
                         <div class="avatar-edit-icon">
-                        <svg class="svg-icon svg-icon-edit" focusable="true">
-                            <use filter="" xlink:href="#edit"></use>
-                        </svg>
+                            <svg class="svg-icon svg-icon-edit" focusable="true">
+                                <use filter="" xlink:href="#edit"></use>
+                            </svg>
                         </div>
                     </div>
                 </div>
@@ -27,8 +28,9 @@
                     <div class="profile-edit-inputs">
                         
                         <input type="text" class=""
-                            name="nombre"
-                            placeholder="Nombre">
+                                name="nombre"
+                                placeholder="Nombre" 
+                                value={{$perfil->nombre}}>
                     </div>
                     {{--Errores--}}
                     @error('nombre') 
@@ -41,12 +43,35 @@
                     @enderror
                 </div>
             </div>
+
             <span data-uia="profile-save-button" class="profile-button preferred-action">
                 <input type="submit"
-                    
-                    value="GUARDAR">
-
+                        
+                        value="GUARDAR">
+                {{-- <span>
+                    GUARDAR
+                </span> --}}
             </span>
+
+            <span data-uia="profile-button" class="profile-button">
+                <a aria-label="Cancel"
+                    href="{{route('seleccionar_perfil')}}">
+                    CANCELAR
+                </a>
+            </span>
+
+            {{-- <span data-uia="profile-delete-button" class="profile-button">
+                <span>
+                ELIMINAR PERFIL
+                </span>
+            </span> --}}
+        </form>
+        <form action="{{route('perfiles.destroy', $perfil)}}" class="d-inline" method="POST">
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="profile-button">
+                ELIMINAR PERFIL
+            </button>
         </form>
     </div>
 </div>

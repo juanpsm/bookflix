@@ -8,6 +8,8 @@ use App\User;
 // Agrego los admin
 use App\Admin;
 
+use App\Perfil;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -35,7 +37,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
+    // intento cambiar la redireccion por defecto a home
+    public function redirectTo()
+    {   
+        $usuarioId = auth()->user()->id;
+        $perfiles = Perfil::where('user_id', $usuarioId)->get();
+        if ($perfiles->isEmpty()) {
+            return route('perfiles.create');
+        } else {
+            return route('seleccionar_perfil');
+        }
+    }
 
     /**
      * Create a new controller instance.

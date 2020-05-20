@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Perfil;
 
@@ -31,8 +32,22 @@ class PerfilController extends Controller
     public function selector()
     {
         $usuarioId = auth()->user()->id;
+        session(['usuarioId' => $usuarioId]);
         $perfiles = Perfil::where('user_id', $usuarioId)->get(); 
         return view('perfiles.seleccionar',compact('perfiles'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function administrar()
+    {
+        $usuarioId = auth()->user()->id;
+        session(['usuarioId' => $usuarioId]);
+        $perfiles = Perfil::where('user_id', $usuarioId)->get(); 
+        return view('perfiles.administrar',compact('perfiles'));
     }
 
     /**
@@ -62,8 +77,10 @@ class PerfilController extends Controller
         $perfil->nombre = $request->nombre;
         $perfil->user_id = auth()->user()->id;
         $perfil->save();
-    
-        return redirect()->route('perfiles.index')->with('mensaje', 'Perfil Agregado!');
+        
+        
+        // return redirect()->route('perfiles.setProfile', $perfil);
+        return redirect()->route('seleccionar_perfil')->with('mensaje', 'Perfil Creado!');
     }
 
     /**
@@ -85,7 +102,8 @@ class PerfilController extends Controller
      */
     public function edit($id)
     {
-        //
+        $perfil = Perfil::findOrFail($id);
+        return view('perfiles.editar', compact('perfil'));
     }
 
     /**
@@ -103,12 +121,12 @@ class PerfilController extends Controller
         ]);
 
         $perfil = Perfil::findOrFail($id);
-
+        
         $perfil->nombre = $request->nombre;
         $perfil->user_id = auth()->user()->id;
         $perfil->save();
     
-        return redirect()->route('perfiles.index')->with('mensaje', 'Perfil Actualizado!');
+        return redirect()->route('seleccionar_perfil')->with('mensaje', 'Perfil Actualizado!');
     }
 
     /**
@@ -118,10 +136,35 @@ class PerfilController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        $perfil = Perfil::findOrFail($id);
-        $perfil->delete();
+    {   
+        $usuarioId = auth()->user()->id;
+        $perfiles = Perfil::where('user_id', $usuarioId)->get();
 
-        return back()->with('mensaje', 'Perfil Eliminado!');
+        // return (count($perfiles)>=2);
+
+        if (count($perfiles)>=2)
+        {
+            $perfil = Perfil::findOrFail($id);
+            $perfil->delete();
+            
+            // return back()->with('mensaje', 'Perfil Eliminado!');
+            return redirect()->route('seleccionar_perfil')->with('mensaje', 'Perfil Eliminado!');
+        } else {
+            //return back()->with('mensaje', 'no puedes eliminar el único perfil!');
+            return redirect()->route('seleccionar_perfil')->with('mensaje', 'No puedes eliminar el único perfil!');
+        }
+
     }
+
+    public function storeSessionProfile($id)
+    {   
+        $perfil = Perfil::findOrFail($id);
+        session(['perfil' => $perfil]);
+        return redirect(RouteServiceProvider::HOME);
+
+        // test mostrar la session
+        // return redirect()->route('session.get');
+    }
+
 }
+

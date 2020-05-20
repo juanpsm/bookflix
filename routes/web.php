@@ -49,6 +49,8 @@ Route::resource('tarjetas', 'TarjetaController');
 Route::resource('perfiles', 'PerfilController')->middleware('auth');
 
 Route::get('/seleccionarPerfil', 'PerfilController@selector')->middleware('auth')->name('seleccionar_perfil');
+Route::get('/administrarPerfil', 'PerfilController@administrar')->middleware('auth')->name('administar_perfil');
+Route::get('setPerfil/{id}','PerfilController@storeSessionProfile')->name('perfiles.setProfile');
 
 //genero:
 Route::resource('generos', 'GeneroController');
@@ -64,3 +66,8 @@ Route::resource('libros', 'LibroController');
 
 //novedad:
 Route::resource('novedades', 'NovedadController');
+
+// Session (test)
+Route::get('/session/get','SessionController@getSessionData')->name('session.get');
+Route::get('/session/set','SessionController@storeSessionData');
+Route::get('/session/remove','SessionController@deleteSessionData');
