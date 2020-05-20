@@ -39,15 +39,25 @@
                                     Inicio
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{ route('novedades.index') }}">
+                                    Novedades
+                                </a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarGenero" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Generos
+                                    Metadatos
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Drama</a>
-                                    <a class="dropdown-item" href="#">Accion</a>
-                                    <a class="dropdown-item" href="#">Policiales</a>
+                                    <a class="dropdown-item" href="{{ route('autores.index') }}">Autores</a>
+                                    <a class="dropdown-item" href="{{ route('generos.index') }}">Generos</a>
+                                    <a class="dropdown-item" href="{{ route('editoriales.index') }}">Editoriales</a>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{ route('libros.index') }}">
+                                    Libros
+                                </a>
                             </li>
                         </ul>
 
