@@ -78,6 +78,7 @@
             <!-- este es el input del archivo (imagen/video):-->
             <p>
               Archivo: Es opcional y solo se aceptan imagenes .png, .jpeg, .jpg, .gif, o videos .mp4<br>
+              (Tamaño máximo: 41 Megabytes)<br>
               <input 
               type="file" 
               name="archivo" 

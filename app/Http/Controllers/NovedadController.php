@@ -53,7 +53,7 @@ class NovedadController extends Controller
             'titulo' => 'required',
             'descripcion' => 'required',
             'fecha_de_publicacion' => 'required|date|date_format:Y-m-d\TH:i:s|after:yesterday|max:2038-01-19T00:00:00',
-            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4'
+            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4|max:41000' //el max no arregla el error porque se rompe antes cuando hace el POST
             // 'archivo' => 'image|nullable|mimes:jpeg,png,jpg,gif,mp4|max:2048',
             // 'video' => 'video|nullable|mimes:mp4'
         ]);
