@@ -38,6 +38,7 @@
                                     Inicio
                                 </a>
                             </li>
+                            @if(\Request::is('home/*') )
                             <li class="nav-item dropdown">
                                 <a id="navbarGenero" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Generos
@@ -48,6 +49,7 @@
                                     @endforeach
                                 </div>  
                             </li>
+                            @endif
                         </ul>
 
                         <!-- Right Side Of Navbar -->
