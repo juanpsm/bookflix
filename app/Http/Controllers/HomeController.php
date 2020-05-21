@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         // acá creo que se debería hacer la comprobacion de perfiles en vez de en login y register...
 
-        $generos = Generos::all();
+        $generos = Genero::all();
         return view('home', compact('generos'));
     }
 }
