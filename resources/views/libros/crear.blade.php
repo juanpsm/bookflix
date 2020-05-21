@@ -53,7 +53,7 @@
               class="form-control mb-2"
               value="{{old('autor')}}" 
             /> -->
-           
+            
             <!-- lo que esta haciendo es traer todos los generos y loopear donde $genero
             va a tomar el valor de los distintos generos uno x uno y va a imprimir el html
             que esta entre foreach y endforeach--> 
@@ -79,15 +79,13 @@
                 Editorial:<br>
                 <select class= "form-control" name="editorial">
                   @foreach(\App\Editorial::all() as $editorial)
-                  <option value="{{$autor->id}}">{{$editorial->nombre}}</option>
+                  <option value="{{$editorial->id}}">{{$editorial->nombre}}</option>
                   @endforeach
 
                 </select> 
               </div>
             </div>
 
-            
-           
             <input
               required
               type="text"

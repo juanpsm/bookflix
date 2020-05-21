@@ -57,11 +57,11 @@
                 Géneros:<br>
                 <select class= "form-control" name="generos[]" multiple>
                 @foreach($generos as $genero)
-                <option value="{{$genero->id}}"
-              @if($genero->selected)
-                selected
-              @endif
-              >{{$genero->nombre}}</option>
+                  <option value="{{$genero->id}}"
+                    @if($genero->selected)
+                      selected
+                    @endif
+                    >{{$genero->nombre}}</option>
                 @endforeach
                 </select> 
               </div>
@@ -69,11 +69,11 @@
                 Autor:<br>
                 <select class= "form-control" name="autor" >
                 @foreach($autores as $autor)
-                <option value="{{$autor->id}}"
-              @if($autor->selected)
-                selected
-              @endif
-              >{{$autor->nombre}}</option>
+                  <option value="{{$autor->id}}"
+                    @if($autor->selected)
+                      selected
+                    @endif
+                    >{{$autor->nombre}}</option>
                 @endforeach
 
               </select> 
@@ -83,10 +83,10 @@
                 <select class= "form-control" name="editorial">
                   @foreach($editoriales as $editorial)
                   <option value="{{$editorial->id}}"
-              @if($editorial->selected)
-                selected
-              @endif
-              >{{$editorial->nombre}}</option>
+                    @if($editorial->selected)
+                      selected
+                    @endif
+                    >{{$editorial->nombre}}</option>
                   @endforeach
 
                 </select> 

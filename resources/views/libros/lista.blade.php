@@ -30,6 +30,8 @@
               <th scope="col">#</th>
               <th scope="col">Titulo </th>
               <th scope="col">Autor </th>
+              <th scope="col">Editorial </th>
+              <th scope="col">Generos </th>
               <th scope="col">Acción</th>
               </tr>
             </thead>
@@ -52,7 +54,17 @@
                 <td>
                   {{ $item->editorial->nombre }}
                 </td>
-               
+                {{-- Generos --}}
+                <td>
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Generos
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-left">
+                      @foreach($item->generos as $genero)
+                        <a class="dropdown-item" href="#">{{ $genero->nombre }}</a>
+                      @endforeach
+                    </div>
+                </td>
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}
