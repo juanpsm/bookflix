@@ -10,15 +10,14 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-          @error('nombre') 
+          @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              El nombre es obligatorio
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
             </div>
-          @enderror
-
+          @endif
           
 
           {{--Exito--}}    

@@ -13,6 +13,7 @@
         <h4>#id: {{$libro -> id}} </h4>
         <h4>Titulo: {{$libro -> titulo}} </h4>
         <h4>Autor: {{$libro -> autor}} </h4>
+        <h4>Editorial: {{$libro -> editorial}} </h4>
         <h4>Generos: </h4>
         @foreach($libro->generos as $genero)
             <div> {{$genero->nombre}}

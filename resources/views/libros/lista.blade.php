@@ -48,6 +48,10 @@
                 <td>
                   {{ $item->autor->nombre }}
                 </td>
+                {{-- Editorial --}}
+                <td>
+                  {{ $item->editorial->nombre }}
+                </td>
                
                 {{-- Acciones --}}
                 <td>
