@@ -31,6 +31,7 @@
               <th scope="col">Título</th>
               <th scope="col">Descripción</th>
               <th scope="col">Archivo</th>
+              <th scope="col">Publicación</th>
               <th scope="col">Acción</th>
               </tr>
             </thead>
@@ -49,12 +50,18 @@
                 <td>{{ $item->descripcion }}</td>
                 {{--aca deberia mostrar imagen/video--}}
                 <td>
-                @if ($item->imagen)
-                  <img style="height: 70px; border-radius: 10%;" src="{{url($item->imagen)}}">
+                @if ($item -> es_video)
+                  <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>
                 @else
-                  {{$item->imagen}}
+                  @if ($item -> archivo != 'noFile')
+                    <img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"> <!--aca deberia mostrar archivo-->
+                  @else
+                    {{$item->imagen}}
+                  @endif
                 @endif
                 </td>
+                {{-- Publicación --}}
+                <td>{{$item->fecha_de_publicacion}}</td>
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}

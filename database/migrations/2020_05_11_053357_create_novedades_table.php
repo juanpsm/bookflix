@@ -17,8 +17,9 @@ class CreateNovedadesTable extends Migration
             $table->increments('id');
             $table->string('titulo');
             $table->string('descripcion');
-            $table->string('imagen')->nullable();
-            $table->string('video')->nullable();
+            $table->string('archivo')->nullable();
+            $table->string('es_video')->nullable();
+            $table->timestamp('fecha_de_publicacion');
             $table->timestamps();
         });
     }

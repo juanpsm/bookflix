@@ -12,7 +12,7 @@
           {{--Errores--}}
           @error('titulo') 
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El titulo es obligatorio
+            El título es obligatorio
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -21,11 +21,20 @@
 
           @error('descripcion')
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              La descripcion es obligatoria
+              La descripción es obligatoria
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+          @enderror
+
+          @error('fecha_de_publicacion')
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Ingresa una fecha y hora válidas
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           @enderror
 
           {{--Exito--}}
@@ -47,22 +56,35 @@
             <input
               type="text"
               name="titulo"
-              placeholder="Ingrese el titulo"
+              placeholder="Ingrese el título"
               class="form-control mb-2"
               value="{{$novedad->titulo }}" 
             /> 
-            <input
+            <textarea
               type="text"
               name="descripcion"
-              placeholder="Ingrese descripción"
               class="form-control mb-2"
-              value="{{ $novedad->descripcion }}"
-            />
-            <input 
+              placeholder="Ingrese la descripción">{{ $novedad->descripcion }}</textarea>
+            
+              <p>
+              Fecha de publicación<br>
+              <input type="datetime-local"
+                id='pub'
+                name="fecha_de_publicacion" value="{{date('Y-m-d\TH:i:s', strtotime($novedad->fecha_de_publicacion))}}"
+                min="{{date('Y-m-d\TH:i:s', strtotime($novedad->fecha_de_publicacion))}}" {{--para que no pongan fechas pasadas--}}
+                max="2038-01-19T03:14:07" {{--es el máximo que admite SQL--}}
+              >
+            </p>
+            <!-- este es el input del archivo (imagen/video):-->
+            <p>
+              Archivo: Es opcional y solo se aceptan imagenes .png, .jpeg, .jpg, .gif, o videos .mp4<br>
+              <input 
               type="file" 
               name="archivo" 
-              accept=".pdf,.jpg,.png" multiple
+              accept="image/png, .jpeg, .jpg, image/gif, .mp4"
+              class="form-group"
             >
+            </p>
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

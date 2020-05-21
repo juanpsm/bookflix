@@ -13,7 +13,15 @@
         <h4>#id: {{$novedad -> id}} </h4>
         <h4>Título: {{$novedad -> titulo}} </h4>
         <h4>Descripción: {{$novedad -> descripcion}} </h4>
-        <img style="width:100%" src="{{url($novedad -> imagen)}}"> <!--aca deberia mostrar archivo-->
+        <h4>Publicación: {{$novedad -> fecha_de_publicacion}} </h4>
+        @if ($novedad -> es_video)
+          <video  src="{{url($novedad -> archivo)}}" controls></video>
+        @else
+          @if (!($novedad->archivo == 'noFile'))
+            <img style="width:100%" src="{{url($novedad -> archivo)}}"> <!--aca deberia mostrar archivo-->
+          @endif
+        @endif
+
         </div>
       </div>
     </div>

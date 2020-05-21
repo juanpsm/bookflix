@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Novedad; //importante!!
-use App\Traits\ImageUpload;
+use App\Traits\FileUpload;
+use Illuminate\Support\Facades\File; 
 
 
 class NovedadController extends Controller
@@ -23,7 +24,7 @@ class NovedadController extends Controller
     public function index()
     {
         $novedades = Novedad::paginate(50);
-        return view('novedades.lista',compact('novedades')); 
+        return view('novedades.lista', compact('novedades'));
     }
 
     /**
@@ -33,7 +34,7 @@ class NovedadController extends Controller
      */
     public function create()
     {
-       // $now =Carbon::now(); esto seria si no uso el date para los input de fecha
+        // $now =Carbon::now(); esto seria si no uso el date para los input de fecha
        //lo deje comentado porque quizas sirva  en este caso o en un futuro
         return view('novedades.crear');//->whit('now');
     }
@@ -44,54 +45,48 @@ class NovedadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    use ImageUpload; // Uso el Trait creado
+    use FileUpload; // Uso el Trait creado
     public function store(Request $request)
     {
-       // Valido datos
+        // Valido datos
         $request->validate([
             'titulo' => 'required',
             'descripcion' => 'required',
-            'imagen' => 'image|nullable|mimes:jpeg,png,jpg,gif|max:2048'
+            'fecha_de_publicacion' => 'required|date|date_format:Y-m-d\TH:i:s|after:yesterday|max:2038-01-19T00:00:00',
+            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4'
+            // 'archivo' => 'image|nullable|mimes:jpeg,png,jpg,gif,mp4|max:2048',
+            // 'video' => 'video|nullable|mimes:mp4'
         ]);
 
         // Create Post
         $novedad = new Novedad;
 
-        $novedad->imagen = $request->imagen;
-
         // Handle File Upload
-        if ($novedad->imagen) {
+        $novedad->archivo = $request->archivo;
+        if ($novedad->archivo) {
             try {
-                $filePath = $this->UserImageUpload($novedad->imagen);
+                $file = $this->NovedadesFileUpload($novedad->archivo);
+                $filePath = $file->url;
+                $fileExt = $file->ext;
 
-                $novedad->imagen = $filePath;
+                if (in_array($fileExt, array('png','jpeg','png','jpg','gif'))) {
+                    $novedad->es_video = false;
+                } elseif ($fileExt == 'mp4') {
+                    $novedad->es_video = true;
+                }
+
+                $novedad->archivo = $filePath;
             } catch (Exception $e) {
                 // mensaje de error
-                "error de imagen";
+                "error de archivo";
             }
-        }else{
-            $novedad->imagen = 'noimage.jpg';
+        } else {
+            $novedad->archivo = 'noFile';
         }
-
-
-
-            // // Get filename with the extension
-            // $filenameWithExt = $request->file('archivo')->getClientOriginalName();
-            // // Get just filename
-            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // // Get just ext
-            // $extension = $request->file('archivo')->getClientOriginalExtension();
-            // // Filename to store
-            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // // Upload Image
-            // $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
-        // } else {
-        //     $fileNameToStore = 'noimage.jpg';
-        // }
-
 
         $novedad->titulo = $request->input('titulo');
         $novedad->descripcion = $request->input('descripcion');
+        $novedad->fecha_de_publicacion = $request->input('fecha_de_publicacion');
 
         $novedad->save();
     
@@ -132,37 +127,48 @@ class NovedadController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // Valido datos
+        // Valido datos
         $request->validate([
             'titulo' => 'required',
-            'descripcion' => 'required'
+            'descripcion' => 'required',
+            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4'
         ]);
 
         $novedad = Novedad::findOrFail($id);
- // Handle File Upload
- if($request->hasFile('archivo')){
-    // Get filename with the extension
-    $filenameWithExt = $request->file('archivo')->getClientOriginalName();
-    // Get just filename
-    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-    // Get just ext
-    $extension = $request->file('archivo')->getClientOriginalExtension();
-    // Filename to store
-    $fileNameToStore= $filename.'_'.time().'.'.$extension;
-    // Upload Image
-    $path = $request->file('archivo')->storeAs('public/archivos', $fileNameToStore);
-    // Delete file if exists
-    Storage::delete('public/archivos/'.$novedad->archivo);
-}
 
-    // Update Post
-    $novedad->titulo = $request->input('titulo');
-    $novedad->descripcion = $request->input('descripcion');
-    if($request->hasFile('archivo')){
-    $novedad->archivo = $fileNameToStore;
-    }
-    $novedad->save();
-    
+        // Handle File Upload
+
+        if ($request->hasFile('archivo')) {
+            try {
+                $file = $this->NovedadesFileUpload($request->archivo);
+                $filePath = $file->url;
+                $fileExt = $file->ext;
+
+                if (in_array($fileExt, array('png','jpeg','png','jpg','gif'))) {
+                    $novedad->es_video = false;
+                } else {
+                    $novedad->es_video = true;
+                }
+                
+                if ($novedad->archivo != 'noFile') {
+                    File::delete($novedad->archivo);
+                }
+
+                $novedad->archivo = $filePath;
+            
+            } catch (Exception $e) {
+                // mensaje de error
+                "error de archivo";
+            }
+        }
+
+        $novedad->titulo = $request->titulo;
+        $novedad->descripcion = $request->descripcion;
+
+        $novedad->save();
+
+        //if($request->hasFile('archivo')){
+        
         return redirect()->route('novedades.index')->with('mensaje', 'Novedad Actualizada!');
     }
 
@@ -175,6 +181,9 @@ class NovedadController extends Controller
     public function destroy($id)
     {
         $novedad = Novedad::findOrFail($id);
+        if ($novedad->archivo != 'noFile') {
+            File::delete($novedad->archivo);
+        }
         $novedad->delete();
 
         return back()->with('mensaje', 'Novedad Eliminada!');

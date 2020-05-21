@@ -28,6 +28,15 @@
             </div>
           @enderror
 
+          @error('fecha_de_publicacion')
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Ingresa una fecha y hora válidas
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @enderror
+
           {{--Exito--}}    
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -56,32 +65,27 @@
               type="text"
               name="descripcion"
               class="form-control mb-2"
-              placeholder="Ingrese la descripción"
-              value="{{old('titulo')}}"></textarea>
-              
-            <!-- este es el input del archivo (imagen/video):-->
-            <input 
-              type="file" 
-              name="imagen" 
-              accept="image/png, .jpeg, .jpg, image/gif" 
-              class="form-group"
-            >
-
+              placeholder="Ingrese la descripción">{{old('descripcion')}}</textarea>
             
-            <!--- esto es la estructura de la novedad programada
-              pero no sube a la hora que indico.
-              este html comentado muestra un input para ingresas fecha y hora de publicacion
-              <input
-                type="date"
-                class="form-control"
-                name="scheduled_date" 
-                value="{{old('scheduled_date',date('d/m/Y'))}}"> 
-                <br>
-                <input
-                  type="time"
-                  class="form-group"
-                  name="scheduled_time" 
-                  value="{{old('scheduled_time',date('H:i'))}}">-->
+            <p>
+              Fecha de publicación<br>
+              <input type="datetime-local"
+                id='pub'
+                name="fecha_de_publicacion" value="{{old('fecha_de_publicacion') ? old('fecha_de_publicacion') : date('Y-m-d\TH:i:s', time())}}"
+                min="{{date('Y-m-d\TH:i:s', time())}}" {{--para que no pongan fechas pasadas--}}
+                max="2038-01-19T03:14:07" {{--es el máximo que admite SQL--}}
+              >
+            </p>
+            <!-- este es el input del archivo (imagen/video):-->
+            <p>
+              Archivo: Es opcional y solo se aceptan imagenes .png, .jpeg, .jpg, .gif, o videos .mp4<br>
+              <input 
+                type="file" 
+                name="archivo" 
+                accept="image/png, .jpeg, .jpg, image/gif, .mp4" 
+                class="form-group"
+              >
+            </p>
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar
