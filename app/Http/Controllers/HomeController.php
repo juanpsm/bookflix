@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Genero;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +26,8 @@ class HomeController extends Controller
     public function index()
     {
         // acá creo que se debería hacer la comprobacion de perfiles en vez de en login y register...
-        return view('home');
+
+        $generos = Generos::all();
+        return view('home', compact('generos'));
     }
 }

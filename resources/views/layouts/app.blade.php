@@ -43,10 +43,10 @@
                                     Generos
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Drama</a>
-                                    <a class="dropdown-item" href="#">Accion</a>
-                                    <a class="dropdown-item" href="#">Policiales</a>
-                                </div>
+                                    @foreach($generos as $genero)
+                                        <a class="dropdown-item" href="#">{{ $genero->nombre }}</a>
+                                    @endforeach
+                                </div>  
                             </li>
                         </ul>
 
