@@ -10,24 +10,14 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-          @error('titulo') 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El titulo es obligatorio
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @enderror
-          
-          @error('autor') 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El autor es obligatorio
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @enderror
-
+          @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
 
           {{--Exito--}}
           @if ( session('mensaje') )
@@ -45,6 +35,7 @@
             @csrf
 
             <input
+              required
               type="text"
               name="titulo"
               placeholder="Ingrese titulo de libro"
@@ -60,28 +51,69 @@
               class="form-control mb-2"
               value="{{$libro->autor }}" 
             /> -->
-
-            <select name="generos[]" multiple>
-              @foreach($generos as $genero)
-              <option value="{{$genero->id}}"
+            
+            <div class= "row">
+              <div class= "col-lg-4">
+                Géneros:<br>
+                <select class= "form-control" name="generos[]" multiple>
+                @foreach($generos as $genero)
+                <option value="{{$genero->id}}"
               @if($genero->selected)
                 selected
               @endif
               >{{$genero->nombre}}</option>
-              @endforeach
-
-            </select>
-
-            <select name="autor">
-              @foreach($autores as $autor)
-              <option value="{{$autor->id}}"
+                @endforeach
+                </select> 
+              </div>
+              <div class= "col-lg-4">
+                Autor:<br>
+                <select class= "form-control" name="autor" >
+                @foreach($autores as $autor)
+                <option value="{{$autor->id}}"
               @if($autor->selected)
                 selected
               @endif
               >{{$autor->nombre}}</option>
-              @endforeach
+                @endforeach
 
-            </select>
+              </select> 
+              </div>
+              <div class= "col-lg-4">
+                Editorial:<br>
+                <select class= "form-control" name="editorial">
+                  @foreach($editoriales as $editorial)
+                  <option value="{{$editorial->id}}"
+              @if($editorial->selected)
+                selected
+              @endif
+              >{{$editorial->nombre}}</option>
+                  @endforeach
+
+                </select> 
+              </div>
+            </div>
+
+
+            
+            Fecha de lanzamiento:
+            <input
+              required
+              type="date"
+              name="fecha_de_lanzamiento"
+              placeholder="Ingrese fecha de lanzamiento"
+              class="form-control mb-2"
+              value="{{$libro->fecha_de_lanzamiento}}" 
+            /> 
+
+            Fecha de vencimiento:  
+            <input
+              required
+              type="date"
+              name="fecha_de_vencimiento"
+              placeholder="Ingrese fecha de vencimiento"
+              class="form-control mb-2"
+              value="{{$libro->fecha_de_vencimiento}}" 
+            /> 
 
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">

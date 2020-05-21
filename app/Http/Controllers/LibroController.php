@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Libro;
 use App\Genero;
+use App\Autor;
+use App\Editorial;
 
 class LibroController extends Controller
 {
@@ -44,15 +46,34 @@ class LibroController extends Controller
     {
         // Valido datos
         $request->validate([
-            'titulo' => 'required',
+            'titulo' => 'required|unique:App\Libro',
+            'isbn' => 'required|unique:App\Libro',
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
-            'generos'=> 'required|array'
+            'generos'=> 'required|array',
+            'editorial' => 'required'
         ]);
+        
+        //esto mismo se puede resolver con un simple unique
+        /*
+        if(Libro::where("titulo", $request->titulo)->exists()){
+            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese titulo!');
+        }  
 
+        if(Libro::where("isbn", $request->isbn)->exists()){
+            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese ISBN!');
+        }*/ 
+        
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro = new Libro();
         $libro->titulo = $request->titulo;
+        $libro->portada = "";
         $libro->autor_id = $request->autor;
+        $libro->editorial_id = $request->editorial;
+        $libro->isbn = $request->isbn;
+        $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
+        $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
         $libro->save();
         $libro->generos()->sync($request->generos);
         // la linea 56 esta creando las relaciones    
@@ -84,6 +105,7 @@ class LibroController extends Controller
         $libro = Libro::findOrFail($id);
         $generos = Genero::all();
         $autores = Autor::all(); //traigo todos los autores de mi sistema
+        $editoriales = Editorial::all();
         foreach($libro->generos as $genero){
             foreach($generos as $genero2){
                 if($genero2->id == $genero->id){
@@ -98,9 +120,16 @@ class LibroController extends Controller
                     break;
              }
         }
+
+        foreach($editoriales as $editorial){
+            if($editorial->id == $libro->editorial_id){
+                  $editorial->selected= true;
+                   break;
+            }
+       }
         
 
-        return view('libros.editar', compact('libro', "generos", "autores"));
+        return view('libros.editar', compact('libro', "generos", "autores", "editoriales"));
     }
 
     /**
@@ -114,18 +143,24 @@ class LibroController extends Controller
     {
          // Valido datos
          $request->validate([
-            'titulo' => 'required',
+            'titulo' => "required|unique:App\Libro,titulo,{$libro->id}",
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
-            //'editorial' => 'required'
+            'editorial' => 'required'
         ]);
 
         //$libro = Libro::findOrFail($id); ya no hace falta
-        if(Libro::where("titulo", $request->titulo)->where("id","<>",$libro->id)->exists()){
-            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese titulo!');
-        }        
-        $libro->titulo = $request->titulo;
+
+
+        
+        //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
+        $libro->titulo = $request->titulo; // asigno en el campo titulo lo que ingrese en el formulario
         $libro->autor_id = $request->autor;
+        $libro->editorial_id = $request->editorial;
+        $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
+        $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
         $libro->save();
         $libro->generos()->sync($request->generos);    
         return redirect()->route('libros.index')->with('mensaje', 'libro Actualizado!');

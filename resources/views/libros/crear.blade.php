@@ -10,25 +10,18 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-          @error('titulo') 
+      
+          @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              El titulo es obligatorio
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
             </div>
-          @enderror
+          @endif
 
-          @error('autor') 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              El autor es obligatorio
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror
 
-          
+
 
           {{--Exito--}}    
           @if ( session('mensaje') )
@@ -45,6 +38,7 @@
             @csrf
 
             <input
+              required
               type="text"
               name="titulo"
               placeholder="Ingrese titulo"
@@ -63,19 +57,65 @@
             <!-- lo que esta haciendo es traer todos los generos y loopear donde $genero
             va a tomar el valor de los distintos generos uno x uno y va a imprimir el html
             que esta entre foreach y endforeach--> 
-            <select name="generos[]" multiple>
-              @foreach(\App\Genero::all() as $genero)
-              <option value="{{$genero->id}}">{{$genero->nombre}}</option>
-              @endforeach
+            <div class= "row">
+              <div class= "col-lg-4">
+                Géneros:<br>
+                <select class= "form-control" name="generos[]" multiple>
+                @foreach(\App\Genero::all() as $genero)
+                <option value="{{$genero->id}}">{{$genero->nombre}}</option>
+                @endforeach
+                </select> 
+              </div>
+              <div class= "col-lg-4">
+                Autor:<br>
+                <select class= "form-control" name="autor" >
+                @foreach(\App\Autor::all() as $autor)
+                <option value="{{$autor->id}}">{{$autor->nombre}}</option>
+                @endforeach
 
-            </select> 
+              </select> 
+              </div>
+              <div class= "col-lg-4">
+                Editorial:<br>
+                <select class= "form-control" name="editorial">
+                  @foreach(\App\Editorial::all() as $editorial)
+                  <option value="{{$autor->id}}">{{$editorial->nombre}}</option>
+                  @endforeach
 
-            <select name="autor">
-              @foreach(\App\Autor::all() as $autor)
-              <option value="{{$autor->id}}">{{$autor->nombre}}</option>
-              @endforeach
+                </select> 
+              </div>
+            </div>
 
-            </select> 
+            
+           
+            <input
+              required
+              type="text"
+              name="isbn"
+              placeholder="Ingrese ISBN"
+              class="form-control mb-2"
+              value="{{old('isbn')}}" 
+            />
+
+            Fecha de lanzamiento:
+            <input
+              required
+              type="date"
+              name="fecha_de_lanzamiento"
+              placeholder="Ingrese fecha de lanzamiento"
+              class="form-control mb-2"
+              value="{{old('fecha_de_lanzamiento')}}" 
+            />
+
+            Fecha de vencimiento:
+            <input
+              required
+              type="date"
+              name="fecha_de_vencimiento"
+              placeholder="Ingrese fecha de vencimiento"
+              class="form-control mb-2"
+              value="{{old('fecha_de_vencimiento')}}" 
+            />
 
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">

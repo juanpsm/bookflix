@@ -45,7 +45,7 @@ class EditorialController extends Controller
                 // Valido datos
                 $request->validate([
             
-                    'nombre' => 'required'
+                    'nombre' => 'required|unique:App\Editorial'
                 ]);
         
                 //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
@@ -87,14 +87,13 @@ class EditorialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Editorial $editorial)
     {
                 // Valido datos
                 $request->validate([
-                    'nombre' => 'required'
+                    'nombre' => "required|unique:App\Editorial,nombre,{$editorial->id}"
                 ]);
         
-                $editorial = Editorial::findOrFail($id);
         
                 $editorial->nombre = $request->nombre;
                 //$tarjeta->user_id = auth()->user()->id;
