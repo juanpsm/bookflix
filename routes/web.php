@@ -71,3 +71,5 @@ Route::resource('novedades', 'NovedadController');
 Route::get('/session/get','SessionController@getSessionData')->name('session.get');
 Route::get('/session/set','SessionController@storeSessionData');
 Route::get('/session/remove','SessionController@deleteSessionData');
+
+Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');

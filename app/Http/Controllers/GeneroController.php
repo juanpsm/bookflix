@@ -116,4 +116,12 @@ class GeneroController extends Controller
 
         return back()->with('mensaje', 'Genéro Eliminado!');
     }
+
+    public function showGenero($id)
+    {
+        return $id;
+        $genero = Genero::findOrFail($id);
+        
+        return view('generos.user', compact('genero'));
+    }
 }

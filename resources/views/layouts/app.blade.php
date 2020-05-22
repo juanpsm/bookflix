@@ -46,7 +46,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                                     @foreach($generos as $genero)
-                                        <a class="dropdown-item" href="#">{{ $genero->nombre }}</a>
+                                        <a class="dropdown-item" href="{{route('generos.showGenero', $genero)}}">{{ $genero->nombre }}</a>
                                     @endforeach
                                 </div>  
                             </li>
