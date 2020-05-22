@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Genero; //importante!!
+use App\Libro;
 
 class GeneroController extends Controller
 {
@@ -12,7 +13,8 @@ class GeneroController extends Controller
     {
         
         //agrego los admin, los users se hacen por otro lado
-        $this->middleware('auth:admin');
+        $this->middleware('auth', ['only' => ['showGenero']]);
+    
     }
     /**
      * Display a listing of the resource.
@@ -117,11 +119,20 @@ class GeneroController extends Controller
         return back()->with('mensaje', 'Genéro Eliminado!');
     }
 
+    /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function showGenero($id)
     {
-        return $id;
-        $genero = Genero::findOrFail($id);
         
-        return view('generos.user', compact('genero'));
+        $genero = Genero::findOrFail($id);
+        $libros = Libro::where('genero_id', '=', $genero)
+                  ->whereHas('generos', function($query) use ($genero_id){
+                      $query->where('generos.id', '=', $generoId);
+                  })->get();
+        
+        return view('generos.user', compact('libros'));
     }
 }
