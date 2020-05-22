@@ -39,6 +39,7 @@
                                     Inicio
                                 </a>
                             </li>
+                            
                             @if(Request::is('home') )
                             <li class="nav-item dropdown">
                                 <a id="navbarGenero" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -66,11 +67,17 @@
                                     </li>
                                 @endif
                             @else
+                                @if(Request::is('*admin*'))
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Hi') }}, {{ Auth::user()->name }}! <span class="caret"></span>
+                                </a>
+                                @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ __('Hi') }}, {{session('perfil')->nombre}}{{-- pido el nombre del perfil en lugar del usuario Auth::user()->name --}}! <span class="caret"></span>
                                         
                                     </a>
+                                @endif
 
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                         {{--<a class="dropdown-item" href="{{ route('tarjetas.index') }}">

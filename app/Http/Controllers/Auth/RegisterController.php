@@ -57,9 +57,9 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest', ['except' => ['adminValidator', 'showAdminRegisterForm', 'createAdmin']]);
         //agrego los admin, los users se hacen por otro lado
-        $this->middleware('guest:admin');
+        //$this->middleware('guest:admin');
     }
 
     /**

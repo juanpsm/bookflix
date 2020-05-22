@@ -15,7 +15,6 @@
         href="https://codex.nflxext.com/%5E3.0.0/truthBundle/webui/0.0.1-shakti-css-v1b8c742f/css/css/less%7Ccore%7Cerror-page.less/1/0DvL3ru9CIK/none/true/none">
     <link type="text/css" rel="stylesheet"
         href="https://codex.nflxext.com/%5E3.0.0/truthBundle/webui/0.0.1-shakti-css-v1b8c742f/css/css/less%7Cpages%7CakiraClient.less/1/0DvL3ru9CIK/none/true/none">
-
 </head>
 
 <body style="">
@@ -61,9 +60,8 @@
                                                                                                 alt="">
                                                                                             <div class="fallback-text-container"
                                                                                                 aria-hidden="true">
-                                                                                                <p
-                                                                                                    class="fallback-text"> {{$libro->titulo}}
-                                                                                                    main
+                                                                                                <p class="fallback-text">
+                                                                                                    {{$libro->titulo}}
                                                                                                 </p>
                                                                                             </div>
                                                                                         </div>
@@ -105,7 +103,7 @@
                 </div>
             </div>
         </div>
-      </div>
+    </div>
 </body>
 
 </html>
