@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Genero extends Model
 {
-    public function libro (){
+    public function libros (){
         return $this->belongsToMany(Libro::class);
-        // 
+        
     }
-    //falta hacer la funcion del libro para decir que tiene muchos
 }

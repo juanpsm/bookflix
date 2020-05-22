@@ -70,7 +70,7 @@ class PerfilController extends Controller
     {
         // Valido datos
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => ['required', 'unique:perfiles']
         ]);
 
         $perfil = new Perfil();

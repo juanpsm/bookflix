@@ -128,11 +128,9 @@ class GeneroController extends Controller
     {
         
         $genero = Genero::findOrFail($id);
-        $libros = Libro::where('genero_id', '=', $genero)
-                  ->whereHas('generos', function($query) use ($genero_id){
-                      $query->where('generos.id', '=', $generoId);
-                  })->get();
-        
+
+        $libros = $genero->libros()->get();
+
         return view('generos.user', compact('libros'));
     }
 }

@@ -13,7 +13,7 @@ class LibroController extends Controller
     public function __construct()
     {
         // esto hace que solo un usuario logueado pueda acceder
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => []]);
         // y esto hace que solo un admin pueda acceder a estas funciones
         $this->middleware('auth:admin', ['only' => ['index','show','create', 'store', 'edit', 'delete']]);
     }
@@ -24,6 +24,7 @@ class LibroController extends Controller
      */
     public function index()
     {
+
         $libros = Libro::paginate(50);
         return view('libros.lista',compact('libros')); 
     }

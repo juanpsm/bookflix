@@ -27,7 +27,7 @@
                 </div>
             </li>
             @endforeach
-            @if( (Auth::user()->is_premium && count($perfiles)<4) || (!(Auth::user()->is_premium) && count($perfiles)<2))
+            @if( (Auth::user()->es_premium && count($perfiles)<4) || (!(Auth::user()->es_premium) && count($perfiles)<2))
             <li class="profile">
                 <div>
                     <a class="profile-link" tabindex="0"
