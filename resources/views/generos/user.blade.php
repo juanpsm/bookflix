@@ -59,7 +59,7 @@
                                                                                             <div class="fallback-text-container"
                                                                                                 aria-hidden="true">
                                                                                                 <p
-                                                                                                    class="fallback-text"> {{ $item->titulo }}
+                                                                                                    class="fallback-text"> {{ $genero->titulo }} {{-- $generos as $genero--}}
                                                                                                     main
                                                                                                 </p>
                                                                                             </div>
