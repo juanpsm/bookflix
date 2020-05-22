@@ -25,8 +25,8 @@ class BookflixTableSeeder extends Seeder
         //     'email' => Str::random(10).'@gmail.com',
         //     'password' => bcrypt('password'),
         // ]);
-    User::truncate(); // Evita duplicar datos
-    Perfil::truncate();
+    //User::truncate(); // Evita duplicar datos
+    //Perfil::truncate();
         DB::table('users')->insert([
             'name' => 'Usuario Estandar',
             'dni' => '11222333',
@@ -70,7 +70,7 @@ class BookflixTableSeeder extends Seeder
         ]);
 
         // Genero #1
-    Genero::truncate();
+    //Genero::truncate();
         $genero = new Genero();
         $genero->nombre = "Ciencia Ficción";
         $genero->save();
@@ -84,13 +84,25 @@ class BookflixTableSeeder extends Seeder
         $genero->save();
         // Genero #4
         $genero = new Genero();
+        $genero->nombre = "Fantasía";
+        $genero->save();
+        // Genero #5
+        $genero = new Genero();
+        $genero->nombre = "Aventura";
+        $genero->save();
+        // Genero #6
+        $genero = new Genero();
         $genero->nombre = "Drama";
+        $genero->save();
+        // Genero #6
+        $genero = new Genero();
+        $genero->nombre = "Investigación";
         $genero->save();
 
         // Autor #1
-    Autor::truncate();
+    //Autor::truncate();
         $autor = new Autor();
-        $autor->nombre = "Isaac Asimov";
+        $autor->nombre = "J.R.R. Tolkien";
         $autor->save();
         // Autor #2
         $autor = new Autor();
@@ -104,7 +116,20 @@ class BookflixTableSeeder extends Seeder
         $autor = new Autor();
         $autor->nombre = "J.K Rowling";
         $autor->save();
-        
+        // Autor #5
+        $autor = new Autor();
+        $autor->nombre = "Curtis Hewet";
+        $autor->save();
+        // Autor #6
+        $autor = new Autor();
+        $autor->nombre = "Isaac Asimov";
+        $autor->save();
+        // Autor #6
+        $autor = new Autor();
+        $autor->nombre = "Euclides";
+        $autor->save();
+    
+    //Editorial::truncate();
         // Editorial #1
         $editorial = new Editorial();
         $editorial->nombre = "Gnome Press";
@@ -122,21 +147,87 @@ class BookflixTableSeeder extends Seeder
         $editorial->nombre = "Bloomsbury Publishing";
         $editorial->save();
 
-    Libro::truncate(); // Evita duplicar datos
+    //Libro::truncate(); // Evita duplicar datos
         // Libro #1
         $libro = new Libro();
-        $libro->titulo = "Yo, Robot";
-        $libro->portada = "SS";
+        $libro->titulo = "Harry Potter y el Príncipe Mestizo";
+        $libro->portada = "image/portadas/hp6.jpg";
         $libro->isbn = "9781234567897";
-        $libro->autor_id = 1;
+        $libro->autor_id = 4;
         $libro->editorial_id = 1;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
 
-        $libro->generos()->attach([1, 2]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
 
+        // Libro #2
+        $libro = new Libro();
+        $libro->titulo = "Diario de una Jovencita";
+        $libro->portada = "image/portadas/anne.jpg";
+        $libro->isbn = "97854654654697";
+        $libro->autor_id = 2;
+        $libro->editorial_id = 2;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
 
+        $libro->generos()->attach([6]); //Relacionar el libro a dos etiquetas
+
+        // Libro #3
+        $libro = new Libro();
+        $libro->titulo = "El Hobbit";
+        $libro->portada = "image/portadas/hobbit.jpg";
+        $libro->isbn = "9781234567897";
+        $libro->autor_id = 1;
+        $libro->editorial_id = 2;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
+
+        $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
+
+        // Libro #4
+        $libro = new Libro();
+        $libro->titulo = "The Connections In Our Brain";
+        $libro->portada = "image/portadas/connection.jpg";
+        $libro->isbn = "88788894567897";
+        $libro->autor_id = 5;
+        $libro->editorial_id = 4;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
+
+        $libro->generos()->attach([1,7]); //Relacionar el libro a dos etiquetas
+
+        // Libro #5
+        $libro = new Libro();
+        $libro->titulo = "Yo, robot";
+        $libro->portada = "image/portadas/robot.jpg";
+        $libro->isbn = "69635567897";
+        $libro->autor_id = 6;
+        $libro->editorial_id = 3;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
+
+        $libro->generos()->attach([1]); //Relacionar el libro a dos etiquetas
+
+        // Libro #6
+        $libro = new Libro();
+        $libro->titulo = "Elementos";
+        $libro->portada = "image/portadas/euclides.jpg";
+        $libro->isbn = "1321534131351";
+        $libro->autor_id = 4;
+        $libro->editorial_id = 4;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
+
+        $libro->generos()->attach([7]); //Relacionar el libro a dos etiquetas
+
+        
+        
 
         //factory(User::class, 5)->create();
 

@@ -91,14 +91,14 @@
                             </div>
                         </div>
 
-                        {{-- Tarjetas --}}
+                        {{-- Tarjetas 
                         @unless (isset($url))
                             <div class="form-group row mb-1">
                                 <div class="col-md-6 offset-md-4">
                                     <a href="#" class="btn btn-primary btn-sm">Agregar Medio de Pago</a>
                                 </div>
                             </div>
-                        @endunless
+                        @endunless--}}
 
 
                         {{-- Boton registrarse --}}
