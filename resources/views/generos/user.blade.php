@@ -55,9 +55,9 @@
                                                                                         tabindex="0" aria-hidden="false"
                                                                                         class="slider-refocus">
                                                                                         <div
-                                                                                            class="boxart-size-16x9 boxart-container">
+                                                                                            class="boxart-container">
                                                                                             <img class="boxart-image boxart-image-in-padded-container"
-                                                                                                src="https://occ-0-1259-1567.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABVA5lsKf-QJZni_MhTPdi7dBAajNxqMo3wVWp5wZYD618YXXISrb4GFFAtlwF9LqnfMfvpk1IUR9dsmp3G1gi0JocfA.webp?r=e27"
+                                                                                                src="{{url($libro -> portada)}}"
                                                                                                 alt="">
                                                                                             <div class="fallback-text-container"
                                                                                                 aria-hidden="true">
