@@ -14,6 +14,7 @@ class GeneroController extends Controller
         
         //agrego los admin, los users se hacen por otro lado
         $this->middleware('auth', ['only' => ['showGenero']]);
+        $this->middleware('auth:admin', ['except' => ['showGenero']]);
     
     }
     /**
