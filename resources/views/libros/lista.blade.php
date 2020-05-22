@@ -28,10 +28,11 @@
             <thead>
               <tr>
               <th scope="col">#</th>
-              <th scope="col">Titulo </th>
-              <th scope="col">Autor </th>
-              <th scope="col">Editorial </th>
-              <th scope="col">Generos </th>
+              <th scope="col">Título</th>
+              <th scope="col">Autor</th>
+              <th scope="col">Editorial</th>
+              <th scope="col">Generos</th>
+              <th scope="col">Portada</th>
               <th scope="col">Acción</th>
               </tr>
             </thead>
@@ -65,6 +66,14 @@
                       @endforeach
                     </div>
                 </td>
+                {{--Portada--}}
+                <td>
+                  @if ($item ->portada != 'noFile')
+                      <img style="height: 70px; border-radius: 10%;" src="{{url($item ->portada)}}">
+                    @else
+                      {{$item->portada}}
+                    @endif
+                  </td>
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}

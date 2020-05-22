@@ -11,14 +11,18 @@
         </div>
         <div class="card-body">
         <h4>#id: {{$libro -> id}} </h4>
-        <h4>Titulo: {{$libro -> titulo}} </h4>
-        <h4>Autor: {{$libro -> autor}} </h4>
-        <h4>Editorial: {{$libro -> editorial}} </h4>
+        <h4>Título: {{$libro -> titulo}} </h4>
+        <h4>Autor: {{$libro -> autor -> nombre}} </h4>
+        <h4>Editorial: {{$libro -> editorial -> nombre}} </h4>
         <h4>Generos: </h4>
         @foreach($libro->generos as $genero)
             <div> {{$genero->nombre}}
             </div>
-        @endforeach    
+        @endforeach
+        <h4>Portada:</h4>
+        @if (!($libro-> portada  == 'noFile'))
+          <img style="width:100%" src="{{url($libro -> portada)}}">
+        @endif  
         </div>
       </div>
     </div>

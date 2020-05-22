@@ -30,7 +30,8 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{ route('libros.update', $libro->id) }}">{{--mando el id del libro para editarlo--}}
+          <form method="POST" action="{{ route('libros.update', $libro->id) }}"
+            enctype="multipart/form-data" >{{--mando el id del libro para editarlo--}}
             @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
             @csrf
 
@@ -38,7 +39,7 @@
               required
               type="text"
               name="titulo"
-              placeholder="Ingrese titulo de libro"
+              placeholder="Ingrese título de libro"
               class="form-control mb-2"
               value="{{$libro->titulo }}" 
             /> 
@@ -113,8 +114,18 @@
               placeholder="Ingrese fecha de vencimiento"
               class="form-control mb-2"
               value="{{$libro->fecha_de_vencimiento}}" 
-            /> 
+            />
 
+            <p>
+              Archivo: Solo se aceptan imagenes .png, .jpeg, .jpg, .gif<br>
+              (Tamaño máximo: 41 Megabytes)<br>
+              <input 
+              type="file" 
+              name="archivo" 
+              accept="image/png, .jpeg, .jpg, image/gif"
+              class="form-group"
+            >
+            </p>
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

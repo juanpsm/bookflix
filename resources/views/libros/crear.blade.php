@@ -34,14 +34,14 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{route('libros.store')}}">
+          <form method="POST" action="{{route('libros.store')}}" enctype="multipart/form-data">
             @csrf
 
             <input
               required
               type="text"
               name="titulo"
-              placeholder="Ingrese titulo"
+              placeholder="Ingrese el título"
               class="form-control mb-2"
               value="{{old('titulo')}}" 
             />
@@ -115,6 +115,17 @@
               value="{{old('fecha_de_vencimiento')}}" 
             />
 
+            <!-- este es el input del archivo (imagen/video):-->
+            <p>
+              Portada: Sólo se aceptan imagenes .png, .jpeg, .jpg, .gif<br>
+              (Tamaño máximo: 41 Megabytes)<br>
+              <input 
+                type="file" 
+                name="portada" 
+                accept="image/png, .jpeg, .jpg, image/gif" 
+                class="form-group"
+              >
+            </p>
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

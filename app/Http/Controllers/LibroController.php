@@ -8,6 +8,9 @@ use App\Genero;
 use App\Autor;
 use App\Editorial;
 
+use App\Traits\FileUpload;
+use Illuminate\Support\Facades\File;
+
 class LibroController extends Controller
 {
     public function __construct()
@@ -45,6 +48,7 @@ class LibroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    use FileUpload; // Uso el Trait creado
     public function store(Request $request)
     {
         // Valido datos
@@ -73,21 +77,21 @@ class LibroController extends Controller
         $libro = new Libro();
 
         // Handle File Upload
-        // $libro->portada = $request->portada;
-        // if ($libro->portada) {
-        //     try {
-        //         $file = $this->FileUpload($libro->portada);
-        //         $filePath = $file->url;
-        //         $fileExt = $file->ext;
+        $libro->portada = $request->portada;
+        if ($libro->portada) {
+            try {
+                $file = $this->PortadaFileUpload($libro->portada);
+                $filePath = $file->url;
+                $fileExt = $file->ext;
 
-        //         $libro->archivo = $filePath;
-        //     } catch (Exception $e) {
-        //         // mensaje de error
-        //         "error de archivo";
-        //     }
-        // } else {
-        //     $libro->archivo = 'noFile';
-        // }
+                $libro->portada = $filePath;
+            } catch (Exception $e) {
+                // mensaje de error
+                "error de archivo";
+            }
+        } else {
+            $libro->portada = 'noFile';
+        }
 
         $libro->titulo = $request->titulo;
         $libro->autor_id = $request->autor;
@@ -163,18 +167,34 @@ class LibroController extends Controller
     public function update(Request $request, Libro $libro)
     {
          // Valido datos
-         $request->validate([
-            'titulo' => "required|unique:App\Libro,titulo,{$libro->id}",
+        $request->validate([
+            'titulo' => 'required|unique:App\Libro',
+            'isbn' => 'required|unique:App\Libro',
             'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
-            'editorial' => 'required'
+            'editorial' => 'required',
+            'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
 
         //$libro = Libro::findOrFail($id); ya no hace falta
-
-
+        // Handle File Upload
+        if ($request->hasFile('portada')) {
+            try {
+                $file = $this->PortadaFileUpload($request->portada);
+                $filePath = $file->url;
+                $fileExt = $file->ext;
+                
+                if ($novedad->archivo != 'noFile') {
+                    File::delete($novedad->archivo);
+                }
+                $libro->portada = $filePath;
+            } catch (Exception $e) {
+                // mensaje de error
+                "error de archivo";
+            }
+        }
         
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro->titulo = $request->titulo; // asigno en el campo titulo lo que ingrese en el formulario
@@ -196,6 +216,9 @@ class LibroController extends Controller
     public function destroy($id)
     {
         $libro = Libro::findOrFail($id);
+        if ($libro->portada != 'noFile') {
+            File::delete($libro->portada);
+        }
         $libro->delete();
 
         return back()->with('mensaje', 'Libro Eliminado!');

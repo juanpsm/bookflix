@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Novedad; //importante!!
 use App\Traits\FileUpload;
-use Illuminate\Support\Facades\File; 
-
+use Illuminate\Support\Facades\File;
 
 class NovedadController extends Controller
 {
@@ -65,7 +64,7 @@ class NovedadController extends Controller
         $novedad->archivo = $request->archivo;
         if ($novedad->archivo) {
             try {
-                $file = $this->NovedadesFileUpload($novedad->archivo);
+                $file = $this->NovedadFileUpload($novedad->archivo);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
 
@@ -131,7 +130,7 @@ class NovedadController extends Controller
         $request->validate([
             'titulo' => 'required',
             'descripcion' => 'required',
-            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4'
+            'archivo' => 'nullable|mimes:jpeg,png,jpg,gif,mp4|max:41000'
         ]);
 
         $novedad = Novedad::findOrFail($id);

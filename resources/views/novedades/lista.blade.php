@@ -56,7 +56,7 @@
                   @if ($item -> archivo != 'noFile')
                     <img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"> <!--aca deberia mostrar archivo-->
                   @else
-                    {{$item->imagen}}
+                    {{$item->archivo}}
                   @endif
                 @endif
                 </td>
