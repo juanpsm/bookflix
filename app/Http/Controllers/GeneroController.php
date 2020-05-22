@@ -43,8 +43,8 @@ class GeneroController extends Controller
      */
     public function store(Request $request)
     {
-         // Valido datos
-         $request->validate([
+        // Valido datos
+        $request->validate([
             
             'nombre' => ['required', 'unique:generos']
         ]);
@@ -117,6 +117,12 @@ class GeneroController extends Controller
         return back()->with('mensaje', 'Genéro Eliminado!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function showGenero($id)
     {
         return $id;

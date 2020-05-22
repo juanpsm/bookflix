@@ -24,44 +24,63 @@
             </div>
           @endif
           
-          <table class="table">
-  <thead>
-  @foreach ($novedades as $item)
-         <tr>
-           <th scope="col"><img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></th>
-           <th scope="col"><img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></th>
-           <th scope="col"><img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></th>
-           <th scope="col"><img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></th>   
-        </tr>
-   @endforeach
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+              <th scope="col">#</th>
+              <th scope="col">Título</th>
+              <th scope="col">Descripción</th>
+              <th scope="col">Archivo</th>
+              <th scope="col">Publicación</th>
+              <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($novedades as $item)
+              <tr>
+                {{-- ID --}}
+                <th scope="row">{{ $item->id }}</th>
+                {{-- Titulo y link --}}
+                <td>
+                  <a href="{{route('novedades.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                      {{ $item->titulo }}
+                  </a>
+                </td>
+                {{-- Cuerpo --}}
+                <td>{{ $item->descripcion }}</td>
+                {{--aca deberia mostrar imagen/video--}}
+                <td>
+                @if ($item -> es_video)
+                  <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>
+                @else
+                  @if ($item -> archivo != 'noFile')
+                    <img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"> <!--aca deberia mostrar archivo-->
+                  @else
+                    {{$item->imagen}}
+                  @endif
+                @endif
+                </td>
+                {{-- Publicación --}}
+                <td>{{$item->fecha_de_publicacion}}</td>
+                {{-- Acciones --}}
+                <td>
+                  {{-- Edit --}}
+                  <a href="{{route('novedades.edit', $item)}}" class="btn btn-primary btn-sm">
+                    editar
+                  </a>
+                  {{-- Delete --}}
+                  <form action="{{route('novedades.destroy', $item)}}" class="d-inline" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button type="submit" class="btn btn-danger btn-sm">
+                        eliminar
+                      </button>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
           {{$novedades->links()}}
         {{-- fin card body --}}
         </div>

@@ -12,8 +12,10 @@ class LibroController extends Controller
 {
     public function __construct()
     {
-        //agrego los admin, los users se hacen por otro lado
-        $this->middleware('auth:admin');
+        // esto hace que solo un usuario logueado pueda acceder
+        $this->middleware('auth');
+        // y esto hace que solo un admin pueda acceder a estas funciones
+        $this->middleware('auth:admin', ['only' => ['index','show','create', 'store', 'edit', 'delete']]);
     }
     /**
      * Display a listing of the resource.
@@ -52,7 +54,8 @@ class LibroController extends Controller
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
-            'editorial' => 'required'
+            'editorial' => 'required',
+            'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
         
         //esto mismo se puede resolver con un simple unique
@@ -67,8 +70,25 @@ class LibroController extends Controller
         
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro = new Libro();
+
+        // Handle File Upload
+        // $libro->portada = $request->portada;
+        // if ($libro->portada) {
+        //     try {
+        //         $file = $this->FileUpload($libro->portada);
+        //         $filePath = $file->url;
+        //         $fileExt = $file->ext;
+
+        //         $libro->archivo = $filePath;
+        //     } catch (Exception $e) {
+        //         // mensaje de error
+        //         "error de archivo";
+        //     }
+        // } else {
+        //     $libro->archivo = 'noFile';
+        // }
+
         $libro->titulo = $request->titulo;
-        $libro->portada = "";
         $libro->autor_id = $request->autor;
         $libro->editorial_id = $request->editorial;
         $libro->isbn = $request->isbn;
