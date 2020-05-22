@@ -51,6 +51,11 @@
                                     @endforeach
                                 </div>  
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{route('novedades.showNovedad')}}">
+                                    Novedades
+                                </a>
+                            </li>
                             @endif
                         </ul>
 

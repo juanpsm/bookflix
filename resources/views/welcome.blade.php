@@ -34,10 +34,45 @@
                     Bookflix
                 </div>
 
-                <div class="links">
+                {{-- <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
 
-                </div>
+                </div> --}}
+
+                <main role="main">
+
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <h3>Los más Leídos</h3>
+                        <ol class="carousel-indicators">
+
+
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" >
+                                <div class="carrusel">
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/hp6.jpg" alt="" class="" >
+                                    </a>
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/anne.jpg" alt="" class="" >
+                                    </a>
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/connection.jpg" alt="" class="" >
+                                    </a>
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/hobbit.jpg" alt="" class="" >
+                                    </a>
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/robot.jpg" alt="" class="" >
+                                    </a>
+                                    <a class="" href="#">
+                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/euclides.jpg" alt="" class="" >
+                                    </a>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </main>
             </div>
         </div>
     </body>

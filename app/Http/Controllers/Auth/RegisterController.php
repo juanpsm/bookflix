@@ -124,7 +124,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request['password']),
         ]);
         //return redirect()->intended('login/admin');
-        return back()->with('mensaje', 'Admin Creado!');
+        return redirect()->route('admin')->with('mensaje', 'Admin Creado!');
     }
 
     // Y otros...

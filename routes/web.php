@@ -28,7 +28,7 @@ Route::post('/login/admin', 'Auth\LoginController@adminLogin')->name('login/admi
 Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('register/admin');
 
 //Route::view('/home', 'home')->middleware('auth'); //mejor uso el controlador de arriba, es lo mismo
-Route::view('/admin', 'admin')->middleware('auth:admin'); //esto hace que solo los admin puedan acceder
+Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin'); //esto hace que solo los admin puedan acceder
 //Route::view('/writer', 'writer')->middleware('auth:writer');; //si quisiera otro tipo de usuario
 
 Route::resource('tarjetas', 'TarjetaController');
@@ -73,3 +73,4 @@ Route::get('/session/set','SessionController@storeSessionData');
 Route::get('/session/remove','SessionController@deleteSessionData');
 
 Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');
+Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showNovedad');
