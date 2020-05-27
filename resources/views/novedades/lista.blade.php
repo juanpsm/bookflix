@@ -69,7 +69,8 @@
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('novedades.destroy', $item)}}" class="d-inline" method="POST">
+                  <form action="{{route('novedades.destroy', $item)}}" class="d-inline" method="POST"
+                  onclick="return confirm('Estas seguro que queres eliminar la novedad?')">
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">
