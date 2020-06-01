@@ -74,3 +74,6 @@ Route::get('/session/remove','SessionController@deleteSessionData');
 
 Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');
 Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showNovedad');
+
+//trailer:
+Route::resource('trailers', 'TrailerController');
