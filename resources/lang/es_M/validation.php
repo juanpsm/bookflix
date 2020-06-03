@@ -134,7 +134,7 @@ return [
             'rule-name' => 'custom-message',
         ],
         'password' => [
-            'min' => 'La :attribute debe contener más de :min caracteres',
+            'min' => 'La :attribute debe contener :min o más caracteres',
         ],
         'email' => [
             'unique' => 'El :attribute ya ha sido registrado.',
