@@ -38,8 +38,6 @@
                                                                 <div class="sliderContent row-with-x-columns"
                                                                     style="-webkit-transform: ;-ms-transform: ;transform: ">
                                                                     @foreach ($libros as $libro)
-                                                                        
-                                                                    
                                                                     <div class="slider-item slider-item-0">
                                                                         <div class="title-card-container">
                                                                             <div id="title-card-0-0"
@@ -48,7 +46,7 @@
                                                                                 <div class="ptrack-content"
                                                                                     data-ui-tracking-context="%7B%22list_id%22:%22unknown%22,%22location%22:%22browseTitles%22,%22rank%22:0,%22request_id%22:%221be953f0-97a8-4c21-8641-91f247f27cdc-24613852%22,%22row%22:0,%22track_id%22:1,%22video_id%22:70028883,%22image_key%22:%22sdp%7C00e92cd1-5f82-11ea-a25f-0a79fb844809%7Ces%7Cmpr%22,%22supp_video_id%22:1,%22lolomo_id%22:%22unknown%22,%22maturityMisMatchEdgy%22:false,%22maturityMisMatchNonEdgy%22:false,%22appView%22:%22boxArt%22,%22usePresentedEvent%22:true%7D"
                                                                                     data-tracking-uuid="06822a5d-aa63-46e2-a1c2-4119c7d50cbb">
-                                                                                    <a href="#"
+                                                                                    <a href="{{url("libros/user/{$libro->id}")}}"
                                                                                         role="link"
                                                                                         aria-label="El increíble castillo vagabundo"
                                                                                         tabindex="0" aria-hidden="false"

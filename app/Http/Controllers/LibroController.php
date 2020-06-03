@@ -223,4 +223,30 @@ class LibroController extends Controller
 
         return back()->with('mensaje', 'Libro Eliminado!');
     }
+
+    public function showForUser(Libro $libro) {
+        return view('libros.libro', [
+            'libro' => $libro,
+            'isFavorite' => auth()->user()
+                ->librosFavoritos()
+                ->where('libro_id', $libro->id)
+                ->exists()
+        ]);
+    }
+
+    public function toggleFavorite(Libro $libro) {
+        auth()->user()->librosFavoritos()->toggle([$libro->id]);
+
+        return back();
+    }
+
+    public function search(Request $request) {
+        if ($query = $request->input('q')) {
+            return Libro::where('titulo', 'LIKE', "%{$query}%")
+                ->orderBy('titulo')
+                ->limit($request->input('limit') ?? 8)
+                ->get();
+        }
+        return Libro::all();
+    }
 }

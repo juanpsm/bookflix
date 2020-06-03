@@ -61,4 +61,12 @@ class User extends Authenticatable
         // Y tambien encadenar condiciones, por ej
         // $perfil = App\Post::find(1)->perfiles()->where('name', 'foo')->first();
     }
+
+    public function librosLeidos() {
+        return $this->belongsToMany(Libro::class, 'libros_leidos');
+    }
+
+    public function librosFavoritos() {
+        return $this->belongsToMany(Libro::class, 'libros_favoritos');
+    }
 }

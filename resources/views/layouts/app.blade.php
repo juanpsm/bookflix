@@ -10,7 +10,8 @@
         <title>{{ config('app.name', 'Bookflix') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/bootstrap-typeahead.min.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -40,13 +41,12 @@
                                 </a>
                             </li>
                             
-                            @if(Request::is('home') )
                             <li class="nav-item dropdown">
                                 <a id="navbarGenero" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     Generos
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    @foreach($generos as $genero)
+                                    @foreach(\App\Genero::all() as $genero)
                                         <a class="dropdown-item" href="{{route('generos.showGenero', $genero->id)}}">{{ $genero->nombre }}</a>
                                     @endforeach
                                 </div>  
@@ -56,11 +56,46 @@
                                     Novedades
                                 </a>
                             </li>
-                            @endif
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{route('libros_leidos.index')}}">
+                                    Libros leidos
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{route('libros_favoritos.index')}}">
+                                    Libros favoritos
+                                </a>
+                            </li>
                         </ul>
-
+                        <div class="navbar-nav">
+                            <input id="searchBook" class="form-control form-control-sm">
+                            <script>
+                            $(document).ready(function() {
+                                $('#searchBook').typeahead({
+                                    minLength: 1,
+                                    delay: 400,
+                                    autoSelect: false,
+                                    source(query, process) {
+                                        $.ajax({
+                                            url: '{{ url("libros/user/search") }}',
+                                            data: {q: query, limit: 8},
+                                            dataType: 'json'
+                                        })
+                                        .done(function(response) {
+                                            return process(response);
+                                        });
+                                    },
+                                    displayText: (item) => item.titulo,
+                                    matcher() { return true },
+                                    afterSelect(item) {
+                                        location.href = `{{url('libros/user')}}/${item.id}`
+                                    }
+                                });
+                            });
+                            </script>
+                        </div>
                         <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ml-auto">
+                        <ul class="navbar-nav">
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">

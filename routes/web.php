@@ -63,6 +63,11 @@ Route::resource('autores', 'AutorController');
 
 //libro:
 Route::resource('libros', 'LibroController');
+Route::get('libros/user/search', 'LibroController@search');
+Route::get('libros/user/{libro}', 'LibroController@showForUser');
+Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
+
+
 
 //novedad:
 Route::resource('novedades', 'NovedadController');
@@ -77,3 +82,6 @@ Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showN
 
 //trailer:
 Route::resource('trailers', 'TrailerController');
+
+Route::resource('libros_leidos', 'LibrosLeidosController');
+Route::resource('libros_favoritos', 'LibrosFavoritosController');

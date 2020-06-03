@@ -28,4 +28,12 @@ class Libro extends Model
     public function editorial (){
         return $this->belongsTo(Editorial::class);
     }
+
+    public function lectores() {
+        return $this->belongsToMany(User::class, 'libros_leidos');
+    }
+
+    public function usuariosFavorito() {
+        return $this->belongsToMany(User::class, 'libros_favoritos');
+    }
 }
