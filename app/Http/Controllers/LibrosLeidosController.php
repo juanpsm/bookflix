@@ -10,7 +10,7 @@ class LibrosLeidosController extends Controller {
     public function index() {
         $user = auth()->user();
         $data = [
-            'leidos' => $user->librosLeidos
+            'leidos' => $this->perfil()->librosLeidos
         ];
 
         return view('libros_leidos.index', $data);

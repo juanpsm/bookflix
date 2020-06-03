@@ -15,7 +15,7 @@ class CreateLibrosFavoritosTable extends Migration
     {
         Schema::create('libros_favoritos', function (Blueprint $table) {
             $table->integer('libro_id');
-            $table->integer('user_id');
+            $table->integer('perfil_id');
         });
     }
 

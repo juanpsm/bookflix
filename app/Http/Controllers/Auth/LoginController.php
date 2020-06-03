@@ -34,7 +34,7 @@ class LoginController extends Controller
      */
     // protected $redirectTo = RouteServiceProvider::HOME;
     // intento cambiar la redireccion por defecto a home
-    public function redirectTo()
+    protected function redirectTo()
     {   
         $usuarioId = auth()->user()->id;
         $perfiles = Perfil::where('user_id', $usuarioId)->get();

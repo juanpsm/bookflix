@@ -227,11 +227,11 @@ class LibroController extends Controller
     public function showForUser(Libro $libro) {
         return view('libros.libro', [
             'libro' => $libro,
-            'isFavorite' => auth()->user()
+            'isFavorite' => $this->perfil()
                 ->librosFavoritos()
                 ->where('libro_id', $libro->id)
                 ->exists(),
-            'isInMyList' => session('perfil')
+            'isInMyList' => $this->perfil()
              ->librosMiLista()
              ->where('libro_id', $libro->id)
              ->exists()    
@@ -239,12 +239,12 @@ class LibroController extends Controller
     }
 
     public function toggleFavorite(Libro $libro) {
-        auth()->user()->librosFavoritos()->toggle([$libro->id]);
+        $this->perfil()->librosFavoritos()->toggle([$libro->id]);
 
         return back();
     }
     public function toggleMyList(Libro $libro) {
-        session('perfil')->librosMiLista()->toggle([$libro->id]);
+        $this->perfil()->librosMiLista()->toggle([$libro->id]);
 
         return back();
     }

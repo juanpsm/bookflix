@@ -6,16 +6,16 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>{{$libro -> titulo}}</span>
+          <span class="mr-auto">{{$libro -> titulo}}</span>
           @if($isFavorite)
             <a href="{{url("libros/user/{$libro->id}/toggle_favorite")}}" class="btn btn-warning btn-sm">Desmarcar favorito</a>
           @else
             <a href="{{url("libros/user/{$libro->id}/toggle_favorite")}}" class="btn btn-secondary btn-sm">Marcar favorito</a>
           @endif
           @if($isInMyList)
-            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-warning btn-sm">Quitar de Mi Lista</a>
+            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-primary btn-sm ml-2">Quitar de Mi Lista</a>
           @else
-            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-secondary btn-sm">Agregar a Mi Lista</a>
+            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-secondary btn-sm ml-2">Agregar a Mi Lista</a>
           @endif
         </div>
         <div class="card-body">

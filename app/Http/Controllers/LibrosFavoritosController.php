@@ -10,7 +10,7 @@ class LibrosFavoritosController extends Controller {
     public function index() {
         $user = auth()->user();
         $data = [
-            'favoritos' => $user->librosFavoritos
+            'favoritos' => $this->perfil()->librosFavoritos
         ];
 
         return view('libros_favoritos.index', $data);
