@@ -164,6 +164,7 @@ class NovedadController extends Controller
 
         $novedad->titulo = $request->titulo;
         $novedad->descripcion = $request->descripcion;
+        $novedad->fecha_de_publicacion = $request->input('fecha_de_publicacion');
 
         $novedad->save();
 

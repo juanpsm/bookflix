@@ -71,7 +71,7 @@
               <input type="datetime-local"
                 id='pub'
                 name="fecha_de_publicacion" value="{{date('Y-m-d\TH:i:s', strtotime($novedad->fecha_de_publicacion))}}"
-                min="{{date('Y-m-d\TH:i:s', strtotime($novedad->fecha_de_publicacion))}}" {{--para que no pongan fechas pasadas--}}
+                {{--min="{{date('Y-m-d\TH:i:s', strtotime($novedad->fecha_de_publicacion))}}" para que no pongan fechas pasadas--}}
                 max="2038-01-19T03:14:07" {{--es el máximo que admite SQL--}}
               >
             </p>
