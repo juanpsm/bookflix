@@ -66,6 +66,7 @@ Route::resource('libros', 'LibroController');
 Route::get('libros/user/search', 'LibroController@search');
 Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
+Route::get('libros/user/{libro}/toggleMyList', 'LibroController@toggleMyList');
 
 
 
@@ -82,6 +83,9 @@ Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showN
 
 //trailer:
 Route::resource('trailers', 'TrailerController');
-
+//historial
 Route::resource('libros_leidos', 'LibrosLeidosController');
+//favoritos
 Route::resource('libros_favoritos', 'LibrosFavoritosController');
+//miLista
+Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi
