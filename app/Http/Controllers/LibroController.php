@@ -230,12 +230,21 @@ class LibroController extends Controller
             'isFavorite' => auth()->user()
                 ->librosFavoritos()
                 ->where('libro_id', $libro->id)
-                ->exists()
+                ->exists(),
+            'isInMyList' => session('perfil')
+             ->librosMiLista()
+             ->where('libro_id', $libro->id)
+             ->exists()    
         ]);
     }
 
     public function toggleFavorite(Libro $libro) {
         auth()->user()->librosFavoritos()->toggle([$libro->id]);
+
+        return back();
+    }
+    public function toggleMyList(Libro $libro) {
+        session('perfil')->librosMiLista()->toggle([$libro->id]);
 
         return back();
     }

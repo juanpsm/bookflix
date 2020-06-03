@@ -12,6 +12,11 @@
           @else
             <a href="{{url("libros/user/{$libro->id}/toggle_favorite")}}" class="btn btn-secondary btn-sm">Marcar favorito</a>
           @endif
+          @if($isInMyList)
+            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-warning btn-sm">Quitar de Mi Lista</a>
+          @else
+            <a href="{{url("libros/user/{$libro->id}/toggleMyList")}}" class="btn btn-secondary btn-sm">Agregar a Mi Lista</a>
+          @endif
         </div>
         <div class="card-body">
         <h4>Autor: {{$libro -> autor -> nombre}} </h4>

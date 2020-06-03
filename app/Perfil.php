@@ -17,4 +17,8 @@ class Perfil extends Authenticatable
     public function user(){
         return $this->belongsTo(User::class); //Pertenece a un Usuario.
     }
+
+    public function librosMiLista() {
+        return $this->belongsToMany(Libro::class, 'libros_miLista');
+    }
 }

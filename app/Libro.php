@@ -36,4 +36,8 @@ class Libro extends Model
     public function usuariosFavorito() {
         return $this->belongsToMany(User::class, 'libros_favoritos');
     }
+
+    public function perfilesMiLista(){
+        return $this->belongsToMany(Perfil::class, 'libros_miLista'); //libros_perfil asi se llama en la bd
+    }
 }
