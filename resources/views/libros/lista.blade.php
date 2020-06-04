@@ -81,7 +81,8 @@
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('libros.destroy', $item)}}" class="d-inline" method="POST">
+                  <form action="{{route('libros.destroy', $item)}}" class="d-inline" method="POST"
+                  onclick="return confirm('Estas seguro que queres eliminar el libro?')">
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">
