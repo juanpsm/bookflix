@@ -117,7 +117,7 @@ class PerfilController extends Controller
     {
         // Valido datos
         $request->validate([
-            'nombre' => 'required'
+            'nombre' => "required|unique:App\Perfil,nombre,$id"
         ]);
 
         $perfil = Perfil::findOrFail($id);

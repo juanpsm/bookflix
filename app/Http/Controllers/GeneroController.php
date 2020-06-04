@@ -96,7 +96,7 @@ class GeneroController extends Controller
         // Valido datos
         $request->validate([
             'nombre' => "required|unique:App\Genero,nombre,{$genero->id}"
-        ]);;
+        ]);
 
         $genero->nombre = $request->nombre;
         //$tarjeta->user_id = auth()->user()->id;
