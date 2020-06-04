@@ -28,6 +28,20 @@
                             <div class="gallery row-with-x-columns">
                                 <div></div>
                                 <div class="galleryContent">
+                                    @if ($libros->isEmpty())
+                                        {{-- Otras formas de ver esta collecciones
+                                        {{var_dump($libros)}}
+                                        <br>
+                                        {{$libros->first()}}
+                                        <br>
+                                        {{!$libros->isEmpty()}}
+                                        <br>
+                                        {{$libros->count()}}
+                                        <br>
+                                        {{count($libros)}}
+                                        <br> --}}
+                                        Por el momento no hay libros de éste género.
+                                    @else
                                     <div>
                                         <div class="galleryLockups">
                                             <div class="rowContainer rowContainer_title_card" id="row-0">
@@ -88,9 +102,9 @@
                                                     </div><span class="jawBoneContent"></span>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>

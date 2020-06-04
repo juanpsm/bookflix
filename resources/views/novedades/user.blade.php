@@ -20,6 +20,10 @@
             </div>
           @endif
           
+          @if ($novedades -> isEmpty())
+                  {{--otra forma es $novedades -> total() == 0 --}}
+                  No hay novedades que mostrar por el momento.
+          @else
           <table class="table table-striped table-hover">
             <thead>
               <tr>
@@ -40,7 +44,7 @@
                 </td>
                 {{-- Cuerpo --}}
                 <td>{{ $item->descripcion }}</td>
-                {{--aca deberia mostrar imagen/video--}}
+                {{-- imagen/video--}}
                 <td>
                 @if ($item -> es_video)
                   <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>
@@ -61,6 +65,7 @@
           </table>
           {{$novedades->links()}}
         {{-- fin card body --}}
+        @endif
         </div>
       </div>
     </div>
