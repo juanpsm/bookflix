@@ -10,14 +10,13 @@
           <a href="{{route('trailers.index')}}" class="btn btn-primary btn-sm">Volver</a>
         </div>
         <div class="card-body">
-           <h4>Título: {{$trailer -> titulo}} </h4>
-           <!--no se si se deberia mostrar asi el pdf-->
-           @if ($item -> es_pdf)
-                  <a style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}"></a>
-               
-             @endif
-        
-
+          <h4>Título: {{$trailer -> titulo}} </h4>
+          <!--no se si se deberia mostrar asi el pdf-->
+          <a href="{{route('trailers.showTrailerAdmin',$trailer)}}">
+            <img style="height: 600px; border-radius: 10%;"
+              data-pdf-thumbnail-file="{{url($trailer -> pdf)}}" 
+              src="js\pdfThumbnails\pdf.png">
+          </a>
         </div>
       </div>
     </div>

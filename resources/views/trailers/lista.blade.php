@@ -36,27 +36,29 @@
             <tbody>
               @foreach ($trailers as $item)
               <tr>
-                
                 <td>
                   <a href="{{route('trailers.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                       {{ $item->titulo }}
                   </a>
                 </td>
                 {{-- no se si es correcto poner la etiqueta "a",cuando era una imagen usaba <image..> pero creo que
-                    no existe la etiqueta pdf--}} 
-                
-                     @if ($item -> es_pdf)
-                         <a style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}"></a>
-               
-                     @endif
-                
-                
-   
+                    no existe la etiqueta pdf
+                <img style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}">
+                <iframe src="{{url($item -> pdf)}}#toolbar=0&navpanes=0&scrollbar=0" width="50" height="100"></iframe>
+                --}}
+                <td>
+                  <a href="{{route('trailers.show',$item)}}">
+                    <img style="height: 150px; border-radius: 10%;"
+                      data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
+                      src="js\pdfThumbnails\pdf.png">
+                  </a>
+                </td>
+
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}
                   <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
-                    Editar Tráiler
+                    editar
                   </a>
                   {{-- Delete --}}
                   <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
@@ -64,7 +66,7 @@
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">
-                        Eliminar Tráiler
+                        eliminar
                       </button>
                   </form>
                 </td>

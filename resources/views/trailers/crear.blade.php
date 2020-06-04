@@ -19,9 +19,6 @@
             </div>
           @enderror
 
-         
-        
-
           {{--Exito--}}    
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -43,24 +40,23 @@
               class="form-control mb-2"
               value="{{old('titulo')}}"
             />
-           
+
             <!-- este es el input del pdf:-->
-            
-              <input 
-                type="file" 
-                name="pdf" 
-                accept="application/pdf,application/vnd.ms-excel" 
-                class="form-group"
-              >
-            </p>
+            <input 
+              type="file" 
+              name="pdf" 
+              accept="application/pdf,application/vnd.ms-excel" 
+              class="form-group"
+            >
+
             <div class="text-right"> 
               <a href="{{route('trailers.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
-              Agregar Trailer
-            </button>
-          </div>
+                Agregar Trailer
+              </button>
+            </div>
           </form>
         </div>
       </div>

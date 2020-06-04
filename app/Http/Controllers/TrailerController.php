@@ -12,8 +12,6 @@ class TrailerController extends Controller
 
     public function __construct()
     {
-        
-        
         $this->middleware('auth', ['only' => ['showTrailer']]);
         $this->middleware('auth:admin', ['except' => ['showTrailer']]);
     }
@@ -45,12 +43,12 @@ class TrailerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    use FileUpload;
     public function store(Request $request)
     {
         $request->validate([
             'titulo' => 'required',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
-            
         ]);
 
         // Create Post
@@ -63,13 +61,6 @@ class TrailerController extends Controller
                 $file = $this->TrailerFileUpload($trailer->pdf);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
-
-                if (in_array($fileExt, array('pdf'))) {
-                    $trailer->es_pdf = true;
-                } else {
-                    $trailer->es_pdf = false;
-                }
-
                 $trailer->pdf = $filePath;
             } catch (Exception $e) {
                 // mensaje de error
@@ -80,9 +71,7 @@ class TrailerController extends Controller
         }
 
         $trailer->titulo = $request->input('titulo');
-        $trailer->pdf = $request->input('pdf');
-
-        $novedad->save();
+        $trailer->save();
     
         return redirect()->route('trailers.index')->with('mensaje', 'Trailer Creado!');
     }
@@ -121,8 +110,8 @@ class TrailerController extends Controller
      */
     public function update(Request $request, $id)
     {
-         // Valido datos
-         $request->validate([
+        // Valido datos
+        $request->validate([
             'titulo' => 'required',
             'pdf' => 'required|mimes:pdf|max:10000'
         ]);
@@ -156,12 +145,8 @@ class TrailerController extends Controller
         }
 
         $trailer->titulo = $request->titulo;
-         $trailer->pdf = $request->input('pdf');
-
         $trailer->save();
 
-        //if($request->hasFile('archivo')){
-        
         return redirect()->route('trailers.index')->with('mensaje', 'Trailer Actualizado!');
     }
 
@@ -181,16 +166,20 @@ class TrailerController extends Controller
 
         return back()->with('mensaje', 'Trailer Eliminado!');
     }
-     /**
+
+    /**
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showTrailer()
+    public function showTrailer($id) //para Usuarios
     {
-        //no se que deberia tener esta funcion ,estaba ordenada la paginacion por fecha de publicacion
-        //cosa que no tenemos
-        //$trailers = Trailer::
-        //return view('trailers.user', compact('trailers'));
+        $trailer = Trailer::findOrFail($id);
+        return view('trailers.mostrarPDFuser', compact('trailer'));
+    }
+    public function showTrailerAdmin($id) //para Admin
+    {
+        $trailer = Trailer::findOrFail($id);
+        return view('trailers.mostrarPDFadmin', compact('trailer'));
     }
 }

@@ -19,8 +19,6 @@
           </div>
           @enderror
 
-        
-
           {{--Exito--}}
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -44,10 +42,9 @@
               class="form-control mb-2"
               value="{{$trailer->titulo }}" 
             /> 
-           
-            <!-- este es el input del pdf:-->
             
-              <input 
+            <!-- este es el input del pdf:-->
+            <input 
               type="file" 
               name="pdf" 
               accept="application/pdf,application/vnd.ms-excel"

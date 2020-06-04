@@ -73,24 +73,26 @@ Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
 Route::get('libros/user/{libro}/toggleMyList', 'LibroController@toggleMyList');
 
-
-
 //novedad:
 Route::resource('novedades', 'NovedadController');
+Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');
+Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showNovedad');
 
 // Session (test)
 Route::get('/session/get','SessionController@getSessionData')->name('session.get');
 Route::get('/session/set','SessionController@storeSessionData');
 Route::get('/session/remove','SessionController@deleteSessionData');
 
-Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');
-Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showNovedad');
-
 //trailer:
 Route::resource('trailers', 'TrailerController');
+Route::get('showTrailer/{id}','TrailerController@showTrailer')->name('trailers.showTrailer');
+Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
+
 //historial
 Route::resource('libros_leidos', 'LibrosLeidosController');
+
 //favoritos
 Route::resource('libros_favoritos', 'LibrosFavoritosController');
+
 //miLista
 Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi

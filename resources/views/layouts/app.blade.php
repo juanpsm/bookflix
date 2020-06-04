@@ -12,6 +12,9 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/bootstrap-typeahead.min.js') }}"></script>
+        {{--<script src="{{ asset('js/pdfThumbnails/pdfjs/build/pdf.js') }}"></script>--}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.js"></script>
+        <script src="{{ asset('js/pdfThumbnails/pdfThumbnails.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -21,7 +24,7 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/nuestro.css') }}" rel="stylesheet">
     </head>
-    <body>
+    <body oncontextmenu="return false;">
         <div id="app">
             @if(Auth::check() && session('perfil'))
                 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
