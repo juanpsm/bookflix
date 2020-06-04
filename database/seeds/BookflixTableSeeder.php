@@ -8,6 +8,7 @@ use App\Autor;
 use App\Editorial;
 use App\Genero;
 use App\Libro;
+use App\Novedad;
 use Carbon\Carbon;
 
 class BookflixTableSeeder extends Seeder
@@ -151,7 +152,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #1
         $libro = new Libro();
         $libro->titulo = "Harry Potter y el Príncipe Mestizo";
-        $libro->portada = "image/portadas/hp6.jpg";
+        $libro->portada = "image/seeds/portadas/hp6.jpg";
         $libro->isbn = "9781234567897";
         $libro->autor_id = 4;
         $libro->editorial_id = 1;
@@ -164,7 +165,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #2
         $libro = new Libro();
         $libro->titulo = "Diario de una Jovencita";
-        $libro->portada = "image/portadas/anne.jpg";
+        $libro->portada = "image/seeds/portadas/anne.jpg";
         $libro->isbn = "97854654654697";
         $libro->autor_id = 2;
         $libro->editorial_id = 2;
@@ -177,7 +178,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #3
         $libro = new Libro();
         $libro->titulo = "El Hobbit";
-        $libro->portada = "image/portadas/hobbit.jpg";
+        $libro->portada = "image/seeds/portadas/hobbit.jpg";
         $libro->isbn = "9781234567897";
         $libro->autor_id = 1;
         $libro->editorial_id = 2;
@@ -190,7 +191,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #4
         $libro = new Libro();
         $libro->titulo = "The Connections In Our Brain";
-        $libro->portada = "image/portadas/connection.jpg";
+        $libro->portada = "image/seeds/portadas/connection.jpg";
         $libro->isbn = "88788894567897";
         $libro->autor_id = 5;
         $libro->editorial_id = 4;
@@ -203,7 +204,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #5
         $libro = new Libro();
         $libro->titulo = "Yo, robot";
-        $libro->portada = "image/portadas/robot.jpg";
+        $libro->portada = "image/seeds/portadas/robot.jpg";
         $libro->isbn = "69635567897";
         $libro->autor_id = 6;
         $libro->editorial_id = 3;
@@ -216,7 +217,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #6
         $libro = new Libro();
         $libro->titulo = "Elementos";
-        $libro->portada = "image/portadas/euclides.jpg";
+        $libro->portada = "image/seeds/portadas/euclides.jpg";
         $libro->isbn = "1321534131351";
         $libro->autor_id = 4;
         $libro->editorial_id = 4;
@@ -225,8 +226,24 @@ class BookflixTableSeeder extends Seeder
         $libro->save();
 
         $libro->generos()->attach([7]); //Relacionar el libro a dos etiquetas
-
         
+        // Novedades
+        $novedad = new Novedad();
+        $novedad->titulo = "Novedad sin archivo";
+        $novedad->descripcion = "Una novedad sin archivo";
+        $novedad->save();
+
+        $novedad = new Novedad();
+        $novedad->titulo = "Novedad con imagen";
+        $novedad->archivo = "image/seeds/novedades/edward.jpg";
+        $novedad->descripcion = "Una novedad con archivo de imagen";
+        $novedad->save();
+
+        $novedad = new Novedad();
+        $novedad->titulo = "Novedad con video";
+        $novedad->archivo = "image/seeds/novedades/video_earth.mp4";
+        $novedad->descripcion = "Una novedad con archivo de video";
+        $novedad->save();
         
 
         //factory(User::class, 5)->create();
