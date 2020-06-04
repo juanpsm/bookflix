@@ -30,11 +30,11 @@ class Libro extends Model
     }
 
     public function lectores() {
-        return $this->belongsToMany(User::class, 'libros_leidos');
+        return $this->belongsToMany(Perfil::class, 'libros_leidos');
     }
 
     public function usuariosFavorito() {
-        return $this->belongsToMany(User::class, 'libros_favoritos');
+        return $this->belongsToMany(Perfil::class, 'libros_favoritos');
     }
 
     public function perfilesMiLista(){

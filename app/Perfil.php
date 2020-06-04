@@ -21,4 +21,12 @@ class Perfil extends Authenticatable
     public function librosMiLista() {
         return $this->belongsToMany(Libro::class, 'libros_miLista');
     }
+
+    public function librosLeidos() {
+        return $this->belongsToMany(Libro::class, 'libros_leidos');
+    }
+
+    public function librosFavoritos() {
+        return $this->belongsToMany(Libro::class, 'libros_favoritos');
+    }
 }
