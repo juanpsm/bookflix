@@ -103,16 +103,7 @@
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav">
                                 <!-- Authentication Links -->
-                                @guest
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                        </li>
-                                    @endif
-                                @else
+                                @auth
                                     @if(Request::is('*admin*'))
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ __('Hi') }}, {{ Auth::user()->name }}! <span class="caret"></span>
@@ -129,6 +120,9 @@
                                             {{--<a class="dropdown-item" href="{{ route('tarjetas.index') }}">
                                                 Tarjetas
                                             </a>--}}
+                                            <a class="dropdown-item" href="{{ route('seleccionar_perfil') }}">
+                                                Cambiar perfil
+                                            </a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
@@ -140,7 +134,7 @@
                                             </form>
                                         </div>
                                     </li>
-                                @endguest
+                                @endauth
                             </ul>
                         </div>
                     </div>

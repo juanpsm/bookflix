@@ -113,8 +113,12 @@ class GeneroController extends Controller
      */
     public function destroy($id)
     {
-        
         $genero = Genero::findOrFail($id);
+
+        if ($genero->libros()->count() > 0) {
+            return back()->with('mensaje', 'Este genero esta en uso');
+        }
+
         $genero->delete();
 
         return back()->with('mensaje', 'Genéro Eliminado!');

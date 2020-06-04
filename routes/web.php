@@ -31,6 +31,11 @@ Route::post('/register/admin', 'Auth\RegisterController@createAdmin')->name('reg
 Route::view('/admin', 'admin')->middleware('auth:admin')->name('admin'); //esto hace que solo los admin puedan acceder
 //Route::view('/writer', 'writer')->middleware('auth:writer');; //si quisiera otro tipo de usuario
 
+Route::get('/admin/admins', "AdminsController@index")->middleware('auth:admin');
+Route::get('/admin/admins/{admin}', "AdminsController@show")->middleware('auth:admin');
+Route::delete('/admin/admins/{admin}', "AdminsController@destroy")->middleware('auth:admin');
+
+
 Route::resource('tarjetas', 'TarjetaController');
 // el recurso genera todas estas rutas
 // por ejemplo con

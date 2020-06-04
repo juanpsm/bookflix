@@ -112,6 +112,10 @@ class AutorController extends Controller
     public function destroy($id)
     {
         $autor = Autor::findOrFail($id);
+        if ($autor->libros()->count() > 0) {
+            return back()->with('mensaje', 'Este autor esta en uso');
+        }
+
         $autor->delete();
 
         return back()->with('mensaje', 'Autor Eliminado!');

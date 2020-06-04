@@ -111,6 +111,11 @@ class EditorialController extends Controller
     public function destroy($id)
     {
         $editorial = Editorial::findOrFail($id);
+        
+        if ($editorial->libros()->count() > 0) {
+            return back()->with('mensaje', 'Esta editorial esta en uso');
+        }
+
         $editorial->delete();
 
         return back()->with('mensaje', 'Editorial Eliminado!');
