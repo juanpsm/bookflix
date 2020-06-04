@@ -29,7 +29,6 @@
               <tr>
               <th scope="col">#</th>
               <th scope="col">Nombre</th>
-              <th scope="col">DNI</th>
               <th scope="col">Email</th>
               </tr>
             </thead>
@@ -45,16 +44,14 @@
                   </a>
                 </td>
                 <td>
-                  {{ $item->dni }}
-                </td>
-                <td>
                   {{ $item->email }}
                 </td>
                 {{-- Acciones --}}
                 <td>
+                  {{-- COmento el editar porque no tenemos
                   <a href="{{url("admin/admins/{$item->id}/editar")}}" class="btn btn-primary btn-sm">
                     editar
-                  </a>
+                  </a>--}}
                   <form action="{{url("admin/admins/{$item->id}")}}" class="d-inline" method="POST"
                     onclick="return confirm('Estas seguro que queres eliminar el administrador?')">
                       @method('DELETE')
