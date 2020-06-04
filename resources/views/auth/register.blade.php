@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 {{-- idem login --}}
-                <div class="card-header"> {{ __('Register') }} {{ isset($url) ? ucwords($url) : ""}}</div>
+                <div class="card-header"> {{ isset($url) ? 'Registrar un '.ucwords($url) : __('Register')}}</div>
                 <div class="card-body">
                     @isset($url)
                     <form method="POST" action='{{ url("register/$url") }}' aria-label="{{ __('Register') }}">
@@ -105,7 +105,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ isset($url) ? "Registrar ".$url : __('Register')}}
                                 </button>
                             </div>
                         </div>
