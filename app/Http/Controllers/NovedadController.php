@@ -140,7 +140,7 @@ class NovedadController extends Controller
 
         if ($request->hasFile('archivo')) {
             try {
-                $file = $this->NovedadesFileUpload($request->archivo);
+                $file = $this->NovedadFileUpload($request->archivo);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
 
