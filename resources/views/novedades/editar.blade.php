@@ -91,7 +91,7 @@
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
-                Editar
+                Guardar
               </button>
             </div>
           </form>
