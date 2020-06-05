@@ -9,6 +9,8 @@ use App\Editorial;
 use App\Genero;
 use App\Libro;
 use App\Novedad;
+use App\Trailer;
+use App\Capitulo;
 use Carbon\Carbon;
 
 class BookflixTableSeeder extends Seeder
@@ -21,13 +23,11 @@ class BookflixTableSeeder extends Seeder
     public function run()
     {
 
-        // DB::table('users')->insert([
-        //     'name' => Str::random(10),
-        //     'email' => Str::random(10).'@gmail.com',
-        //     'password' => bcrypt('password'),
-        // ]);
+    //Usuarios
     //User::truncate(); // Evita duplicar datos
     //Perfil::truncate();
+
+        // Estandar
         DB::table('users')->insert([
             'name' => 'Usuario Estandar',
             'dni' => '11222333',
@@ -36,12 +36,13 @@ class BookflixTableSeeder extends Seeder
             'es_premium' => false,
             'password' => bcrypt('123456'),
         ]);
-                // Perfiles para este user
+            // Perfiles para este user
                 DB::table('perfiles')->insert([
                     'nombre' => 'Estandar1',
                     'user_id' => 1, // Relación con usuario
                 ]);
 
+        // Premium
         DB::table('users')->insert([
             'name' => 'Usuario Premium',
             'dni' => '22333444',
@@ -50,7 +51,7 @@ class BookflixTableSeeder extends Seeder
             'es_premium' => true,
             'password' => bcrypt('123456'),
         ]);
-                // Perfiles para este user
+            // Perfiles para este user
                 DB::table('perfiles')->insert([
                     'nombre' => 'Premium1',
                     'user_id' => 2, // Relación con usuario
@@ -63,15 +64,23 @@ class BookflixTableSeeder extends Seeder
                     'nombre' => 'Premium3',
                     'user_id' => 2, // Relación con usuario
                 ]);
+
+
+    // Administrador
     Admin::truncate();
+
+        // Admin 1
         DB::table('admins')->insert([
             'name' => 'admin1',
             'email' => 'admin1@bookflix.com',
             'password' => bcrypt('123456'),
         ]);
 
-        // Genero #1
+
+    // Generos
     //Genero::truncate();
+
+        // Genero #1
         $genero = new Genero();
         $genero->nombre = "Ciencia Ficción";
         $genero->save();
@@ -100,8 +109,11 @@ class BookflixTableSeeder extends Seeder
         $genero->nombre = "Investigación";
         $genero->save();
 
-        // Autor #1
+
+    // Autores
     //Autor::truncate();
+
+        // Autor #1
         $autor = new Autor();
         $autor->nombre = "J.R.R. Tolkien";
         $autor->save();
@@ -129,8 +141,11 @@ class BookflixTableSeeder extends Seeder
         $autor = new Autor();
         $autor->nombre = "Euclides";
         $autor->save();
-    
+
+
+    // Editoriales
     //Editorial::truncate();
+
         // Editorial #1
         $editorial = new Editorial();
         $editorial->nombre = "Gnome Press";
@@ -148,7 +163,10 @@ class BookflixTableSeeder extends Seeder
         $editorial->nombre = "Bloomsbury Publishing";
         $editorial->save();
 
-    //Libro::truncate(); // Evita duplicar datos
+
+    // Libros
+    //Libro::truncate();
+
         // Libro #1
         $libro = new Libro();
         $libro->titulo = "Harry Potter y el Príncipe Mestizo";
@@ -159,8 +177,31 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
         $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Trailer Harry Potter 6";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 1;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "Capitulo 1";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 1;
+                $capitulo->save();
+                //Capítulo 2
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "Capitulo 2";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 1;
+                $capitulo->save();
+
 
         // Libro #2
         $libro = new Libro();
@@ -172,8 +213,22 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
-        $libro->generos()->attach([6]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([6]);
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Trailer";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 2;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "Capitulo I";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 2;
+                $capitulo->save();
 
         // Libro #3
         $libro = new Libro();
@@ -185,8 +240,30 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
-        $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([4, 5]);
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Trailer Hobbit";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 3;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "1";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 3;
+                $capitulo->save();
+                //Capítulo 2
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "2";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 3;
+                $capitulo->save();
 
         // Libro #4
         $libro = new Libro();
@@ -198,8 +275,22 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
-        $libro->generos()->attach([1,7]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([1,7]);
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Trailer";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 4;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "Unico";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 4;
+                $capitulo->save();
 
         // Libro #5
         $libro = new Libro();
@@ -211,8 +302,22 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
-        $libro->generos()->attach([1]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([1]);
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Robot";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 5;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "i";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 5;
+                $capitulo->save();
 
         // Libro #6
         $libro = new Libro();
@@ -224,8 +329,62 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-
-        $libro->generos()->attach([7]); //Relacionar el libro a dos etiquetas
+        $libro->generos()->attach([7]);
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "Elementos";
+            $trailer->pdf ="image/seeds/trailers/sample.pdf";
+            $trailer->libro_id = 6;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "I";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "II";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "III";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "IV";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "V";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "VI";
+                $capitulo->pdf ="image/seeds/trailers/sample.pdf";
+                $capitulo->fecha_de_lanzamiento = Carbon::now();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
+                $capitulo->libro_id = 6;
+                $capitulo->save();
         
         // Novedades
         $novedad = new Novedad();
