@@ -133,9 +133,7 @@ class GeneroController extends Controller
     {
         
         $genero = Genero::findOrFail($id);
-
         $libros = $genero->libros()->get();
-
         return view('generos.user', compact('libros'));
     }
 }

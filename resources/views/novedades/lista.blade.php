@@ -48,7 +48,7 @@
                 </td>
                 {{-- Cuerpo --}}
                 <td>{{ $item->descripcion }}</td>
-                {{--aca deberia mostrar imagen/video--}}
+                {{-- imagen/video --}}
                 <td>
                 @if ($item -> es_video)
                   <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>

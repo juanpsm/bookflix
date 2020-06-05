@@ -202,6 +202,7 @@ class NovedadController extends Controller
             where('fecha_de_publicacion', '<', now())
             ->orderByDesc('fecha_de_publicacion')
             ->paginate(50);
+
         return view('novedades.user', compact('novedades'));
     }
 }

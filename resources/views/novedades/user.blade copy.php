@@ -19,11 +19,12 @@
             </button>
             </div>
           @endif
-
+          
           @if ($novedades -> isEmpty())
             {{--otra forma es $novedades -> total() == 0 --}}
             No hay novedades que mostrar por el momento.
           @else
+
           <table class="table table-striped table-hover">
             <thead>
               <tr>

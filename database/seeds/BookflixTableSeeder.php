@@ -231,17 +231,20 @@ class BookflixTableSeeder extends Seeder
         $novedad = new Novedad();
         $novedad->titulo = "Novedad sin archivo";
         $novedad->descripcion = "Una novedad sin archivo";
+        $novedad->archivo = 'noFile';
         $novedad->save();
 
         $novedad = new Novedad();
         $novedad->titulo = "Novedad con imagen";
         $novedad->archivo = "image/seeds/novedades/edward.jpg";
+        $novedad->es_video = false;
         $novedad->descripcion = "Una novedad con archivo de imagen";
         $novedad->save();
 
         $novedad = new Novedad();
         $novedad->titulo = "Novedad con video";
         $novedad->archivo = "image/seeds/novedades/video_earth.mp4";
+        $novedad->es_video = true;
         $novedad->descripcion = "Una novedad con archivo de video";
         $novedad->save();
         
