@@ -12,6 +12,7 @@ use App\Novedad;
 use App\Trailer;
 use App\Capitulo;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class BookflixTableSeeder extends Seeder
 {
@@ -22,8 +23,15 @@ class BookflixTableSeeder extends Seeder
      */
     public function run()
     {
+    // Borrar archivos (Ya que vamos a re-crear la bd con semillas nuevas)
+        // $files =   Storage::allFiles($dir);
+        // $files =   Storage::files($dir);
+        Storage::delete(Storage::files('public/novedades'));
+        Storage::delete(Storage::files('public/capitulos'));
+        Storage::delete(Storage::files('public/trailers'));
 
-    //Usuarios
+
+    // Usuarios
     //User::truncate(); // Evita duplicar datos
     //Perfil::truncate();
 
