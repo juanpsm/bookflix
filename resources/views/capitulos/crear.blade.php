@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Agregar Tráiler para libro {{$libro -> titulo}}</span>
+          <span>Agregar capitulo para libro: {{$libro -> titulo}}</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
@@ -29,8 +29,8 @@
             </div>
           @endif
 
-          {{-- Formulario --}}{{$libro->id}}
-          <form method="POST" action="{{route('trailers.store', $libro->id)}}" enctype="multipart/form-data">
+          {{-- Formulario --}}
+          <form method="POST" action="{{route('capitulos.store', $libro->id)}}" enctype="multipart/form-data">
             @csrf
 
             <input
@@ -41,7 +41,28 @@
               value="{{old('titulo')}}"
             />
 
+            Fecha de lanzamiento:
+            <input
+              required
+              type="date"
+              name="fecha_de_lanzamiento"
+              placeholder="Ingrese fecha de lanzamiento"
+              class="form-control mb-2"
+              value="{{old('fecha_de_lanzamiento')}}" 
+            />
+
+            Fecha de vencimiento:
+            <input
+              required
+              type="date"
+              name="fecha_de_vencimiento"
+              placeholder="Ingrese fecha de vencimiento"
+              class="form-control mb-2"
+              value="{{old('fecha_de_vencimiento')}}" 
+            />
+
             <!-- este es el input del pdf:-->
+            <div>Archivo PDF:</div>
             <input 
               type="file" 
               name="pdf" 
@@ -54,7 +75,7 @@
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
-                Agregar Trailer
+                Agregar Capitulo
               </button>
             </div>
           </form>

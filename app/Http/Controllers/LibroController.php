@@ -141,19 +141,18 @@ class LibroController extends Controller
         }
 
         foreach($autores as $autor){
-             if($autor->id == $libro->autor_id){
-                   $autor->selected= true;
-                    break;
-             }
+            if($autor->id == $libro->autor_id){
+                $autor->selected= true;
+                break;
+            }
         }
 
         foreach($editoriales as $editorial){
             if($editorial->id == $libro->editorial_id){
-                  $editorial->selected= true;
-                   break;
+                $editorial->selected= true;
+                break;
             }
-       }
-        
+        }
 
         return view('libros.editar', compact('libro', "generos", "autores", "editoriales"));
     }
@@ -233,9 +232,9 @@ class LibroController extends Controller
                 ->where('libro_id', $libro->id)
                 ->exists(),
             'isInMyList' => $this->perfil()
-             ->librosMiLista()
-             ->where('libro_id', $libro->id)
-             ->exists()    
+                ->librosMiLista()
+                ->where('libro_id', $libro->id)
+                ->exists()    
         ]);
     }
 
@@ -244,7 +243,6 @@ class LibroController extends Controller
 
         return back();
     }
-
 
     public function search(Request $request) {
         if ($q = $request->input('q')) {

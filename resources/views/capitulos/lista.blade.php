@@ -30,10 +30,10 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($trailers as $item)
+              @foreach ($capitulos as $item)
               <tr>
                 <td>
-                  <a href="{{route('trailers.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                  <a href="{{route('capitulos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                       {{ $item->titulo }}
                   </a>
                 </td>
@@ -43,7 +43,7 @@
                 <iframe src="{{url($item -> pdf)}}#toolbar=0&navpanes=0&scrollbar=0" width="50" height="100"></iframe>
                 --}}
                 <td>
-                  <a href="{{route('trailers.show',$item)}}">
+                  <a href="{{route('capitulos.show',$item)}}">
                     <img style="height: 150px; border-radius: 10%;"
                       data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
                       src="js\pdfThumbnails\pdf.png">
@@ -53,11 +53,11 @@
                 {{-- Acciones --}}
                 <td>
                   {{-- Edit --}}
-                  <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
+                  <a href="{{route('capitulos.edit', $item)}}" class="btn btn-primary btn-sm">
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
+                  <form action="{{route('capitulos.destroy', $item)}}" class="d-inline" method="POST"
                   onclick="return confirm('Estas seguro que queres eliminar el Tráiler?')">
                       @method('DELETE')
                       @csrf
@@ -70,7 +70,7 @@
               @endforeach
             </tbody>
           </table>
-          {{$trailers->links()}}
+          {{$capitulos->links()}}
         {{-- fin card body --}}
         </div>
       </div>

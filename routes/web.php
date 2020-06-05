@@ -86,6 +86,15 @@ Route::get('/session/remove','SessionController@deleteSessionData');
 Route::resource('trailers', 'TrailerController');
 Route::get('showTrailer/{id}','TrailerController@showTrailer')->name('trailers.showTrailer');
 Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
+Route::get('/libros/{libro_id}/agregarTrailer','TrailerController@createWithBook')->name('trailers.createWithBook');
+Route::post('/libros/{libro_id}/trailers','TrailerController@store')->name('trailers.store');
+// GET          /photos                 index   photos.index
+// GET	        /photos/create	        create  photos.create
+// POST	        /photos                 store   photos.store
+// GET	        /photos/{photo}         show    photos.show
+// GET          /photos/{photo}/edit    edit    photos.edit
+// PUT/PATCH    /photos/{photo}	        update  photos.update
+// DELETE       /photos/{photo}	        destroy photos.destroy
 
 //historial
 Route::resource('libros_leidos', 'LibrosLeidosController');
@@ -95,3 +104,10 @@ Route::resource('libros_favoritos', 'LibrosFavoritosController');
 
 //miLista
 Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi
+
+// Capitulos:
+Route::resource('capitulos', 'CapituloController');
+Route::get('showCapitulo/{id}','CapituloController@showCapitulo')->name('capitulos.showCapitulo');
+Route::get('showCapitulo/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
+Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
+Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');

@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Editar Tráiler: {{ $trailer->id }}</span>
+          <span>Editar Tráiler: {{ $capitulo->id }}</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
@@ -30,7 +30,7 @@
           @endif
 
           {{-- Formulario --}}
-          <form method="POST" action="{{ route('trailers.update', $trailer->id) }}" 
+          <form method="POST" action="{{ route('capitulos.update', $capitulo->id) }}" 
             enctype="multipart/form-data" >
             @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
             @csrf
@@ -40,7 +40,7 @@
               name="titulo"
               placeholder="Ingrese el título"
               class="form-control mb-2"
-              value="{{$trailer->titulo }}" 
+              value="{{$capitulo->titulo }}" 
             /> 
             
             <!-- este es el input del pdf:-->

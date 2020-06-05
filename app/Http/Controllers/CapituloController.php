@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Trailer; //importante!!
+use App\Capitulo; //importante!!
 use App\Libro;
 use App\Traits\FileUpload;
 use Illuminate\Support\Facades\File;
 
-class TrailerController extends Controller
+class CapituloController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['showTrailer']]);
-        $this->middleware('auth:admin', ['except' => ['showTrailer']]);
+        $this->middleware('auth', ['only' => ['showCapitulo']]);
+        $this->middleware('auth:admin', ['except' => ['showCapitulo']]);
     }
 
     /**
@@ -24,8 +24,8 @@ class TrailerController extends Controller
      */
     public function index()
     {
-        $trailers = Trailer::paginate(50);
-        return view('trailers.lista', compact('trailers'));
+        $capitulos = Capitulo::paginate(50);
+        return view('capitulos.lista', compact('capitulos'));
     }
 
     /**
@@ -35,18 +35,18 @@ class TrailerController extends Controller
      */
     public function create()
     {
-        return view('trailers.crear');
+        return view('capitulos.crear');
     }
 
         /**
-     * Crear trailer dado un Libro
+     * Crear capitulo dado un Libro
      * @param  int  $libro_id
      * @return \Illuminate\Http\Response
      */
     public function createWithBook($libro_id)
     {
         $libro = Libro::findOrFail($libro_id);
-        return view('trailers.crear', compact('libro'));
+        return view('capitulos.crear', compact('libro'));
     }
 
     /**
@@ -61,33 +61,37 @@ class TrailerController extends Controller
     {
         $request->validate([
             'titulo' => 'required',
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
 
         // Create Post
-        $trailer = new Trailer;
+        $capitulo = new Capitulo;
 
         // Handle File Upload
-        $trailer->pdf = $request->pdf;
-        if ($trailer->pdf) {
+        $capitulo->pdf = $request->pdf;
+        if ($capitulo->pdf) {
             try {
-                $file = $this->TrailerFileUpload($trailer->pdf);
+                $file = $this->CapituloFileUpload($capitulo->pdf);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
-                $trailer->pdf = $filePath;
+                $capitulo->pdf = $filePath;
             } catch (Exception $e) {
                 // mensaje de error
                 "error de archivo";
             }
         } else {
-            $trailer->pdf = 'noFile';
+            $capitulo->pdf = 'noFile';
         }
 
-        $trailer->titulo = $request->input('titulo');
-        $trailer->libro_id = $libro_id;
-        $trailer->save();
+        $capitulo->titulo = $request->input('titulo');
+        $capitulo->libro_id = $libro_id;
+        $capitulo->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
+        $capitulo->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+        $capitulo->save();
     
-        return redirect()->route('libros.show',$libro_id)->with('mensaje', 'Trailer Creado!');
+        return redirect()->route('libros.show',$libro_id)->with('mensaje', 'Capitulo Creado!');
     }
 
     /**
@@ -98,9 +102,9 @@ class TrailerController extends Controller
      */
     public function show($id)
     {
-        $trailer = Trailer::findOrFail($id);
+        $capitulo = Capitulo::findOrFail($id);
         
-        return view('trailers.detalle', compact('trailer'));
+        return view('capitulos.detalle', compact('capitulo'));
     }
 
     /**
@@ -111,8 +115,8 @@ class TrailerController extends Controller
      */
     public function edit($id)
     {
-        $trailer = Trailer::findOrFail($id);
-        return view('trailers.editar', compact('trailer'));
+        $capitulo = Capitulo::findOrFail($id);
+        return view('capitulos.editar', compact('capitulo'));
     }
 
     /**
@@ -127,24 +131,26 @@ class TrailerController extends Controller
         // Valido datos
         $request->validate([
             'titulo' => 'required',
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'pdf' => 'mimes:pdf|max:10000'
         ]);
 
-        $trailer = Trailer::findOrFail($id);
+        $capitulo = Capitulo::findOrFail($id);
 
         // Handle File Upload
 
         if ($request->hasFile('pdf')) {
             try {
-                $file = $this->TrailersFileUpload($request->pdf);
+                $file = $this->CapitulosFileUpload($request->pdf);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
 
-                if ($trailer->pdf != 'noFile') {
-                    File::delete($trailer->pdf);
+                if ($capitulo->pdf != 'noFile') {
+                    File::delete($capitulo->pdf);
                 }
 
-                $trailer->pdf = $filePath;
+                $capitulo->pdf = $filePath;
             
             } catch (Exception $e) {
                 // mensaje de error
@@ -152,10 +158,12 @@ class TrailerController extends Controller
             }
         }
 
-        $trailer->titulo = $request->titulo;
-        $trailer->save();
+        $capitulo->titulo = $request->titulo;
+        $capitulo->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
+        $capitulo->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+        $capitulo->save();
 
-        return redirect()->route('libros.show', $trailer->libro->id)->with('mensaje', 'Trailer Actualizado!');
+        return redirect()->route('libros.show', $capitulo->libro->id)->with('mensaje', 'Capitulo Actualizado!');
     }
 
     /**
@@ -166,14 +174,14 @@ class TrailerController extends Controller
      */
     public function destroy($id)
     {
-        $trailer = Trailer::findOrFail($id);
-        if ($trailer->pdf != 'noFile') {
-            File::delete($trailer->pdf);
+        $capitulo = Capitulo::findOrFail($id);
+        if ($capitulo->pdf != 'noFile') {
+            File::delete($capitulo->pdf);
         }
-        $id = $trailer -> libro -> id; //guardo el id para volver
-        $trailer->delete();
+        $id = $capitulo -> libro -> id; //guardo el id para volver
+        $capitulo->delete();
 
-        return redirect()->route('libros.show',$id)->with('mensaje', 'Trailer Eliminado!');
+        return redirect()->route('libros.show',$id)->with('mensaje', 'Capitulo Eliminado!');
     }
 
     /**
@@ -181,14 +189,14 @@ class TrailerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showTrailer($id) //para Usuarios
+    public function showCapitulo($id) //para Usuarios
     {
-        $trailer = Trailer::findOrFail($id);
-        return view('trailers.mostrarPDFuser', compact('trailer'));
+        $capitulo = Capitulo::findOrFail($id);
+        return view('capitulos.mostrarPDFuser', compact('capitulo'));
     }
-    public function showTrailerAdmin($id) //para Admin
+    public function showCapituloAdmin($id) //para Admin
     {
-        $trailer = Trailer::findOrFail($id);
-        return view('trailers.mostrarPDFadmin', compact('trailer'));
+        $capitulo = Capitulo::findOrFail($id);
+        return view('capitulos.mostrarPDFadmin', compact('capitulo'));
     }
 }
