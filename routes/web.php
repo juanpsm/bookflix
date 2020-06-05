@@ -71,7 +71,6 @@ Route::resource('libros', 'LibroController');
 Route::get('libros/user/search', 'LibroController@search');
 Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
-Route::get('libros/user/{libro}/toggleMyList', 'LibroController@toggleMyList');
 
 //novedad:
 Route::resource('novedades', 'NovedadController');
