@@ -232,6 +232,7 @@ class BookflixTableSeeder extends Seeder
         $novedad->titulo = "Novedad sin archivo";
         $novedad->descripcion = "Una novedad sin archivo";
         $novedad->archivo = 'noFile';
+        $novedad->fecha_de_publicacion = Carbon::now();
         $novedad->save();
 
         $novedad = new Novedad();
@@ -239,6 +240,7 @@ class BookflixTableSeeder extends Seeder
         $novedad->archivo = "image/seeds/novedades/edward.jpg";
         $novedad->es_video = false;
         $novedad->descripcion = "Una novedad con archivo de imagen";
+        $novedad->fecha_de_publicacion = Carbon::now();
         $novedad->save();
 
         $novedad = new Novedad();
@@ -246,6 +248,15 @@ class BookflixTableSeeder extends Seeder
         $novedad->archivo = "image/seeds/novedades/video_earth.mp4";
         $novedad->es_video = true;
         $novedad->descripcion = "Una novedad con archivo de video";
+        $novedad->fecha_de_publicacion = Carbon::now();
+        $novedad->save();
+
+        $novedad = new Novedad();
+        $novedad->titulo = "Novedad Futura";
+        $novedad->archivo = "image/seeds/novedades/question.jpg";
+        $novedad->es_video = false;
+        $novedad->descripcion = "Una novedad con fecha de publicacion futura";
+        $novedad->fecha_de_publicacion = (Carbon::now()->addYear());
         $novedad->save();
         
 

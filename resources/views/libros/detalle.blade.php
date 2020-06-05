@@ -46,6 +46,22 @@
                   </tr>
                   <tr>
                     <td>
+                      Lanzamiento:
+                    </td>
+                    <td>
+                      {{$libro -> fecha_de_lanzamiento}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Vencimiento:
+                    </td>
+                    <td>
+                      {{$libro -> fecha_de_vencimiento}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
                       Generos:
                     </td>
                     <td>
