@@ -10,6 +10,7 @@ use App\Editorial;
 
 use App\Traits\FileUpload;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Builder;
 
 class LibroController extends Controller
 {
@@ -243,15 +244,19 @@ class LibroController extends Controller
 
         return back();
     }
-    public function toggleMyList(Libro $libro) {
-        $this->perfil()->librosMiLista()->toggle([$libro->id]);
 
-        return back();
-    }
 
     public function search(Request $request) {
-        if ($query = $request->input('q')) {
-            return Libro::where('titulo', 'LIKE', "%{$query}%")
+        if ($q = $request->input('q')) {
+            return Libro::where('titulo', 'LIKE', "%{$q}%")
+            /* esto permite encontrar los libros ingresando el autor o la editorial
+
+            ->orWhereHas('autor', function (Builder $query)use($q) {
+                $query->where('nombre', 'like', "%{$q}%");
+            })
+            ->orWhereHas('editorial', function (Builder $query)use($q) {
+                $query->where('nombre', 'like', "%{$q}%");
+            }) */
                 ->orderBy('titulo')
                 ->limit($request->input('limit') ?? 8)
                 ->get();

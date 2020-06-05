@@ -26,6 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         // acá creo que se debería hacer la comprobacion de perfiles en vez de en login y register...
+        if($this->perfil() == null || auth()->user()->perfiles()->count() == 0){
+            return redirect("seleccionarPerfil");
+        }
         return view('home');
     }
 }

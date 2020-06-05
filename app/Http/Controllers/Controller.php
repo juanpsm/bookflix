@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     public function perfil() {
         if ($s = session('perfil')) {
-            return Perfil::findOrFail($s->id);
+            return Perfil::find($s->id);
         }
         return null;
     }
