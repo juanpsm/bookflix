@@ -16,6 +16,7 @@ class CreateGeneroLibroTable extends Migration
         Schema::create('genero_libro', function (Blueprint $table) {
             $table->integer('genero_id');
             $table->integer('libro_id');
+            $table->timestamps();
         });
     }
 

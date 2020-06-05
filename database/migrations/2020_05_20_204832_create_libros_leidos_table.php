@@ -16,6 +16,7 @@ class CreateLibrosLeidosTable extends Migration
         Schema::create('libros_leidos', function (Blueprint $table) {
             $table->integer('libro_id');
             $table->integer('perfil_id');
+            $table->timestamps();
         });
     }
 

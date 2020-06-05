@@ -16,6 +16,7 @@ class CreateLibrosMiListaTable extends Migration
         Schema::create('libros_miLista', function (Blueprint $table) {
             $table->integer('libro_id');
             $table->integer('perfil_id');
+            $table->timestamps();
         });
     }
 
