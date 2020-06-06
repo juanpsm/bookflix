@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Suscripcion;
 use Illuminate\Http\Request;
+use Auth;
+use Session;
 
 class SuscripcionController extends Controller
 {
@@ -14,72 +16,48 @@ class SuscripcionController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+
+        if ($user->cuenta_activa) {
+            return redirect('/home');
+        }
+
+        return view('suscripciones.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function elegirSuscripcion(Request $request) {
+        $user = auth()->user();
+
+        $vData = $request->validate([
+            'tipoCuenta' => 'required'
+        ]);
+
+        $esPremium = $vData['tipoCuenta'] == 'premium';
+
+        if ($user->cuenta_activa) {
+            abort(400, 'La cuenta tiene una suscripcion activa');
+        }
+
+        $user->cuenta_activa = true;
+        $user->es_premium = $esPremium;
+        $user->save();
+
+        if ($user->perfiles()->count() > 0)
+            return redirect('seleccionarPerfil');
+        else
+            return redirect()->route('perfiles.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function eliminarSuscripcion() {
+        $user = auth()->user();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Suscripcion  $suscripcion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Suscripcion $suscripcion)
-    {
-        //
-    }
+        $user->cuenta_activa = false;
+        $user->es_premium = false;
+        $user->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Suscripcion  $suscripcion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Suscripcion $suscripcion)
-    {
-        //
-    }
+        Auth::logout();
+        Session::flush();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Suscripcion  $suscripcion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Suscripcion $suscripcion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Suscripcion  $suscripcion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Suscripcion $suscripcion)
-    {
-        //
+        return redirect('/');
     }
 }

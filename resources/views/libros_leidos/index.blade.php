@@ -12,7 +12,7 @@
           <table class="table table-striped table-hover">
             <thead>
               <tr>
-              <th scope="col">Autor</th>
+              <th scope="col">Portada</th>
               <th scope="col">Título</th>
               </tr>
             </thead>
@@ -20,7 +20,13 @@
               @if(count($leidos) > 0)
                 @foreach ($leidos as $item)
                 <tr>
-                  <td>{{ $item->autor->nombre }}</td>
+                <td>
+                  @if ($item->portada != 'noFile')
+                      <img style="height: 70px; border-radius: 10%;" src="{{url($item->portada)}}">
+                    @else
+                      {{$item->portada}}
+                    @endif
+                  </td>
                   <td>
                     {{ $item->titulo }}
                   </td>

@@ -19,8 +19,12 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        $usuarioId = auth()->user()->id;
-        $perfiles = Perfil::where('user_id', $usuarioId)->get();
+        $user = auth()->user();
+        if (!$user->cuenta_activa) {
+            return redirect("elegirSuscripcion");
+        }
+
+        $perfiles = $user->perfiles;
         return view('perfiles.lista',compact('perfiles'));
     }
 
@@ -31,9 +35,14 @@ class PerfilController extends Controller
      */
     public function selector()
     {
-        $usuarioId = auth()->user()->id;
-        session(['usuarioId' => $usuarioId]);
-        $perfiles = Perfil::where('user_id', $usuarioId)->get(); 
+        $user = auth()->user();
+        session(['usuarioId' => $user->id]);
+
+        if (!$user->cuenta_activa) {
+            return redirect("elegirSuscripcion");
+        }
+
+        $perfiles = $user->perfiles;
         return view('perfiles.seleccionar',compact('perfiles'));
     }
 
@@ -70,8 +79,18 @@ class PerfilController extends Controller
     {
         // Valido datos
         $request->validate([
-            'nombre' => ['required', 'unique:perfiles']
+            'nombre' => 'required'
         ]);
+
+        $exists = Perfil::where('user_id', auth()->user()->id)
+            ->where('nombre', $request->nombre)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->route('perfiles.create')
+                ->withInput()
+                ->withErrors(['message' => 'Ese nombre de perfil ya esta en uso']);
+        }
 
         $perfil = new Perfil();
         $perfil->nombre = $request->nombre;
@@ -117,8 +136,16 @@ class PerfilController extends Controller
     {
         // Valido datos
         $request->validate([
-            'nombre' => "required|unique:App\Perfil,nombre,$id"
+            'nombre' => "required"
         ]);
+
+        $exists = Perfil::where('user_id', auth()->user()->id)
+            ->where('id', '<>', $id)
+            ->exists();
+
+        if ($exists) {
+            return redirect()->route('seleccionar_perfil')->with('mensaje', 'Ese nombre de perfil ya esta en uso');
+        }
 
         $perfil = Perfil::findOrFail($id);
         

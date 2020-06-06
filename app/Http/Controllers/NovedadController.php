@@ -11,10 +11,9 @@ class NovedadController extends Controller
 {
     public function __construct()
     {
-        
-        //agrego los admin, los users se hacen por otro lado
+        $this->middleware('guest', ['only' => ['showNovedadGuest']]);
         $this->middleware('auth', ['only' => ['showNovedad']]);
-        $this->middleware('auth:admin', ['except' => ['showNovedad']]);
+        $this->middleware('auth:admin', ['except' => ['showNovedad', 'showNovedadGuest']]);
     }
     /**
      * Display a listing of the resource.
@@ -197,12 +196,15 @@ class NovedadController extends Controller
      */
     public function showNovedad()
     {
-        
         $novedades = Novedad::
             where('fecha_de_publicacion', '<', now())
             ->orderByDesc('fecha_de_publicacion')
             ->paginate(50);
 
         return view('novedades.user', compact('novedades'));
+    }
+
+    public function showNovedadGuest() {
+        return $this->showNovedad();
     }
 }

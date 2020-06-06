@@ -17,6 +17,11 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    @auth
+                        <a href="{{ url('showNovedad') }}">Ver novedades</a>
+                    @else
+                        <a href="{{ url('showNovedadGuest') }}">Ver novedades</a>
+                    @endauth
                     {{-- esto lo hacia laravel con auth, lo cambio por guest y lo doy vuelta--}}
                     @guest
                         <a href="{{ route('login') }}">{{ __('Login') }}</a>

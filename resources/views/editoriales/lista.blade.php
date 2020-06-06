@@ -51,7 +51,8 @@
                     editar
                   </a>
                   {{-- Delete --}}
-                  <form action="{{route('editoriales.destroy', $item)}}" class="d-inline" method="POST">
+                  <form action="{{route('editoriales.destroy', $item)}}" class="d-inline" method="POST"
+                  onclick="return confirm('Estas seguro que queres eliminar la editorial?')">
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">

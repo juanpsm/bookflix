@@ -41,13 +41,8 @@ class RegisterController extends Controller
     // intento cambiar la redireccion por defecto a home
     public function redirectTo()
     {   
-        $usuarioId = auth()->user()->id;
-        $perfiles = Perfil::where('user_id', $usuarioId)->get();
-        if ($perfiles->isEmpty()) {
-            return route('perfiles.create');
-        } else {
-            return route('seleccionar_perfil');
-        }
+        session()->forget('perfil');
+        return url('elegirSuscripcion');
     }
 
     /**

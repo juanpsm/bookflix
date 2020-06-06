@@ -62,12 +62,12 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" role="button" href="{{route('libros_leidos.index')}}">
-                                        Libros leidos
+                                        Historial
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" role="button" href="{{route('libros_favoritos.index')}}">
-                                        Libros favoritos
+                                        Favoritos
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -126,6 +126,17 @@
                                             <a class="dropdown-item" href="{{ route('seleccionar_perfil') }}">
                                                 Cambiar perfil
                                             </a>
+                                            <a class="dropdown-item" href="{{ url('elegirSuscripcion') }}"
+                                                onclick="event.preventDefault();
+                                                document.getElementById('eliminarSuscripcion-form').submit();">
+                                                Cancelar suscripción
+                                            </a>
+
+                                            <form id="eliminarSuscripcion-form" action="{{ url('elegirSuscripcion') }}" method="POST" style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

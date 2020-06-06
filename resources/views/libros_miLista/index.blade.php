@@ -33,7 +33,7 @@
                 </tr>
                 @endforeach
               @else
-                <td colspan="2">Aquí aparecerán los libros que que quieras leer más tarde</td>
+                <td colspan="2">Aca aparecerán los libros que has comenzado a leer</td>
               @endif
             </tbody>
           </table>

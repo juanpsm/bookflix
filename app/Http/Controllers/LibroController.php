@@ -234,7 +234,11 @@ class LibroController extends Controller
             'isInMyList' => $this->perfil()
                 ->librosMiLista()
                 ->where('libro_id', $libro->id)
-                ->exists()    
+                ->exists(),
+            'leido' => $this->perfil()
+                ->librosLeidos()
+                ->where('libro_id', $libro->id)
+                ->exists()
         ]);
     }
 

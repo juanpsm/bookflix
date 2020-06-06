@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('elegirSuscripcion', 'SuscripcionController@index');
+Route::post('elegirSuscripcion', 'SuscripcionController@elegirSuscripcion');
+Route::delete('elegirSuscripcion', 'SuscripcionController@eliminarSuscripcion');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -76,6 +80,7 @@ Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorit
 Route::resource('novedades', 'NovedadController');
 Route::get('showGenero/{id}','GeneroController@showGenero')->name('generos.showGenero');
 Route::get('showNovedad','NovedadController@showNovedad')->name('novedades.showNovedad');
+Route::get('showNovedadGuest','NovedadController@showNovedadGuest')->name('novedades.showNovedadGuest');
 
 // Session (test)
 Route::get('/session/get','SessionController@getSessionData')->name('session.get');
