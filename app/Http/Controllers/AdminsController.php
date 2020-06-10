@@ -15,7 +15,7 @@ class AdminsController extends Controller
     
     public function index() {
         // Agrego un filtro para que no se pueda eliminar a si mismo el administrador logueado.
-        $admins = Admin:: where('id', '!=', Auth::user()->id);
+        $admins = Admin:: where('id', '!=', Auth::user()->id)->get();
         return view('admins.index', compact('admins'));
     }
 
