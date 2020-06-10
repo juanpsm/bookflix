@@ -56,22 +56,22 @@
                             <div class="carousel-item active" >
                                 <div class="carrusel">
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/hp6.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/hp6.jpg" alt="" class="" >
                                     </a>
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/anne.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/anne.jpg" alt="" class="" >
                                     </a>
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/connection.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/connection.jpg" alt="" class="" >
                                     </a>
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/hobbit.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/hobbit.jpg" alt="" class="" >
                                     </a>
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/robot.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/robot.jpg" alt="" class="" >
                                     </a>
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/portadas/euclides.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/euclides.jpg" alt="" class="" >
                                     </a>
                                 </div>
                             </div>
