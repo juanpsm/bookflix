@@ -91,9 +91,10 @@ class GeneroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genero $genero)
+    public function update(Request $request, $id)
     {
         // Valido datos
+        $genero= Genero::findOrFail($id);
         $request->validate([
             'nombre' => "required|unique:App\Genero,nombre,{$genero->id}"
         ]);

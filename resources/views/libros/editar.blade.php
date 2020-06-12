@@ -94,7 +94,15 @@
               </div>
             </div>
 
-
+            <br>
+            <input
+              required
+              type="text"
+              name="isbn"
+              placeholder="Ingrese ISBN"
+              class="form-control mb-2"
+              value="{{$libro->isbn}}"
+            />
             
             Fecha de lanzamiento:
             <input

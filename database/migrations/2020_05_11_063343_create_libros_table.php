@@ -23,6 +23,7 @@ class CreateLibrosTable extends Migration
             $table->date('fecha_de_lanzamiento');
             $table->date('fecha_de_vencimiento');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

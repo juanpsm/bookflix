@@ -75,6 +75,8 @@ Route::resource('libros', 'LibroController');
 Route::get('libros/user/search', 'LibroController@search');
 Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
+Route::get('libros/user/{libro}/marcarLeido', 'LibroController@marcarLeido');
+
 
 //novedad:
 Route::resource('novedades', 'NovedadController');
@@ -113,6 +115,6 @@ Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi
 // Capitulos:
 Route::resource('capitulos', 'CapituloController');
 Route::get('showCapitulo/{id}','CapituloController@showCapitulo')->name('capitulos.showCapitulo');
-Route::get('showCapitulo/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
+Route::get('showCapituloAdmin/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
 Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
 Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');

@@ -28,7 +28,9 @@
                     @endif
                   </td>
                   <td>
-                    {{ $item->titulo }}
+                    <a href="{{url("libros/user/{$item->id}")}}"> {{--Tengo que pasar como parametro el item --}}
+                      {{ $item->titulo }}
+                  </a>
                   </td>
                 </tr>
                 @endforeach

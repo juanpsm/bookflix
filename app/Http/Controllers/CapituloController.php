@@ -192,6 +192,7 @@ class CapituloController extends Controller
     public function showCapitulo($id) //para Usuarios
     {
         $capitulo = Capitulo::findOrFail($id);
+        $this->perfil()->librosMiLista()->syncWithoutDetaching([$capitulo->libro->id]);
         return view('capitulos.mostrarPDFuser', compact('capitulo'));
     }
     public function showCapituloAdmin($id) //para Admin

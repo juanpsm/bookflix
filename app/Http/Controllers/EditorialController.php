@@ -87,9 +87,10 @@ class EditorialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Editorial $editorial)
+    public function update(Request $request, $id)
     {
                 // Valido datos
+                $editorial= Editorial::findOrFail($id);
                 $request->validate([
                     'nombre' => "required|unique:App\Editorial,nombre,{$editorial->id}"
                 ]);

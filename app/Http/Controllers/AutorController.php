@@ -87,9 +87,10 @@ class AutorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Autor $autor)
+    public function update(Request $request, $id)
     {
         // Valido datos
+        $autor= Autor::findOrFail($id);
         $request->validate([
             'nombre' => "required|unique:App\Autor,nombre,{$autor->id}"
         ]);

@@ -55,7 +55,7 @@ class LibroController extends Controller
         // Valido datos
         $request->validate([
             'titulo' => 'required|unique:App\Libro',
-            'isbn' => 'required|unique:App\Libro',
+            'isbn' => 'required|unique:App\Libro|digits:10',
             'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
@@ -168,8 +168,8 @@ class LibroController extends Controller
     {
          // Valido datos
         $request->validate([
-            'titulo' => 'required|unique:App\Libro',
-            'isbn' => 'required|unique:App\Libro',
+            'titulo' => "required|unique:App\Libro,titulo,{$libro->id}",
+            'isbn' => "required|unique:App\Libro,isbn,{$libro->id}|digits:10",
             'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
@@ -198,6 +198,7 @@ class LibroController extends Controller
         
         //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro->titulo = $request->titulo; // asigno en el campo titulo lo que ingrese en el formulario
+        $libro->isbn = $request->isbn;
         $libro->autor_id = $request->autor;
         $libro->editorial_id = $request->editorial;
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
@@ -264,5 +265,10 @@ class LibroController extends Controller
                 ->get();
         }
         return Libro::all();
+    }
+
+    public function marcarLeido(Libro $libro){
+        $this->perfil()->librosLeidos()->syncWithoutDetaching($libro->id);
+        return redirect('/home');
     }
 }
