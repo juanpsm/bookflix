@@ -94,7 +94,7 @@ Route::resource('trailers', 'TrailerController');
 Route::get('showTrailer/{id}','TrailerController@showTrailer')->name('trailers.showTrailer');
 Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
 Route::get('/libros/{libro_id}/agregarTrailer','TrailerController@createWithBook')->name('trailers.createWithBook');
-Route::post('/libros/{libro_id}/trailers','TrailerController@store')->name('trailers.store');
+Route::post('/libros/{libro_id}/trailers','TrailerController@storeWithBook')->name('trailers.storeWithBook');
 // GET          /photos                 index   photos.index
 // GET	        /photos/create	        create  photos.create
 // POST	        /photos                 store   photos.store

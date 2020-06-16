@@ -45,8 +45,12 @@ class TrailerController extends Controller
      */
     public function createWithBook($libro_id)
     {
-        $libro = Libro::findOrFail($libro_id);
-        return view('trailers.crear', compact('libro'));
+        if($libro_id!='no_book'){
+            $libro = Libro::findOrFail($libro_id);
+            return view('trailers.crearConLibro', compact('libro'));
+        }else{
+            return view('trailers.crear');
+        }
     }
 
     /**
@@ -57,13 +61,51 @@ class TrailerController extends Controller
      * @return \Illuminate\Http\Response
      */
     use FileUpload;
-    public function store(Request $request, $libro_id)
+    public function store(Request $request)
     {
         $request->validate([
             'titulo' => 'required',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
+        // Create Post
+        $trailer = new Trailer;
 
+        // Handle File Upload
+        $trailer->pdf = $request->pdf;
+        if ($trailer->pdf) {
+            try {
+                $file = $this->TrailerFileUpload($trailer->pdf);
+                $filePath = $file->url;
+                $fileExt = $file->ext;
+                $trailer->pdf = $filePath;
+            } catch (Exception $e) {
+                // mensaje de error
+                "error de archivo";
+            }
+        } else {
+            $trailer->pdf = 'noFile';
+        }
+
+        $trailer->titulo = $request->input('titulo');
+        $trailer->libro_id = 0;
+        $trailer->save();
+        return redirect()->route('trailers.index')->with('mensaje', 'Trailer Creado!');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $libro_id
+     * @return \Illuminate\Http\Response
+     */
+    use FileUpload;
+    public function storeWithBook(Request $request, $libro_id)
+    {
+        $request->validate([
+            'titulo' => 'required',
+            'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
+        ]);
         // Create Post
         $trailer = new Trailer;
 
@@ -86,7 +128,7 @@ class TrailerController extends Controller
         $trailer->titulo = $request->input('titulo');
         $trailer->libro_id = $libro_id;
         $trailer->save();
-    
+        
         return redirect()->route('libros.show',$libro_id)->with('mensaje', 'Trailer Creado!');
     }
 
@@ -170,10 +212,14 @@ class TrailerController extends Controller
         if ($trailer->pdf != 'noFile') {
             File::delete($trailer->pdf);
         }
-        $id = $trailer -> libro -> id; //guardo el id para volver
+        $libro_id = $trailer -> libro_id; //guardo el id para volver
         $trailer->delete();
 
-        return redirect()->route('libros.show',$id)->with('mensaje', 'Trailer Eliminado!');
+        if($libro_id != 0){
+            return redirect()->route('libros.show',$libro_id)->with('mensaje', 'Trailer Eliminado!');
+        }else{
+            return redirect()->route('trailers.index')->with('mensaje', 'Trailer Eliminado!');
+        }
     }
 
     /**

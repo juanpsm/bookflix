@@ -71,10 +71,10 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" role="button" href="{{route('libros_miLista.index')}}">
-                                      Mi Lista
-                                </a>
-                          </li>
+                                    <a class="nav-link" role="button" href="{{route('libros_miLista.index')}}">
+                                        Mi Lista
+                                    </a>
+                                </li>
                             </ul>
                             <div class="navbar-nav">
                                 <input id="searchBook" class="form-control form-control-sm">

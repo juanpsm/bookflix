@@ -12,6 +12,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/bootstrap-typeahead.min.js') }}"></script>
         {{--<script src="{{ asset('js/pdfThumbnails/pdfjs/build/pdf.js') }}"></script>--}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.js"></script>
         <script src="{{ asset('js/pdfThumbnails/pdfThumbnails.js') }}"></script>
@@ -72,6 +73,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" role="button" href="{{ route('libros.index') }}">
                                     Libros
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" role="button" href="{{ route('trailers.index') }}">
+                                    Trailers
                                 </a>
                             </li>
                         </ul>

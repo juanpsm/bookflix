@@ -2,6 +2,20 @@
 
 @section('content')
 <div class="container">
+  {{-- debugueando imagenes y archivos
+  <div>limpio  : {{$link = $libro-> portada}}
+    <img style="width:10%" src="{{$link}}"></div>
+  <div>concat : {{$link = url('storage/app/'.$libro -> portada)}}
+    <img style="width:10%" src="{{$link}}"></div>
+  <div>st_path: {{$link = storage_path($libro -> portada)}}
+    <img style="width:10%" src="{{$link}}"></div>
+  <div>asset  :  {{$link = asset($libro->portada)}}
+    <img style="width:10%" src="{{$link}}"></div>
+  <div>before: {{$link = url("image/seeds/portadas/anne.jpg")}}
+    <img style="width:10%" src="{{$link}}"></div>
+  <div>relative:{{$link = url("storage/portadas/mxiED6oizk413MyOBAoKuY49mUFxyiDg6CHDKyh1.jpeg")}}
+    <img style="width:10%" src="{{$link}}">
+  </div> --}}
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
@@ -13,9 +27,11 @@
           <div class="row">
             <div class="col-md-3">
               <span>Portada:</span>
+              <div>
                 @if (!($libro-> portada  == 'noFile'))
                   <img style="width:100%" src="{{url($libro -> portada)}}">
-                @endif 
+                @endif
+              </div>
             </div>
             <div class="col-md-9">
               <table class="table table-hover table-sm table-striped">

@@ -7,6 +7,10 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span>Lista de Tráilers: </span>
+          {{-- Agregar --}}
+          <a href="{{route('trailers.createWithBook', "no_book")}}" class="btn btn-primary btn-sm btn-icon">
+            Agregar Trailer
+          </a>
         </div>
         <div class="card-body"> 
           
