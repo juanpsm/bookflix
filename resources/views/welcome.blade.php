@@ -55,24 +55,15 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active" >
                                 <div class="carrusel">
+                                <?php
+                                use App\Libro;
+                                $libros = Libro::limit(6)->get();
+                                ?>
+                                @foreach ($libros as $item)
                                     <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/hp6.jpg" alt="" class="" >
+                                        <img style="height: 150px; border-radius: 10%;" src="{{$item->portada}}" alt="" class="" >
                                     </a>
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/anne.jpg" alt="" class="" >
-                                    </a>
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/connection.jpg" alt="" class="" >
-                                    </a>
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/hobbit.jpg" alt="" class="" >
-                                    </a>
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/robot.jpg" alt="" class="" >
-                                    </a>
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="image/seeds/portadas/euclides.jpg" alt="" class="" >
-                                    </a>
+                                @endforeach
                                 </div>
                             </div>
                         </div>    
