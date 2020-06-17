@@ -54,3 +54,13 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+
+.tituloGenero {
+    font-size: 3vw;
+}
+
+#genero-libro {
+    border-radius: 25px;
+    border: 2px solid #E50914;
+    padding: 20px;
+}

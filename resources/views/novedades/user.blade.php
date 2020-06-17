@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="card">
+      <div class="card bg-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span>Lista de Novedades: </span>
         </div>
@@ -24,7 +24,7 @@
             {{--otra forma es $novedades -> total() == 0 --}}
             No hay novedades que mostrar por el momento.
           @else
-          <table class="table table-striped table-hover">
+          <table class="table table-dark table-striped table-hover">
             <thead>
               <tr>
               <th scope="col">Título</th>

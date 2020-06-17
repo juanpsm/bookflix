@@ -115,7 +115,8 @@ Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi
 
 // Capitulos:
 Route::resource('capitulos', 'CapituloController');
-Route::get('showCapitulo/{id}','CapituloController@showCapitulo')->name('capitulos.showCapitulo');
+Route::get('libros/{libro_id?}/read/{id?}','CapituloController@capituloReader')->name('capitulo.reader');
+Route::get('libros/{libro_id}/cap','CapituloController@showCapitulos')->name('libro.capitulos');
 Route::get('showCapituloAdmin/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
 Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
 Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');

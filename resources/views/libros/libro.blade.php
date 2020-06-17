@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="card">
+      <div class="card bg-dark">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span class="mr-auto">
               {{$libro -> titulo}}
@@ -21,38 +21,56 @@
           @endif
         </div>
         <div class="card-body">
-        <h4>Generos: </h4>
-        @foreach($libro->generos as $genero)
-            <div> {{$genero->nombre}}
+          <div class="row">
+            <div class="col-md-8">
+              @if (!($libro-> portada  == 'noFile'))
+                <img style="width:100%; border-radius: 2%;" src="{{url($libro -> portada)}}">
+              @endif 
             </div>
-        @endforeach
-        <p>
-          <button class="btn btn-light" type="button" data-toggle="collapse" data-target="#collapseExample">
-            Más información
-            <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </button>
-        </p>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-
-              <!--mas informacion:-->
-              <div class="card-body">
-                <h4>Autor: {{$libro -> autor -> nombre}} </h4>
-                <h4>Editorial: {{$libro -> editorial -> nombre}} </h4>
-                <h4>ISBN: {{$libro -> isbn}} </h4>
-                <h4>Lanzamiento: {{$libro -> fecha_de_lanzamiento->format("d/m/Y")}} </h4>
-                <h4>Vencimiento:{{$libro -> fecha_de_vencimiento->format("d/m/Y")}} </h4>
+            <div class="col-md-4">
+              <div class="row" style="padding: 10px">
+                @foreach($libro->generos as $genero)
+                  <div class="genero-libro" 
+                        style="border-radius: 10px;
+                              border: 1px solid #E50914;
+                              padding: 5px;"> 
+                    {{$genero->nombre}}
+                  </div>
+                @endforeach
               </div>
-            
-            <!--div del colapso:-->    
+              <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
+                  href="{{route('libro.capitulos', $libro->id)}}">
+                Leer
+              </a>
+              <button class="btn btn-dark btn-block">
+                Trailer
+              </button>
+              <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample">
+                Más información
+                <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                </svg>
+              </button>
+              <div class="collapse" id="collapseExample">
+                <!--mas informacion:-->
+                <div class="card-body">
+                  <h6>Autor: {{$libro -> autor -> nombre}} </h6>
+                  <h6>Editorial: {{$libro -> editorial -> nombre}} </h6>
+                  <h6>ISBN: {{$libro -> isbn}} </h6>
+                  <h6>Lanzamiento: {{$libro -> fecha_de_lanzamiento->format("d/m/Y")}} </h6>
+                  <h6>Vencimiento:{{$libro -> fecha_de_vencimiento->format("d/m/Y")}} </h6>
+                </div>
+                <!--div del colapso:-->    
+              </div>
             </div>
-        </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
 
-        @if (!($libro-> portada  == 'noFile'))
-          <img style="width:100%" src="{{url($libro -> portada)}}">
-        @endif  
+            </div>
+          </div>
         </div>
       </div>
     </div>

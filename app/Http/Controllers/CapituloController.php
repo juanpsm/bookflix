@@ -13,8 +13,8 @@ class CapituloController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['showCapitulo']]);
-        $this->middleware('auth:admin', ['except' => ['showCapitulo']]);
+        //$this->middleware('auth', ['only' => ['showCapitulo', 'showCapitulos']]);
+        //$this->middleware('auth:admin', ['except' => ['showCapitulo']]);
     }
 
     /**
@@ -191,11 +191,46 @@ class CapituloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showCapitulo($id) //para Usuarios
+    public function showCapitulos($id) //ver lista de capitulos
     {
+        $libro = Libro::findOrFail($id);
+        $capitulos = $libro->capitulos()->get();
+        return view('capitulos.user', compact('capitulos'), [
+            'libro' => $libro,
+            'isFavorite' => $this->perfil()
+                ->librosFavoritos()
+                ->where('libro_id', $libro->id)
+                ->exists(),
+            'isInMyList' => $this->perfil()
+                ->librosMiLista()
+                ->where('libro_id', $libro->id)
+                ->exists(),
+            'leido' => $this->perfil()
+                ->librosLeidos()
+                ->where('libro_id', $libro->id)
+                ->exists()
+        ]);
+    }
+    public function capituloReader($id) //para Usuarios
+    {
+        $libro = Libro::findOrFail($id);
         $capitulo = Capitulo::findOrFail($id);
         $this->perfil()->librosMiLista()->syncWithoutDetaching([$capitulo->libro->id]);
-        return view('capitulos.mostrarPDFuser', compact('capitulo'));
+        return view('capitulos.mostrarPDFuser', compact('capitulo'), [
+            'libro' => $libro,
+            'isFavorite' => $this->perfil()
+                ->librosFavoritos()
+                ->where('libro_id', $libro->id)
+                ->exists(),
+            'isInMyList' => $this->perfil()
+                ->librosMiLista()
+                ->where('libro_id', $libro->id)
+                ->exists(),
+            'leido' => $this->perfil()
+                ->librosLeidos()
+                ->where('libro_id', $libro->id)
+                ->exists()
+        ]);
     }
     public function showCapituloAdmin($id) //para Admin
     {

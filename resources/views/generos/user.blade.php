@@ -23,10 +23,11 @@
             <div dir="ltr" class="">
                 <div>
                     <div class="bd dark-background" lang="es-AR" data-uia="container-adult">
-                        
+                        <div class="tituloGenero container" style="font-size: 20px;">
+                            Género >> {{$genero->nombre}}
+                        </div>
                         <div class="mainView" role="main">
                             <div class="gallery row-with-x-columns">
-                                <div></div>
                                 <div class="galleryContent">
                                     @if ($libros->isEmpty())
                                         {{-- Otras formas de ver esta collecciones
@@ -40,7 +41,9 @@
                                         <br>
                                         {{count($libros)}}
                                         <br> --}}
-                                        Por el momento no hay libros de éste género.
+                                        <div class="tituloGenero container" style="font-size: 40px;">
+                                            Por el momento no hay libros de éste género.
+                                        </div>
                                     @else
                                     <div>
                                         <div class="galleryLockups">
