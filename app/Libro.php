@@ -10,6 +10,11 @@ class Libro extends Model
     use SoftDeletes;
     protected $table = 'libros';
 
+    protected $casts = [
+        'fecha_de_lanzamiento' => 'date',
+        'fecha_de_vencimiento' => 'date'
+    ];
+
     public function generos (){
         return $this->belongsToMany(Genero::class); 
         // $this->generos retorna los generos del libro

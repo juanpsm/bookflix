@@ -59,10 +59,11 @@ class CapituloController extends Controller
     use FileUpload;
     public function store(Request $request, $libro_id)
     {
+        $libro= Libro::findOrFail($libro_id);
         $request->validate([
             'titulo' => 'required',
-            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
-            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
+            'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$libro->fecha_de_lanzamiento}",
+            'fecha_de_vencimiento' => "required|date_format:Y-m-d|after:fecha_de_lanzamiento|before_or_equal:{$libro->fecha_de_vencimiento}",
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
 
@@ -85,6 +86,7 @@ class CapituloController extends Controller
             $capitulo->pdf = 'noFile';
         }
 
+        
         $capitulo->titulo = $request->input('titulo');
         $capitulo->libro_id = $libro_id;
         $capitulo->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
@@ -129,14 +131,14 @@ class CapituloController extends Controller
     public function update(Request $request, $id)
     {
         // Valido datos
+        $capitulo = Capitulo::findOrFail($id);
+        $libro= Libro::findOrFail($capitulo->libro_id);
         $request->validate([
             'titulo' => 'required',
-            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
-            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
-            'pdf' => 'mimes:pdf|max:10000'
+            'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$libro->fecha_de_lanzamiento}",
+            'fecha_de_vencimiento' => "required|date_format:Y-m-d|after:fecha_de_lanzamiento|before_or_equal:{$libro->fecha_de_vencimiento}",
+            'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
-
-        $capitulo = Capitulo::findOrFail($id);
 
         // Handle File Upload
 

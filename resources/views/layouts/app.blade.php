@@ -126,12 +126,20 @@
                                             <a class="dropdown-item" href="{{ route('seleccionar_perfil') }}">
                                                 Cambiar perfil
                                             </a>
-                                            <a class="dropdown-item" href="{{ url('elegirSuscripcion') }}"
-                                                onclick="event.preventDefault();
-                                                document.getElementById('eliminarSuscripcion-form').submit();">
+                                            <a class="dropdown-item" href="#"
+                                                onclick="cancelarSuscripcion()">
                                                 Cancelar suscripción
                                             </a>
-
+                                            <script>
+                                                function cancelarSuscripcion(){
+                                                    let r=confirm("¿Estás seguro de que queres cancelar tu suscripción?")
+                                                    event.preventDefault();
+                                                    if (r==true){
+                                                        document.getElementById('eliminarSuscripcion-form').submit();
+                                                    }
+                                                    
+                                                }
+                                            </script>        
                                             <form id="eliminarSuscripcion-form" action="{{ url('elegirSuscripcion') }}" method="POST" style="display: none;">
                                                 @csrf
                                                 @method('DELETE')

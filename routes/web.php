@@ -76,6 +76,7 @@ Route::get('libros/user/search', 'LibroController@search');
 Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
 Route::get('libros/user/{libro}/marcarLeido', 'LibroController@marcarLeido');
+Route::post('libros/{id}/restore', 'LibroController@restore');
 
 
 //novedad:

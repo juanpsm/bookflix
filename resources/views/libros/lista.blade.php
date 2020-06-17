@@ -40,7 +40,14 @@
               @foreach ($libros as $item)
               <tr>
                 {{-- ID --}}
-                <th scope="row">{{ $item->id }}</th>
+                <th scope="row">
+                @if($item->deleted_at)
+                <svg class="bi bi-x-circle-fill text-danger " width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.146-3.146a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z"/>
+</svg>
+                @endif  
+                {{ $item->id }}  
+                </th>
                 {{-- Titulo y link --}}
                 <td>
                   <a href="{{route('libros.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
@@ -81,6 +88,17 @@
                     editar
                   </a>
                   {{-- Delete --}}
+                  @if($item->deleted_at)
+                  <form action="{{url("libros/{$item->id}/restore")}}" class="d-inline" method="POST"
+                  >
+                      
+                      @csrf
+                      <button type="submit" class="btn btn-warning btn-sm">
+                        restaurar
+                      </button>
+                  </form>
+                  @else
+
                   <form action="{{route('libros.destroy', $item)}}" class="d-inline" method="POST"
                   onclick="return confirm('Estas seguro que queres eliminar el libro?')">
                       @method('DELETE')
@@ -89,13 +107,12 @@
                         eliminar
                       </button>
                   </form>
+                  @endif
                 </td>
               </tr>
               @endforeach
             </tbody>
           </table>
-          {{$libros->links()}}
-        {{-- fin card body --}}
         </div>
       </div>
     </div>

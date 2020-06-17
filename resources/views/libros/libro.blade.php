@@ -42,8 +42,8 @@
                 <h4>Autor: {{$libro -> autor -> nombre}} </h4>
                 <h4>Editorial: {{$libro -> editorial -> nombre}} </h4>
                 <h4>ISBN: {{$libro -> isbn}} </h4>
-                <h4>Lanzamiento: {{$libro -> fecha_de_lanzamiento}} </h4>
-                <h4>Vencimiento:{{$libro -> fecha_de_vencimiento}} </h4>
+                <h4>Lanzamiento: {{$libro -> fecha_de_lanzamiento->format("d/m/Y")}} </h4>
+                <h4>Vencimiento:{{$libro -> fecha_de_vencimiento->format("d/m/Y")}} </h4>
               </div>
             
             <!--div del colapso:-->    

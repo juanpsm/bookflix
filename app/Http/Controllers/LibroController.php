@@ -29,7 +29,7 @@ class LibroController extends Controller
     public function index()
     {
 
-        $libros = Libro::paginate(50);
+        $libros = Libro::withTrashed()->get();
         return view('libros.lista',compact('libros')); 
     }
 
@@ -270,5 +270,12 @@ class LibroController extends Controller
     public function marcarLeido(Libro $libro){
         $this->perfil()->librosLeidos()->syncWithoutDetaching($libro->id);
         return redirect('/home');
+    }
+
+    public function restore($id){
+        $libro=Libro::withTrashed()->findOrFail($id);
+        $libro->restore();
+        
+        return redirect('/libros');
     }
 }
