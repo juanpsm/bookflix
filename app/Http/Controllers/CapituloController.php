@@ -227,8 +227,8 @@ class CapituloController extends Controller
                 ->where('libro_id', $libro->id)
                 ->exists(),
             'leido' => $this->perfil()
-                ->librosLeidos()
-                ->where('libro_id', $libro->id)
+                ->capitulosLeidos()
+                ->where('capitulo_id', $capitulo->id)
                 ->exists()
         ]);
     }
@@ -236,5 +236,20 @@ class CapituloController extends Controller
     {
         $capitulo = Capitulo::findOrFail($id);
         return view('capitulos.mostrarPDFadmin', compact('capitulo'));
+    }
+
+    public function marcarLeido(Libro $libro, Capitulo $capitulo) //para Admin
+    {
+        $this->perfil()->capitulosLeidos()->syncWithoutDetaching($capitulo->id);
+
+        $leidos = $this->perfil()->capitulosLeidos->filter(function($value, $key) use ($libro) {
+            return $value->libro_id === $libro->id;
+        })->count();
+        $totales = $libro->capitulos()->count();
+        if ($leidos == $totales) {
+            $this->perfil()->librosLeidos()->syncWithoutDetaching($libro->id);
+        }
+
+        return redirect()->route('libro.capitulos', $libro->id);
     }
 }

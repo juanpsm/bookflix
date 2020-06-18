@@ -37,6 +37,10 @@ class SuscripcionController extends Controller
         if ($user->cuenta_activa) {
             abort(400, 'La cuenta tiene una suscripcion activa');
         }
+        
+        if (!$esPremium && $user->perfiles()->count() > 2) {
+            $user->perfiles()->delete();
+        }
 
         $user->cuenta_activa = true;
         $user->es_premium = $esPremium;

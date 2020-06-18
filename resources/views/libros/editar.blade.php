@@ -111,7 +111,7 @@
               name="fecha_de_lanzamiento"
               placeholder="Ingrese fecha de lanzamiento"
               class="form-control mb-2"
-              value="{{$libro->fecha_de_lanzamiento}}" 
+              value="{{$libro->fecha_de_lanzamiento->toDateString()}}" 
             /> 
 
             Fecha de vencimiento:  
@@ -121,7 +121,7 @@
               name="fecha_de_vencimiento"
               placeholder="Ingrese fecha de vencimiento"
               class="form-control mb-2"
-              value="{{$libro->fecha_de_vencimiento}}" 
+              value="{{$libro->fecha_de_vencimiento->toDateString()}}" 
             />
 
             <p>

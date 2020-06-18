@@ -11,17 +11,11 @@
         <title>{{ config('app.name', 'Bookflix') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/bootstrap-typeahead.min.js') }}"></script>
         {{--<script src="{{ asset('js/pdfThumbnails/pdfjs/build/pdf.js') }}"></script>--}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.js"></script>
         <script src="{{ asset('js/pdfThumbnails/pdfThumbnails.js') }}"></script>
-
-        <script type="text/javascript">
-        var myFrame = document.getElementById('myFrame');
-
-        myFrame.window.eval('document.addEventListener("contextmenu", function (e) {e.preventDefault();}, false)');
-        </script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -30,6 +24,12 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/pdfcover.css') }}" rel="stylesheet">
+
+        <style>
+        .card {
+            background: inherit !important
+        }
+        </style>
     </head>
     <body oncontextmenu="return false;">
         <div id="app">
