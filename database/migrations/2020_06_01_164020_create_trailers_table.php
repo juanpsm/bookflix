@@ -17,7 +17,7 @@ class CreateTrailersTable extends Migration
             $table->bigIncrements('id');
             $table->string('titulo');
             $table->string('pdf');
-            $table->integer('libro_id');
+            $table->integer('libro_id')->nullable();
             $table->timestamps();
         });
     }

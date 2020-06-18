@@ -123,17 +123,26 @@
               class="form-control mb-2"
               value="{{$libro->fecha_de_vencimiento->toDateString()}}" 
             />
-
             <p>
-              Archivo: Solo se aceptan imagenes .png, .jpeg, .jpg, .gif<br>
-              (Tamaño máximo: 41 Megabytes)<br>
-              <input 
-              type="file" 
-              name="archivo" 
-              accept="image/png, .jpeg, .jpg, image/gif"
-              class="form-group"
-            >
+              Archivo actual:
+              <div class="container">
+                @if ($libro ->portada != 'noFile')
+                  <img style="height: 100px; border-radius: 10%;" src="{{url($libro ->portada)}}">
+                @else
+                  {{$libro->portada}}
+                @endif
+              </div>
             </p>
+            Cambiar: Solo se aceptan imagenes .png, .jpeg, .jpg, .gif
+            (Máx: 41 MB)
+          
+            <input 
+            type="file" 
+            name="archivo" 
+            accept="image/png, .jpeg, .jpg, image/gif"
+            class="form-group"
+            />
+            
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

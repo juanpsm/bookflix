@@ -65,7 +65,7 @@
                       Lanzamiento:
                     </td>
                     <td>
-                      {{$libro -> fecha_de_lanzamiento}}
+                      {{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}
                     </td>
                   </tr>
                   <tr>
@@ -73,7 +73,7 @@
                       Vencimiento:
                     </td>
                     <td>
-                      {{$libro -> fecha_de_vencimiento}}
+                      {{$libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}
                     </td>
                   </tr>
                   <tr>

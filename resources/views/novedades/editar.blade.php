@@ -77,15 +77,27 @@
             </p>
             <!-- este es el input del archivo (imagen/video):-->
             <p>
-              Archivo: Es opcional y solo se aceptan imagenes .png, .jpeg, .jpg, .gif, o videos .mp4<br>
-              (Tamaño máximo: 41 Megabytes)<br>
-              <input 
-              type="file" 
-              name="archivo" 
-              accept="image/png, .jpeg, .jpg, image/gif, .mp4"
-              class="form-group"
-            >
+              Archivo actual: {{$novedad -> archivo}}<br>
+              <div class="container">
+                @if ($novedad -> es_video)
+                  <video style="height: 70px; border-radius: 10%;" src="{{url($novedad -> archivo)}}" controls></video>
+                @else
+                  @if (!($novedad->archivo == 'noFile'))
+                    <img style="height: 70px; border-radius: 10%;" src="{{url($novedad -> archivo)}}"> <!--aca deberia mostrar archivo-->
+                  @endif
+                @endif
+              </div>
             </p>
+            Cambiar: solo se aceptan imagenes .png, .jpeg, .jpg, .gif, o videos .mp4
+              (Máx: 41 MB)
+
+            <input 
+            type="file" 
+            name="archivo" 
+            accept="image/png, .jpeg, .jpg, image/gif, .mp4"
+            class="form-group"
+            />
+            
             <div class="text-right"> 
               <a href="{{route('novedades.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

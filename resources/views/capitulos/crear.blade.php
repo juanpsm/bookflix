@@ -40,7 +40,8 @@
               value="{{old('titulo')}}"
             />
 
-            Fecha de lanzamiento:
+            Fecha de lanzamiento: (posterior a la del libro que es 
+              <b>{{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
             <input
               required
               type="date"
@@ -50,7 +51,8 @@
               value="{{old('fecha_de_lanzamiento')}}" 
             />
 
-            Fecha de vencimiento:
+            Fecha de vencimiento: (posterior a la del libro que es 
+            <b>{{$libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
             <input
               required
               type="date"
@@ -70,7 +72,7 @@
             >
 
             <div class="text-right"> 
-              <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">
+              <a href="{{ route('libros.show', $libro -> id) }}" class="btn btn-secondary btn-sm">
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
