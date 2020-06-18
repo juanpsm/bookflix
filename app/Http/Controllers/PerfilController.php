@@ -141,10 +141,13 @@ class PerfilController extends Controller
 
         $exists = Perfil::where('user_id', auth()->user()->id)
             ->where('id', '<>', $id)
+            ->where('nombre', $request->nombre)
             ->exists();
 
         if ($exists) {
-            return redirect()->route('seleccionar_perfil')->with('mensaje', 'Ese nombre de perfil ya esta en uso');
+            return redirect()->route('perfiles.edit', $id)
+                ->withInput()
+                ->withErrors(['message' => 'Ese nombre de perfil ya esta en uso']);
         }
 
         $perfil = Perfil::findOrFail($id);

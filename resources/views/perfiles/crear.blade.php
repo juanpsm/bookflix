@@ -41,6 +41,10 @@
             </div>
             <span data-uia="profile-save-button" class="profile-button preferred-action">
                 <input type="submit"
+                        style="color: #E50914;
+                        background-color: #00000000;
+                        border: 2px solid #E50914;
+                        padding: 6px;"
                     
                     value="GUARDAR">
 

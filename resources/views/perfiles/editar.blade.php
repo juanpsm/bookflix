@@ -33,19 +33,20 @@
                                 value={{$perfil->nombre}}>
                     </div>
                     {{--Errores--}}
-                    @error('nombre') 
+                    @if($errors->any())
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        El nombre es obligatorio
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        {!! implode('', $errors->all('<div>:message</div>')) !!}
                     </div>
-                    @enderror
+                    @endif
                 </div>
             </div>
 
             <span data-uia="profile-save-button" class="profile-button preferred-action">
                 <input type="submit"
+                        style="color: #E50914;
+                        background-color: #00000000;
+                        border: 2px solid #E50914;
+                        padding: 6px;"
                         
                         value="GUARDAR">
                 {{-- <span>
@@ -69,7 +70,11 @@
         <form action="{{route('perfiles.destroy', $perfil)}}" class="d-inline" method="POST">
             @method('DELETE')
             @csrf
-            <button type="submit" class="profile-button">
+            <button type="submit" 
+                    style="color: #777777d3;
+                    background-color: #00000000;
+                    border: 1px solid #777777d3;
+                    padding: 3px;">
                 ELIMINAR PERFIL
             </button>
         </form>

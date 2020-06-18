@@ -48,6 +48,41 @@ class BookflixTableSeeder extends Seeder
     //User::truncate(); // Evita duplicar datos
     //Perfil::truncate();
 
+        // Sin perfiles
+        DB::table('users')->insert([
+            'name' => 'Usuario SinPerfiles',
+            'dni' => '11000111',
+            'email' => 'sinperfiles@bookflix.com',
+            'cuenta_activa' => true,
+            'es_premium' => false,
+            'password' => bcrypt('123456'),
+        ]);
+
+        // Inactivo
+        DB::table('users')->insert([
+            'name' => 'Usuario Inactivo',
+            'dni' => '11000222',
+            'email' => 'inactivo@bookflix.com',
+            'cuenta_activa' => false,
+            'es_premium' => false,
+            'password' => bcrypt('123456'),
+        ]);
+
+        // Estandar
+        DB::table('users')->insert([
+            'name' => 'Usuario Estandar',
+            'dni' => '11222333',
+            'email' => 'estandar@bookflix.com',
+            'cuenta_activa' => true,
+            'es_premium' => false,
+            'password' => bcrypt('123456'),
+        ]);
+            // Perfiles para este user
+                DB::table('perfiles')->insert([
+                    'nombre' => 'Estandar1',
+                    'user_id' => 1, // Relación con usuario
+                ]);
+
         // Estandar
         DB::table('users')->insert([
             'name' => 'Usuario Estandar',
@@ -148,6 +183,11 @@ class BookflixTableSeeder extends Seeder
         $genero->nombre = "Investigación";
         $genero->save();
 
+        // Genero #7
+        $genero = new Genero();
+        $genero->nombre = "GeneroNoAsignado";
+        $genero->save();
+
 
     // Autores
     //Autor::truncate();
@@ -180,6 +220,10 @@ class BookflixTableSeeder extends Seeder
         $autor = new Autor();
         $autor->nombre = "Euclides";
         $autor->save();
+        // Autor #7
+        $autor = new Autor();
+        $autor->nombre = "AutorNoAsignado";
+        $autor->save();
 
 
     // Editoriales
@@ -200,6 +244,10 @@ class BookflixTableSeeder extends Seeder
         // Editorial #4
         $editorial = new Editorial();
         $editorial->nombre = "Bloomsbury Publishing";
+        $editorial->save();
+        // Editorial #5
+        $editorial = new Editorial();
+        $editorial->nombre = "EditorialNoAsignada";
         $editorial->save();
 
 
@@ -424,6 +472,17 @@ class BookflixTableSeeder extends Seeder
                 $capitulo->fecha_de_vencimiento = Carbon::now()->addYear()->subDay(); 
                 $capitulo->libro_id = 6;
                 $capitulo->save();
+        
+        // Libro #6
+        $libro = new Libro();
+        $libro->titulo = "LibroSinTrailerNiCapitulos";
+        $libro->portada = $this->guardarArchivo('portadas/euclides.jpg');
+        $libro->isbn = "1234567896";
+        $libro->autor_id = 4;
+        $libro->editorial_id = 4;
+        $libro->fecha_de_lanzamiento = Carbon::now();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->save();
         
         // Novedades
         $novedad = new Novedad();
