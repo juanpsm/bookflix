@@ -48,7 +48,7 @@ class BookflixTableSeeder extends Seeder
     //User::truncate(); // Evita duplicar datos
     //Perfil::truncate();
 
-        // Estandar
+        // Estandar ID 1
         DB::table('users')->insert([
             'name' => 'Usuario Estandar',
             'dni' => '11222333',
@@ -63,7 +63,7 @@ class BookflixTableSeeder extends Seeder
                     'user_id' => 1, // Relación con usuario
                 ]);
 
-        // Premium
+        // Premium ID 2
         DB::table('users')->insert([
             'name' => 'Usuario Premium',
             'dni' => '22333444',
@@ -86,7 +86,7 @@ class BookflixTableSeeder extends Seeder
                     'user_id' => 2, // Relación con usuario
                 ]);
         
-        // Sin perfiles
+        // Sin perfiles ID 3
         DB::table('users')->insert([
             'name' => 'Usuario SinPerfiles',
             'dni' => '11000111',
@@ -96,7 +96,7 @@ class BookflixTableSeeder extends Seeder
             'password' => bcrypt('123456'),
         ]);
 
-        // Inactivo
+        // Inactivo ID 4
         DB::table('users')->insert([
             'name' => 'Usuario Inactivo',
             'dni' => '11000222',
@@ -106,7 +106,7 @@ class BookflixTableSeeder extends Seeder
             'password' => bcrypt('123456'),
         ]);
 
-    // Administrador
+    // Administrador ID 1
     Admin::truncate();
 
         // Admin 1
@@ -266,7 +266,7 @@ class BookflixTableSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->save();
-        $libro->generos()->attach([6]);
+        $libro->generos()->attach([2, 6]);
             // Trailer para este libro
             $trailer = new Trailer();
             $trailer->titulo = "Trailer Libro de Anne Frank";
@@ -439,12 +439,12 @@ class BookflixTableSeeder extends Seeder
                 $capitulo->libro_id = 6;
                 $capitulo->save();
         
-        // Libro #6
+        // Libro #7
         $libro = new Libro();
         $libro->titulo = "LibroSinTrailerNiCapitulos";
         $libro->portada = $this->guardarArchivo('portadas/question.jpg');
         $libro->isbn = "1234567896";
-        $libro->autor_id = 4;
+        $libro->autor_id = 5;
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
