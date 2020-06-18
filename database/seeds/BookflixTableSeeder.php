@@ -83,21 +83,6 @@ class BookflixTableSeeder extends Seeder
                     'user_id' => 1, // Relación con usuario
                 ]);
 
-        // Estandar
-        DB::table('users')->insert([
-            'name' => 'Usuario Estandar',
-            'dni' => '11222333',
-            'email' => 'estandar@bookflix.com',
-            'cuenta_activa' => true,
-            'es_premium' => false,
-            'password' => bcrypt('123456'),
-        ]);
-            // Perfiles para este user
-                DB::table('perfiles')->insert([
-                    'nombre' => 'Estandar1',
-                    'user_id' => 1, // Relación con usuario
-                ]);
-
         // Premium
         DB::table('users')->insert([
             'name' => 'Usuario Premium',
@@ -120,25 +105,6 @@ class BookflixTableSeeder extends Seeder
                     'nombre' => 'Premium3',
                     'user_id' => 2, // Relación con usuario
                 ]);
-        // Sin Perfiles
-        DB::table('users')->insert([
-            'name' => 'Usuario SinPerfil',
-            'dni' => '33444555',
-            'email' => 'sinperfil@bookflix.com',
-            'cuenta_activa' => true,
-            'es_premium' => true,
-            'password' => bcrypt('123456'),
-        ]);
-        // Inactivo
-        DB::table('users')->insert([
-            'name' => 'Usuario Inactivo',
-            'dni' => '44555666',
-            'email' => 'inactivo@bookflix.com',
-            'cuenta_activa' => false,
-            'es_premium' => true,
-            'password' => bcrypt('123456'),
-        ]);
-
 
     // Administrador
     Admin::truncate();
