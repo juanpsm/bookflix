@@ -49,15 +49,14 @@
             @endif
         </ul>
     </div>
-
-        sds
     {{--Exito--}}
     @if ( session('mensaje') )
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="profile-name"
+            style="color: #E50914;
+            font-size= 23px;
+            background-color: #00000000;
+            padding: 6px;">
             {{session('mensaje')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
         </div>
     @endif
     <span data-uia="profile-button" class="profile-button">
