@@ -48,26 +48,6 @@ class BookflixTableSeeder extends Seeder
     //User::truncate(); // Evita duplicar datos
     //Perfil::truncate();
 
-        // Sin perfiles
-        DB::table('users')->insert([
-            'name' => 'Usuario SinPerfiles',
-            'dni' => '11000111',
-            'email' => 'sinperfiles@bookflix.com',
-            'cuenta_activa' => true,
-            'es_premium' => false,
-            'password' => bcrypt('123456'),
-        ]);
-
-        // Inactivo
-        DB::table('users')->insert([
-            'name' => 'Usuario Inactivo',
-            'dni' => '11000222',
-            'email' => 'inactivo@bookflix.com',
-            'cuenta_activa' => false,
-            'es_premium' => false,
-            'password' => bcrypt('123456'),
-        ]);
-
         // Estandar
         DB::table('users')->insert([
             'name' => 'Usuario Estandar',
@@ -105,6 +85,26 @@ class BookflixTableSeeder extends Seeder
                     'nombre' => 'Premium3',
                     'user_id' => 2, // Relación con usuario
                 ]);
+        
+        // Sin perfiles
+        DB::table('users')->insert([
+            'name' => 'Usuario SinPerfiles',
+            'dni' => '11000111',
+            'email' => 'sinperfiles@bookflix.com',
+            'cuenta_activa' => true,
+            'es_premium' => false,
+            'password' => bcrypt('123456'),
+        ]);
+
+        // Inactivo
+        DB::table('users')->insert([
+            'name' => 'Usuario Inactivo',
+            'dni' => '11000222',
+            'email' => 'inactivo@bookflix.com',
+            'cuenta_activa' => false,
+            'es_premium' => false,
+            'password' => bcrypt('123456'),
+        ]);
 
     // Administrador
     Admin::truncate();
@@ -377,7 +377,7 @@ class BookflixTableSeeder extends Seeder
         $libro->titulo = "Elementos";
         $libro->portada = $this->guardarArchivo('portadas/euclides.jpg');
         $libro->isbn = "1234567896";
-        $libro->autor_id = 4;
+        $libro->autor_id = 7;
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
@@ -442,7 +442,7 @@ class BookflixTableSeeder extends Seeder
         // Libro #6
         $libro = new Libro();
         $libro->titulo = "LibroSinTrailerNiCapitulos";
-        $libro->portada = $this->guardarArchivo('portadas/euclides.jpg');
+        $libro->portada = $this->guardarArchivo('portadas/question.jpg');
         $libro->isbn = "1234567896";
         $libro->autor_id = 4;
         $libro->editorial_id = 4;
