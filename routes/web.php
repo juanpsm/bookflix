@@ -75,7 +75,6 @@ Route::resource('libros', 'LibroController');
 Route::get('libros/user/search', 'LibroController@search');
 Route::get('libros/user/{libro}', 'LibroController@showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
-Route::get('libros/user/{libro}/marcarLeido', 'LibroController@marcarLeido');
 Route::post('libros/{id}/restore', 'LibroController@restore');
 
 
@@ -96,6 +95,9 @@ Route::get('showTrailer/{id}','TrailerController@showTrailer')->name('trailers.s
 Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
 Route::get('/libros/{libro_id}/agregarTrailer','TrailerController@createWithBook')->name('trailers.createWithBook');
 Route::post('/libros/{libro_id}/trailers','TrailerController@storeWithBook')->name('trailers.storeWithBook');
+
+Route::get('libros/{libro}/capitulos/{capitulo}/pdf', 'CapituloController@showPdf');
+Route::get('libros/{libro}/capitulos/{capitulo}/marcarLeido', 'CapituloController@marcarLeido');
 // GET          /photos                 index   photos.index
 // GET	        /photos/create	        create  photos.create
 // POST	        /photos                 store   photos.store

@@ -141,6 +141,7 @@ class PerfilController extends Controller
 
         $exists = Perfil::where('user_id', auth()->user()->id)
             ->where('id', '<>', $id)
+            ->where('nombre', $request->nombre)
             ->exists();
 
         if ($exists) {

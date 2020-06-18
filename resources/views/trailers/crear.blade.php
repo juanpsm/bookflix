@@ -11,16 +11,13 @@
             <span>Agregar Tráiler @if(!$libro_id=="no_book")para libro  {{$libro -> titulo}} @endif</span>
         </div>
         <div class="card-body">
-          {{--Errores--}}
-          @error('titulo') 
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              El título es obligatorio
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @enderror
-
+        {{--Errores--}}
+          @if($errors->any())
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {!! implode('', $errors->all('<div>:message</div>')) !!}
+              </div>
+          @endif
+          
           {{--Exito--}}    
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -52,7 +49,9 @@
               class="form-group"
             >
 
+            Libro:
             <input id="searchBook" class="form-control mb-2">
+            <input id="searchBookVal" name="libro" type="hidden">
             <script>
             $(document).ready(function() {
                 $('#searchBook').typeahead({
@@ -72,20 +71,11 @@
                     displayText: (item) => item.titulo,
                     matcher() { return true },
                     afterSelect(item) {
-                        $libro_id = `{{url('libros/user')}}/${item.id}`
+                        $('#searchBookVal').val(item.id)
                     }
                 });
             });
             </script>
-            <!-- Titulo -->
-            Libro:
-            <input
-              type="text"
-              name="libro"
-              placeholder="Ingrese el libro"
-              class="form-control mb-2"
-              value="{{old('libro')}}"
-            />
 
             <div class="text-right"> 
               <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">

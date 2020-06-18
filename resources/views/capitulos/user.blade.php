@@ -14,11 +14,6 @@
             </svg>
             @endif
         </span>
-        @if($isFavorite)
-          <a href="{{url("libros/user/{$libro->id}/toggle_favorite")}}" class="btn btn-warning btn-sm">Desmarcar favorito</a>
-        @else
-          <a href="{{url("libros/user/{$libro->id}/toggle_favorite")}}" class="btn btn-secondary btn-sm">Marcar favorito</a>
-        @endif
         </div>
         <div class="card-body"> 
           
@@ -61,10 +56,6 @@
                   {{-- Leer --}}
                   <a href="{{route('capitulo.reader', $item->id, $libro->id)}}" class="btn btn-primary btn-sm">
                     Leer
-                  </a>
-                  {{-- Leído --}}
-                  <a href="#" class="btn btn-secondary btn-sm">
-                    Marcar Leído
                   </a>
                 </td>
               </tr>

@@ -11,7 +11,7 @@
         </div>
         <div class="card-body">
           <h4>Título: {{$trailer -> titulo}} </h4>
-          <h4>id Libro: {{$trailer -> libro_id}} </h4>
+          <h4>Libro: <a href="{{route('libros.show', $trailer->libro)}}">{{$trailer->libro->titulo}}</a> </h4>
           <!--no se si se deberia mostrar asi el pdf-->
           <a href="{{route('trailers.showTrailerAdmin',$trailer)}}">
             <img style="height: 600px; border-radius: 10%;"

@@ -65,6 +65,7 @@ class TrailerController extends Controller
     {
         $request->validate([
             'titulo' => 'required',
+            'libro' => 'required|numeric|exists:App\Libro,id',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
         // Create Post
@@ -87,7 +88,7 @@ class TrailerController extends Controller
         }
 
         $trailer->titulo = $request->input('titulo');
-        $trailer->libro_id = 0;
+        $trailer->libro_id = $request->libro;
         $trailer->save();
         return redirect()->route('trailers.index')->with('mensaje', 'Trailer Creado!');
     }

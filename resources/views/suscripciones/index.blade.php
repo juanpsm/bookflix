@@ -23,6 +23,10 @@
                             value="premium" required>
                         <label class="custom-control-label" for="premium">Premium</label>
                     </div>
+                    <div class="text-danger">
+                    Nota: si previamente contaba con una suscripcion premium con mas de 2 perfiles,
+                    y ahora selecciona una suscripcion estandar, los perfiles seran eliminados
+                    </div>
                 </div>
                 <hr class="mb-4">
                 <div class="d-flex">

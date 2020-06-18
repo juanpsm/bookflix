@@ -38,13 +38,17 @@
                   </div>
                 @endforeach
               </div>
+              @if($libro->capitulos()->count())
               <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
                   href="{{route('libro.capitulos', $libro->id)}}">
                 Leer
               </a>
+              @endif
+              @if($libro->trailer)
               <button class="btn btn-dark btn-block">
                 Trailer
               </button>
+              @endif
               <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample">
                 Más información
                 <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

@@ -267,11 +267,6 @@ class LibroController extends Controller
         return Libro::all();
     }
 
-    public function marcarLeido(Libro $libro){
-        $this->perfil()->librosLeidos()->syncWithoutDetaching($libro->id);
-        return redirect('/home');
-    }
-
     public function restore($id){
         $libro=Libro::withTrashed()->findOrFail($id);
         $libro->restore();
