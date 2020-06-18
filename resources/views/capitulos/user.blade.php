@@ -39,22 +39,18 @@
               @foreach ($capitulos as $item)
               <tr>
                 <td>
-                  <a href="#"> {{--Tengo que pasar como parametro el item --}}
-                      {{ $item->titulo }}
-                  </a>
+                  {{ $item->titulo }}
                 </td>
                 <td>
-                  <a href="#">
-                    <img style="height: 150px; border-radius: 10%;"
+                  <img style="height: 150px; border-radius: 10%;"
                       data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
                       src="js\pdfThumbnails\pdf.png">
-                  </a>
                 </td>
 
                 {{-- Acciones --}}
                 <td>
                   {{-- Leer --}}
-                  <a href="{{route('capitulo.reader', $item->id, $libro->id)}}" class="btn btn-primary btn-sm">
+                  <a href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$item->id])}}" class="btn btn-primary btn-sm">
                     Leer
                   </a>
                 </td>

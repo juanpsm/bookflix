@@ -48,11 +48,11 @@ class Libro extends Model
         return $this->belongsToMany(Perfil::class, 'libros_miLista'); //libros_perfil asi se llama en la bd
     }
 
-    public function capitulos (){
+    public function capitulos(){
         return $this->hasMany(Capitulo::class);
     }
 
-    public function trailer (){
+    public function trailer(){
         return $this->hasOne(Trailer::class);
     }
 }

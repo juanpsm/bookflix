@@ -11,7 +11,15 @@
         </div>
         <div class="card-body">
           <h4>Título: {{$capitulo -> titulo}} </h4>
-          <!--no se si se deberia mostrar asi el pdf-->
+          <h5>id: {{$capitulo -> id}} </h5>
+          @if($capitulo -> libro_id)
+            <h6>Libro: {{$capitulo -> libro_id}} </h6>
+          @else ninguno
+          @endif
+          <h6>fecha_de_lanz.: {{$capitulo -> fecha_de_lanzamiento}} </h6>
+          <h6>fecha_de_venc.: {{$capitulo -> fecha_de_vencimiento}} </h6>
+          
+          <h6>pdf: {{$capitulo -> pdf}} </h6>
           <a href="{{route('capitulos.showCapituloAdmin',$capitulo)}}">
             <img style="height: 600px; border-radius: 10%;"
               data-pdf-thumbnail-file="{{url($capitulo -> pdf)}}" 

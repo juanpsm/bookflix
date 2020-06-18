@@ -89,22 +89,14 @@ Route::get('/session/get','SessionController@getSessionData')->name('session.get
 Route::get('/session/set','SessionController@storeSessionData');
 Route::get('/session/remove','SessionController@deleteSessionData');
 
-//trailer:
+// Trailer Admin:
 Route::resource('trailers', 'TrailerController');
-Route::get('showTrailer/{id}','TrailerController@showTrailer')->name('trailers.showTrailer');
 Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
 Route::get('/libros/{libro_id}/agregarTrailer','TrailerController@createWithBook')->name('trailers.createWithBook');
 Route::post('/libros/{libro_id}/trailers','TrailerController@storeWithBook')->name('trailers.storeWithBook');
 
-Route::get('libros/{libro}/capitulos/{capitulo}/pdf', 'CapituloController@showPdf');
-Route::get('libros/{libro}/capitulos/{capitulo}/marcarLeido', 'CapituloController@marcarLeido');
-// GET          /photos                 index   photos.index
-// GET	        /photos/create	        create  photos.create
-// POST	        /photos                 store   photos.store
-// GET	        /photos/{photo}         show    photos.show
-// GET          /photos/{photo}/edit    edit    photos.edit
-// PUT/PATCH    /photos/{photo}	        update  photos.update
-// DELETE       /photos/{photo}	        destroy photos.destroy
+// Trailer User (los ve desde un libro):
+Route::get('/libros/{libro_id}/trailer','TrailerController@showTrailerUser')->name('trailers.showTrailerUser');
 
 //historial
 Route::resource('libros_leidos', 'LibrosLeidosController');
@@ -115,10 +107,21 @@ Route::resource('libros_favoritos', 'LibrosFavoritosController');
 //miLista
 Route::resource('libros_miLista', 'LibroMiListaController'); //como hizo santi
 
-// Capitulos:
+// Capitulos Admin
 Route::resource('capitulos', 'CapituloController');
-Route::get('libros/{libro_id?}/read/{id?}','CapituloController@capituloReader')->name('capitulo.reader');
-Route::get('libros/{libro_id}/cap','CapituloController@showCapitulos')->name('libro.capitulos');
 Route::get('showCapituloAdmin/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
 Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
 Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');
+
+// Capitulos User
+Route::get('libros/{libro_id}/caps','CapituloController@showCapitulos')->name('libro.capitulos');
+Route::get('libros/{libro_id}/caps/{id}','CapituloController@capituloReader')->name('capitulo.reader');
+
+Route::get('libros/{libro_id}/caps/{id}/marcarLeido', 'CapituloController@marcarLeido')->name('capitulo.marcarLeido');
+// GET          /photos                 index   photos.index
+// GET	        /photos/create	        create  photos.create
+// POST	        /photos                 store   photos.store
+// GET	        /photos/{photo}         show    photos.show
+// GET          /photos/{photo}/edit    edit    photos.edit
+// PUT/PATCH    /photos/{photo}	        update  photos.update
+// DELETE       /photos/{photo}	        destroy photos.destroy

@@ -162,6 +162,7 @@
                   </a>
                 </div>
                 <div class="card-body">
+                  {{-- Lista de Capitulos --}}
                   <table class="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -174,12 +175,13 @@
                       @foreach ($libro -> capitulos as $item)
                       <tr>
                         <td>
+                          {{-- Titulo Capitulo : link a "detalles"--}}
                           <a href="{{route('capitulos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                               {{ $item->titulo }}
                           </a>
                         </td>
-                        <td>
-                          <a href="{{route('capitulos.show',$item)}}">
+                        <td>{{-- Miniatura : link a leer el capitulo --}}
+                          <a href="{{route('capitulos.showCapituloAdmin',$item)}}">
                             <img style="height: 150px; border-radius: 10%;"
                               data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
                               src="js\pdfThumbnails\pdf.png">

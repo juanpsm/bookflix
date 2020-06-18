@@ -187,14 +187,15 @@ class CapituloController extends Controller
     }
 
     /**
+     * Ver lista de capitulos para el usuario
      *
-     * @param  int  $id
+     * @param  int  $id_libro
      * @return \Illuminate\Http\Response
      */
-    public function showCapitulos($id) //ver lista de capitulos
+    public function showCapitulos($id_libro)
     {
-        $libro = Libro::findOrFail($id);
-        $capitulos = $libro->capitulos()->get();
+        $libro = Libro::findOrFail($id_libro);
+        $capitulos = $libro->capitulos; // tambien funca $libro->capitulos()->get()
         return view('capitulos.user', compact('capitulos'), [
             'libro' => $libro,
             'isFavorite' => $this->perfil()
@@ -211,11 +212,24 @@ class CapituloController extends Controller
                 ->exists()
         ]);
     }
-    public function capituloReader($id) //para Usuarios
-    {
-        $libro = Libro::findOrFail($id);
+
+    /**
+     * Mostrar el pdf de un capitulo de un libro para Usuarios
+     *
+     * @param  int  $libro_id
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function capituloReader($libro_id, $id)
+    {   
         $capitulo = Capitulo::findOrFail($id);
-        $this->perfil()->librosMiLista()->syncWithoutDetaching([$capitulo->libro->id]);
+        
+        $libro = $capitulo -> libro;
+        // Otras formas de obtener el libro:
+        // $libro = $capitulo -> libro() -> get();
+        //$libro = Libro::findOrFail($capitulo -> libro_id);
+        //
+        $this->perfil()->librosMiLista()->syncWithoutDetaching([$libro->id]);
         return view('capitulos.mostrarPDFuser', compact('capitulo'), [
             'libro' => $libro,
             'isFavorite' => $this->perfil()
@@ -232,14 +246,28 @@ class CapituloController extends Controller
                 ->exists()
         ]);
     }
+    /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function showCapituloAdmin($id) //para Admin
     {
         $capitulo = Capitulo::findOrFail($id);
         return view('capitulos.mostrarPDFadmin', compact('capitulo'));
     }
 
-    public function marcarLeido(Libro $libro, Capitulo $capitulo) //para Admin
+    /**
+     *
+     * @param  int  $libro_id
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function marcarLeido($libro_id, $id)
     {
+        $libro = Libro::findOrFail($libro_id);
+        $capitulo = Capitulo::findOrFail($id);
+
         $this->perfil()->capitulosLeidos()->syncWithoutDetaching($capitulo->id);
 
         $leidos = $this->perfil()->capitulosLeidos->filter(function($value, $key) use ($libro) {

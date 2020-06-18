@@ -13,8 +13,8 @@ class TrailerController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['only' => ['showTrailer']]);
-        $this->middleware('auth:admin', ['except' => ['showTrailer']]);
+        $this->middleware('auth', ['only' => ['showTrailerUser']]);
+        $this->middleware('auth:admin', ['except' => ['showTrailerUser']]);
     }
 
     /**
@@ -224,14 +224,20 @@ class TrailerController extends Controller
 
     /**
      *
+     * @param  int  $libro_id
+     * @return \Illuminate\Http\Response
+     */
+    public function showTrailerUser($libro_id) //para Usuarios
+    {
+        $libro = Libro::findOrFail($libro_id);
+        $trailer = $libro -> trailer;
+        return view('trailers.mostrarPDFuser', compact('trailer'));
+    }
+    /**
+     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showTrailer($id) //para Usuarios
-    {
-        $trailer = Trailer::findOrFail($id);
-        return view('trailers.mostrarPDFuser', compact('trailer'));
-    }
     public function showTrailerAdmin($id) //para Admin
     {
         $trailer = Trailer::findOrFail($id);

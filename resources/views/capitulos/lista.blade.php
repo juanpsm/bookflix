@@ -33,17 +33,18 @@
               @foreach ($capitulos as $item)
               <tr>
                 <td>
+                  {{-- Titulo : link a "detalles"--}}
                   <a href="{{route('capitulos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                       {{ $item->titulo }}
                   </a>
                 </td>
-                {{-- no se si es correcto poner la etiqueta "a",cuando era una imagen usaba <image..> pero creo que
-                    no existe la etiqueta pdf
+                {{-- otras formas de mostrar la imagen o pdf
                 <img style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}">
                 <iframe src="{{url($item -> pdf)}}#toolbar=0&navpanes=0&scrollbar=0" width="50" height="100"></iframe>
                 --}}
                 <td>
-                  <a href="{{route('capitulos.show',$item)}}">
+                  {{-- Miniatura : link a leer el capitulo --}}
+                  <a href="{{route('capitulos.showCapituloAdmin',$item)}}">
                     <img style="height: 150px; border-radius: 10%;"
                       data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
                       src="js\pdfThumbnails\pdf.png">
