@@ -9,6 +9,7 @@
           <span>Agregar capitulo para libro: {{$libro -> titulo}}</span>
         </div>
         <div class="card-body">
+          {{--Errores--}}
           @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {!! implode('', $errors->all('<div>:message</div>')) !!}

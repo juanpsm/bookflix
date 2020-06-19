@@ -10,14 +10,14 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-          @error('titulo') 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El título es obligatorio
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @enderror
+          @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
 
           {{--Exito--}}
           @if ( session('mensaje') )
@@ -43,7 +43,30 @@
               value="{{$capitulo->titulo }}" 
             /> 
             
+            Fecha de lanzamiento: (posterior a la del libro que es 
+              <b>{{$capitulo -> libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
+            <input
+              required
+              type="date"
+              name="fecha_de_lanzamiento"
+              placeholder="Ingrese fecha de lanzamiento"
+              class="form-control mb-2"
+              value="{{$capitulo->fecha_de_lanzamiento}}" 
+            />
+
+            Fecha de vencimiento: (posterior a la del libro que es 
+            <b>{{$capitulo -> libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
+            <input
+              required
+              type="date"
+              name="fecha_de_vencimiento"
+              placeholder="Ingrese fecha de vencimiento"
+              class="form-control mb-2"
+              value="{{$capitulo->fecha_de_vencimiento}}" 
+            />
+
             <!-- este es el input del pdf:-->
+            <div>Actualizar archivo PDF:</div>
             <input 
               type="file" 
               name="pdf" 
@@ -52,7 +75,7 @@
             >
             
             <div class="text-right"> 
-              <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">
+              <a href="{{ route('libros.show', $capitulo -> libro -> id) }}" class="btn btn-secondary btn-sm">
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">

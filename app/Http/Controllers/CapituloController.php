@@ -137,14 +137,14 @@ class CapituloController extends Controller
             'titulo' => 'required',
             'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$libro->fecha_de_lanzamiento}",
             'fecha_de_vencimiento' => "required|date_format:Y-m-d|after:fecha_de_lanzamiento|before_or_equal:{$libro->fecha_de_vencimiento}",
-            'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
+            'pdf' => 'mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
 
         // Handle File Upload
 
         if ($request->hasFile('pdf')) {
             try {
-                $file = $this->CapitulosFileUpload($request->pdf);
+                $file = $this->CapituloFileUpload($request->pdf);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
 
