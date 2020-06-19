@@ -65,6 +65,7 @@ class TrailerController extends Controller
     {
         $request->validate([
             'titulo' => 'required',
+            'libro' => 'required|numeric|unique:App\Trailer,libro_id',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
         // Create Post
@@ -80,7 +81,7 @@ class TrailerController extends Controller
                 $trailer->pdf = $filePath;
             } catch (Exception $e) {
                 // mensaje de error
-                "error de archivo";
+                return "error de archivo";
             }
         } else {
             $trailer->pdf = 'noFile';
@@ -102,6 +103,14 @@ class TrailerController extends Controller
     use FileUpload;
     public function storeWithBook(Request $request, $libro_id)
     {
+        $libro = Libro::findOrFail($libro_id);
+
+        if ($libro->trailer) {
+            return redirect()->back()->withErrors([
+                'El libro ya tiene un trailer'
+            ]);
+        }
+
         $request->validate([
             'titulo' => 'required',
             'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
@@ -178,7 +187,7 @@ class TrailerController extends Controller
 
         if ($request->hasFile('pdf')) {
             try {
-                $file = $this->TrailersFileUpload($request->pdf);
+                $file = $this->TrailerFileUpload($request->pdf);
                 $filePath = $file->url;
                 $fileExt = $file->ext;
 
@@ -190,7 +199,7 @@ class TrailerController extends Controller
             
             } catch (Exception $e) {
                 // mensaje de error
-                "error de archivo";
+                return "error de archivo";
             }
         }
 
