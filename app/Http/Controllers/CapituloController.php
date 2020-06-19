@@ -198,6 +198,7 @@ class CapituloController extends Controller
         $capitulos = $libro->capitulos; // tambien funca $libro->capitulos()->get()
         return view('capitulos.user', compact('capitulos'), [
             'libro' => $libro,
+            'perfil' => $this->perfil(),
             'isFavorite' => $this->perfil()
                 ->librosFavoritos()
                 ->where('libro_id', $libro->id)
@@ -276,6 +277,7 @@ class CapituloController extends Controller
         $totales = $libro->capitulos()->count();
         if ($leidos == $totales) {
             $this->perfil()->librosLeidos()->syncWithoutDetaching($libro->id);
+            $this->perfil()->librosMiLista()->detach($libro->id);
         }
 
         return redirect()->route('libro.capitulos', $libro->id);
