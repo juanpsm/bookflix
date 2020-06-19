@@ -65,8 +65,8 @@ class TrailerController extends Controller
     {
         $request->validate([
             'titulo' => 'required',
-            'libro' => 'required|numeric|unique:App\Trailer,libro_id',
-            'pdf' => 'required|mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
+            'libro' => 'nullable|numeric|unique:App\Trailer,libro_id', // No es requerido el campo 
+            'pdf' => 'required|mimes:pdf|max:10000' 
         ]);
         // Create Post
         $trailer = new Trailer;
@@ -178,6 +178,7 @@ class TrailerController extends Controller
         // Valido datos
         $request->validate([
             'titulo' => 'required',
+            'libro' => 'nullable|numeric|unique:App\Trailer,libro_id',
             'pdf' => 'mimes:pdf|max:10000'
         ]);
 
@@ -206,7 +207,10 @@ class TrailerController extends Controller
         $trailer->titulo = $request->titulo;
         $trailer->save();
 
-        return redirect()->route('libros.show', $trailer->libro->id)->with('mensaje', 'Trailer Actualizado!');
+        //if($trailer->libro){
+        //    return redirect()->route('libros.show', $trailer->libro->id)->with('mensaje', 'Trailer Actualizado!');
+        //}
+        return redirect()->route('trailers.index')->with('mensaje', 'Trailer Actualizado!');
     }
 
     /**

@@ -53,7 +53,6 @@
                   <a href="{{route('libros.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                       {{ $item->titulo }}
                   </a>
-                  {{$item->portada}}
                 </td>
                 {{-- Autor --}}
                 <td>

@@ -10,21 +10,18 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-          @error('titulo') 
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            El título es obligatorio
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @enderror
+          @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {!! implode('', $errors->all('<div>:message</div>')) !!}
+            </div>
+          @endif
 
           {{--Exito--}}
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               {{session('mensaje')}}
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
               </button>
             </div>
           @endif
@@ -35,22 +32,58 @@
             @method('PUT') {{--HTML no permite el PUT, lo paso por adentro--}}
             @csrf
 
-            <input
-              type="text"
-              name="titulo"
-              placeholder="Ingrese el título"
-              class="form-control mb-2"
-              value="{{$trailer->titulo }}" 
-            /> 
-            
-            <!-- este es el input del pdf:-->
-            <input 
-              type="file" 
-              name="pdf" 
-              accept="application/pdf,application/vnd.ms-excel"
-              class="form-group"
-            >
-            
+            <!-- Titulo -->
+            <div class="row container">
+              <input
+                type="text"
+                name="titulo"
+                placeholder="Ingrese el título"
+                class="form-control mb-2"
+                value="{{$trailer->titulo }}" 
+              />
+            </div>
+              <!-- PDF -->
+            <div class="row container">
+              <div class="row container">
+              Actualizar archivo PDF:
+              </div>
+                <input 
+                  type="file" 
+                  name="pdf" 
+                  accept="application/pdf,application/vnd.ms-excel"
+                  class="form-group"
+                >
+              </div>
+            <div class="row container">
+                Libro: @if($trailer->libro){{$trailer->libro->titulo }} @else ninguno @endif<br>
+              Actualizar:
+              <input id="searchBook" class="form-control mb-2">
+              <input id="searchBookVal" name="libro" type="hidden">
+              <script>
+              $(document).ready(function() {
+                  $('#searchBook').typeahead({
+                      minLength: 1,
+                      delay: 400,
+                      autoSelect: false,
+                      source(query, process) {
+                          $.ajax({
+                              url: '{{ url("libros/user/search") }}',
+                              data: {q: query, limit: 8},
+                              dataType: 'json'
+                          })
+                          .done(function(response) {
+                              return process(response);
+                          });
+                      },
+                      displayText: (item) => item.titulo,
+                      matcher() { return true },
+                      afterSelect(item) {
+                          $('#searchBookVal').val(item.id)
+                      }
+                  });
+                });
+              </script>
+            </div>
             <div class="text-right"> 
               <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">
                 Cancelar

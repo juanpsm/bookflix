@@ -35,12 +35,15 @@
               {{-- Generos --}}
               <div class="row" style="padding: 10px">
                 @foreach($libro->generos as $genero)
+                <div class="p-2">
                   <div class="genero-libro" 
                         style="border-radius: 10px;
                               border: 1px solid #E50914;
+                              background-color: #ca1d2642;
                               padding: 5px;"> 
                     {{$genero->nombre}}
                   </div>
+                </div>
                 @endforeach
               </div>
               {{-- LEER (solo si tiene capitulos) --}}
@@ -56,10 +59,6 @@
                     href="{{route('trailers.showTrailerUser', $libro->id)}}">
                     Trailer
                 </a>
-                <button class="btn btn-dark btn-block"
-                    href="#">>
-                  Trailer
-                </button>
               @endif
               {{-- Más información --}}
               <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample">
