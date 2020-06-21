@@ -189,7 +189,7 @@ class NovedadController extends Controller
         return back()->with('mensaje', 'Novedad Eliminada!');
     }
 
-        /**
+    /**
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

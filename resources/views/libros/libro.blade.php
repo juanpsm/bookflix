@@ -48,15 +48,21 @@
               </div>
               {{-- LEER (solo si tiene capitulos) --}}
               @if($libro->capitulos()->count())
-                <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
-                    href="{{route('libro.capitulos', $libro->id)}}">
-                  Leer
-                </a>
+              <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
+                    @if ($libro->capitulos()->count()==1)
+                      {{-- si tiene capitulos uno solo muestra directamente el pdf (elemento 0 del array)) --}}
+                      href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$libro->capitulos[0] ])}}"
+                    @else
+                      {{-- si tiene mas muestra la lista de capitulos --}}
+                      href="{{route('libro.capitulos', $libro->id)}}"
+                    @endif>
+                Leer
+              </a>
               @endif
               {{-- Trailer (solo si tiene) --}}
               @if($libro->trailer)
                 <a class="btn btn-dark btn-block"
-                    href="{{route('trailers.showTrailerUser', $libro->id)}}">
+                    href="{{route('trailers.showTrailerUserLibro', $libro-> trailer)}}">
                     Trailer
                 </a>
               @endif

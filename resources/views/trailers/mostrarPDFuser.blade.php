@@ -7,10 +7,19 @@
         <div class="card bg-dark">
           <div class="card-header d-flex align-items-center justify-content-between">
             <div class="p-2">
-              <span> {{$trailer->libro->titulo}} - {{$trailer->titulo}} </span>
+              <span>
+                @if ($trailer -> libro)
+                <a href="{{route("libros.showForUser", $trailer-> libro)}}">
+                  {{$trailer -> libro -> titulo}}
+                </a>
+                @else
+                  Sin Libro
+                @endif
+                  - {{$trailer -> titulo}}
+              </span>
             </div>
             <div class="d-flex justify-content-end">
-              <a href="" class= "btn btn-secondary ml-auto" >
+            <a href="{{route('trailers.showListaUser')}}" class= "btn btn-secondary ml-auto" >
                 Volver
               </a>
             </div>

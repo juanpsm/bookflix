@@ -73,7 +73,7 @@ Route::resource('autores', 'AutorController');
 //libro:
 Route::resource('libros', 'LibroController');
 Route::get('libros/user/search', 'LibroController@search');
-Route::get('libros/user/{libro}', 'LibroController@showForUser');
+Route::get('libros/user/{libro}', 'LibroController@showForUser')->name('libros.showForUser');
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
 Route::post('libros/{id}/restore', 'LibroController@restore');
 
@@ -94,10 +94,11 @@ Route::resource('trailers', 'TrailerController');
 Route::get('showTrailer/{id}','TrailerController@showTrailerAdmin')->name('trailers.showTrailerAdmin');
 Route::get('/libros/{libro_id}/agregarTrailer','TrailerController@createWithBook')->name('trailers.createWithBook');
 Route::post('/libros/{libro_id}/trailers','TrailerController@storeWithBook')->name('trailers.storeWithBook');
-
 // Trailer User (los ve desde un libro):
-Route::get('/libros/{libro_id}/trailer','TrailerController@showTrailerUser')->name('trailers.showTrailerUser');
-
+Route::get('/libros/{libro_id}/trailer','TrailerController@showTrailerUserLibro')->name('trailers.showTrailerUserLibro');
+// notar que va sin "S" asi no pisa las rutas del admin en resource
+Route::get('trailer','TrailerController@showListaUser')->name('trailers.showListaUser');
+Route::get('trailer/{id}','TrailerController@showTrailerUser')->name('trailers.showTrailerUser');
 //historial
 Route::resource('libros_leidos', 'LibrosLeidosController');
 
@@ -112,11 +113,9 @@ Route::resource('capitulos', 'CapituloController');
 Route::get('showCapituloAdmin/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
 Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
 Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');
-
 // Capitulos User
 Route::get('libros/{libro_id}/caps','CapituloController@showCapitulos')->name('libro.capitulos');
 Route::get('libros/{libro_id}/caps/{id}','CapituloController@capituloReader')->name('capitulo.reader');
-
 Route::get('libros/{libro_id}/caps/{id}/marcarLeido', 'CapituloController@marcarLeido')->name('capitulo.marcarLeido');
 // GET          /photos                 index   photos.index
 // GET	        /photos/create	        create  photos.create

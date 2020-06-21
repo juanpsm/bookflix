@@ -20,7 +20,7 @@
                     $libros = Libro::get();
                     ?>
                     @foreach ($libros as $item)
-                        <a class="" href="{{url("libros/user/{$item->id}")}}">
+                        <a class="" href="{{route("libros.showForUser", $item)}}">
                             <img style="height: 150px; border-radius: 10%;" src="{{$item->portada}}" alt="" class="" >
                         </a>
                     @endforeach

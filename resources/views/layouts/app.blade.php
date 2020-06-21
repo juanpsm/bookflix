@@ -61,6 +61,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link" role="button" href="{{route('trailers.showListaUser')}}">
+                                        Trailers
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link" role="button" href="{{route('libros_leidos.index')}}">
                                         Historial
                                     </a>
