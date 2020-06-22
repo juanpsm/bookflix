@@ -82,13 +82,14 @@
                                 </li>
                             </ul>
                             <div class="navbar-nav">
-                                <input id="searchBook" class="form-control form-control-sm">
+                                <input id="searchBook" class="form-control form-control-sm" autocomplete="off">
                                 <script>
                                 $(document).ready(function() {
                                     $('#searchBook').typeahead({
                                         minLength: 1,
                                         delay: 400,
                                         autoSelect: false,
+                                        selectOnBlur: false,
                                         source(query, process) {
                                             $.ajax({
                                                 url: '{{ url("libros/user/search") }}',
@@ -96,12 +97,20 @@
                                                 dataType: 'json'
                                             })
                                             .done(function(response) {
-                                                return process(response);
+                                                if (response.length == 0) {
+                                                    return process([{
+                                                        noClick: true,
+                                                        titulo: 'No hay resultados',
+                                                    }])
+                                                }
+                                                return process(response)
                                             });
                                         },
                                         displayText: (item) => item.titulo,
                                         matcher() { return true },
                                         afterSelect(item) {
+                                            if (item.noClick)
+                                                return false
                                             location.href = `{{url('libros/user')}}/${item.id}`
                                         }
                                     });

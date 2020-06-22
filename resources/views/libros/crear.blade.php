@@ -114,6 +114,16 @@
               class="form-control mb-2"
               value="{{old('fecha_de_vencimiento')}}" 
             />
+            
+            Cantidad capitulos:
+            <input
+              required
+              min="1"
+              type="number"
+              name="cantidad_capitulos"
+              class="form-control mb-2"
+              value="{{old('cantidad_capitulos')}}" 
+            />
 
             <!-- este es el input del archivo (imagen/video):-->
             <p>

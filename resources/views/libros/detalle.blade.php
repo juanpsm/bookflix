@@ -19,8 +19,11 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Libro #{{$libro -> id}}</span>
+        <div class="card-header d-flex align-items-center">
+          <span class="mr-auto">Libro #{{$libro -> id}}</span>
+          <a href="{{route('libros.edit', $libro)}}" class="btn btn-primary btn-sm mr-2">
+            editar
+          </a>
           <a href="{{route('libros.index')}}" class="btn btn-primary btn-sm">Volver</a>
         </div>
         <div class="card-body">
@@ -74,6 +77,14 @@
                     </td>
                     <td>
                       {{$libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Cantidad capitulos:
+                    </td>
+                    <td>
+                      {{$libro->capitulos->count()}} / {{$libro->cantidad_capitulos}}
                     </td>
                   </tr>
                   <tr>
@@ -157,9 +168,11 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                   <span>Lista de Capitulos: </span>
                   {{-- Agregar Capítulo --}}
+                  @if($libro->cantidad_capitulos > $libro->capitulos->count())
                   <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
                     Agregar Capítulo
                   </a>
+                  @endif
                 </div>
                 <div class="card-body">
                   {{-- Lista de Capitulos --}}

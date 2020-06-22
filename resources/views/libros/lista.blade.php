@@ -94,13 +94,18 @@
                       
                       @csrf
                       <button type="submit" class="btn btn-warning btn-sm">
-                        restaurar
+                      restaurar
                       </button>
                   </form>
                   @else
 
                   <form action="{{route('libros.destroy', $item)}}" class="d-inline" method="POST"
-                  onclick="return confirm('Estas seguro que queres eliminar el libro?')">
+                  @if($item->inUse())
+                      onclick="return confirm('Este libro ya fue usado en las preferencias de un usuario. Esta seguro que quiere eliminarlo?')"
+                  @else
+                      onclick="return confirm('Estas seguro que queres eliminar el libro?')"
+                  @endif
+                  >
                       @method('DELETE')
                       @csrf
                       <button type="submit" class="btn btn-danger btn-sm">

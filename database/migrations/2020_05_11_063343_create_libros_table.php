@@ -22,6 +22,7 @@ class CreateLibrosTable extends Migration
             $table->string('isbn');
             $table->date('fecha_de_lanzamiento');
             $table->date('fecha_de_vencimiento');
+            $table->integer('cantidad_capitulos');
             $table->timestamps();
             $table->softDeletes();
         });

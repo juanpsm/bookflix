@@ -55,4 +55,10 @@ class Libro extends Model
     public function trailer(){
         return $this->hasOne(Trailer::class);
     }
+
+    public function inUse() {
+        return $this->usuariosFavorito()->count() > 0 || 
+                $this->perfilesMiLista()->count() > 0 || 
+                $this->lectores()->count() > 0;
+    }
 }

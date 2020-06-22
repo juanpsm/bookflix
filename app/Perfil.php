@@ -19,11 +19,11 @@ class Perfil extends Authenticatable
     }
 
     public function librosMiLista() {
-        return $this->belongsToMany(Libro::class, 'libros_miLista');
+        return $this->belongsToMany(Libro::class, 'libros_miLista')->withTrashed();
     }
 
     public function librosLeidos() {
-        return $this->belongsToMany(Libro::class, 'libros_leidos');
+        return $this->belongsToMany(Libro::class, 'libros_leidos')->withTrashed();
     }
 
     public function capitulosLeidos() {
@@ -31,6 +31,6 @@ class Perfil extends Authenticatable
     }
 
     public function librosFavoritos() {
-        return $this->belongsToMany(Libro::class, 'libros_favoritos');
+        return $this->belongsToMany(Libro::class, 'libros_favoritos')->withTrashed();
     }
 }

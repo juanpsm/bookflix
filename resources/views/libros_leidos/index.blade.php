@@ -30,9 +30,14 @@
                       @endif
                     </td>
                     <td>
+                      @if($item->deleted_at)
+                        {{ $item->titulo }}<br>
+                        <small>Este libro ya no se encuentra disponible</small>
+                      @else
                       <a href="{{url("libros/user/{$item->id}")}}"> {{--Tengo que pasar como parametro el item --}}
                         {{ $item->titulo }}
                       </a>
+                      @endif
                     </td>
                   </tr>
                 @endforeach

@@ -123,6 +123,17 @@
               class="form-control mb-2"
               value="{{$libro->fecha_de_vencimiento->toDateString()}}" 
             />
+
+            Cantidad capitulos:
+            <input
+              required
+              min="1"
+              type="number"
+              name="cantidad_capitulos"
+              class="form-control mb-2"
+              value="{{$libro->cantidad_capitulos}}" 
+            />
+
             <p>
               Archivo actual:
               <div class="container">

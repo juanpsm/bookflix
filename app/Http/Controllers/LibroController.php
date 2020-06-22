@@ -60,6 +60,7 @@ class LibroController extends Controller
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
+            'cantidad_capitulos' => 'required|numeric',
             'editorial' => 'required',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
@@ -100,6 +101,7 @@ class LibroController extends Controller
         $libro->isbn = $request->isbn;
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+        $libro->cantidad_capitulos = $request->cantidad_capitulos;
         $libro->save();
         $libro->generos()->sync($request->generos);
         // la linea 56 esta creando las relaciones    
@@ -175,8 +177,15 @@ class LibroController extends Controller
             'autor' => 'required',
             'generos'=> 'required|array',
             'editorial' => 'required',
+            'cantidad_capitulos' => 'required|numeric|min:1',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
+
+        if ($request->cantidad_capitulos < $libro->capitulos()->count()) {
+            return redirect()->back()->withErrors([
+                'error' => 'La cantidad de capitulos no puede ser inferior a los capitulos publicados'
+            ]);
+        }
 
         //$libro = Libro::findOrFail($id); ya no hace falta
         // Handle File Upload
@@ -203,6 +212,7 @@ class LibroController extends Controller
         $libro->editorial_id = $request->editorial;
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+        $libro->cantidad_capitulos = $request->cantidad_capitulos;
         $libro->save();
         $libro->generos()->sync($request->generos);    
         return redirect()->route('libros.index')->with('mensaje', 'libro Actualizado!');
@@ -217,9 +227,6 @@ class LibroController extends Controller
     public function destroy($id)
     {
         $libro = Libro::findOrFail($id);
-        if ($libro->portada != 'noFile') {
-            File::delete($libro->portada);
-        }
         $libro->delete();
 
         return back()->with('mensaje', 'Libro Eliminado!');
