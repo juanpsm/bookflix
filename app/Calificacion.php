@@ -15,8 +15,4 @@ class Calificacion extends Model
     public function autor (){ //autor del comentario
         return $this->belongsTo(Perfil::class);
     }
-
-    public function visible (){ //getter para usar en las vistas
-        return !$this-> es_spoiler;
-    }
 }
