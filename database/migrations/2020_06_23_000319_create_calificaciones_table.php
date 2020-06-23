@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCalificacionsTable extends Migration
+class CreateCalificacionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCalificacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('calificacions', function (Blueprint $table) {
+        Schema::create('calificaciones', function (Blueprint $table) {
             $table->id();
             $table->integer('puntaje');
             $table->integer('perfil_id');
@@ -29,6 +29,6 @@ class CreateCalificacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('calificacions');
+        Schema::dropIfExists('calificaciones');
     }
 }
