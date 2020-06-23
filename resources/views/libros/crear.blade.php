@@ -20,9 +20,6 @@
             </div>
           @endif
 
-
-
-
           {{--Exito--}}    
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -37,27 +34,45 @@
           <form method="POST" action="{{route('libros.store')}}" enctype="multipart/form-data">
             @csrf
 
-            <input
-              required
-              type="text"
-              name="titulo"
-              placeholder="Ingrese el título"
-              class="form-control mb-2"
-              value="{{old('titulo')}}" 
-            />
-            <!-- esto ya no es mas un simple string, ahora va ser una lista desplegable
-            <input
-              type="text"
-              name="autor"
-              placeholder="Ingrese autor"
-              class="form-control mb-2"
-              value="{{old('autor')}}" 
-            /> -->
-            
-            <!-- lo que esta haciendo es traer todos los generos y loopear donde $genero
-            va a tomar el valor de los distintos generos uno x uno y va a imprimir el html
-            que esta entre foreach y endforeach--> 
             <div class= "row">
+              <div class= "col-lg-6">
+                <input
+                  required
+                  type="text"
+                  name="titulo"
+                  placeholder="Ingrese el título"
+                  class="form-control mb-2"
+                  value="{{old('titulo')}}" 
+                />
+              </div>
+              <div class= "col-lg-6">
+                <input
+                  required
+                  type="text"
+                  name="isbn"
+                  placeholder="Ingrese ISBN"
+                  class="form-control mb-2"
+                  value="{{old('isbn')}}" 
+                />
+              </div>
+            </div>
+            <div class= "row">
+              <div class= "col-lg-4">
+                Autor:<br>
+                <select class= "form-control" name="autor" >
+                  @foreach(\App\Autor::all() as $autor)
+                    <option value="{{$autor->id}}">{{$autor->nombre}}</option>
+                  @endforeach
+                </select> 
+              </div>
+              <div class= "col-lg-4">
+                Editorial:<br>
+                <select class= "form-control" name="editorial">
+                  @foreach(\App\Editorial::all() as $editorial)
+                    <option value="{{$editorial->id}}">{{$editorial->nombre}}</option>
+                  @endforeach
+                </select> 
+              </div>
               <div class= "col-lg-4">
                 Géneros:<br>
                 <select class= "form-control" name="generos[]" multiple>
@@ -66,76 +81,104 @@
                 @endforeach
                 </select> 
               </div>
-              <div class= "col-lg-4">
-                Autor:<br>
-                <select class= "form-control" name="autor" >
-                @foreach(\App\Autor::all() as $autor)
-                <option value="{{$autor->id}}">{{$autor->nombre}}</option>
-                @endforeach
-
-              </select> 
-              </div>
-              <div class= "col-lg-4">
-                Editorial:<br>
-                <select class= "form-control" name="editorial">
-                  @foreach(\App\Editorial::all() as $editorial)
-                  <option value="{{$editorial->id}}">{{$editorial->nombre}}</option>
-                  @endforeach
-
-                </select> 
+            </div>
+            <div class= "row">
+              <div class= "col-lg-6">
+                <div class= "row">
+                  <div class= "col-lg-6">
+                    Fecha de lanzamiento:
+                    <input
+                      required
+                      type="date"
+                      name="fecha_de_lanzamiento"
+                      placeholder="Ingrese fecha de lanzamiento"
+                      class="form-control mb-2"
+                      value="{{old('fecha_de_lanzamiento')}}" 
+                    />
+                  </div>
+                  <div class= "col-lg-6">
+                    Fecha de vencimiento:
+                    <input
+                      required
+                      type="date"
+                      name="fecha_de_vencimiento"
+                      placeholder="Ingrese fecha de vencimiento"
+                      class="form-control mb-2"
+                      value="{{old('fecha_de_vencimiento')}}" 
+                    />
+                  </div>
+                </div>
+                <div class= "row">
+                  <div class= "col-lg-12">
+                    Portada:
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input"
+                          name="portada" 
+                          accept="image/png, .jpeg, .jpg, image/gif" >
+                        <label class="custom-file-label" for="inputGroupFile04">
+                          imagen .png .jpeg .jpg .gif</label>
+                      </div>
+                    </div>
+                    <p>
+                      (Tamaño máximo: 41 Megabytes)
+                    </p>
+                    <script type="application/javascript">
+                      $('input[type="file"]').change(function(e){
+                          var fileName = e.target.files[0].name;
+                          $('.custom-file-label').html(fileName);
+                      });
+                    </script>
+                  </div>
+                </div>
+              </div>              
+              <div class= "col-lg-6 align-self-center">
+                <div class= "row justify-content-center">
+                  <div class= "col-lg-6">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-primary active">
+                        <input type="radio" name="completo" id="checker1"> 
+                        Libro Completo
+                      </label>
+                      <label class="btn btn-primary">
+                        <input type="radio" name="capitulos" id="checker2" for="cantidad_capitulos">
+                        Por Capítulos
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class= "row justify-content-center">
+                  <div class= "col-lg-7">
+                    <input id="cant"
+                      required
+                      min="2"
+                      type="number"
+                      name="cantidad_capitulos"
+                      class="form-control mb-2"
+                      placeholder="Cantidad de capitulos"
+                      value="{{old('cantidad_capitulos')}}" 
+                      disabled/>
+                    <script type="application/javascript">
+                      document.getElementById('checker2').onchange = function() {
+                        if(this.checked==true){
+                          document.getElementById("cant").disabled=false;
+                          document.getElementById("cant").focus();
+                        }
+                        else{
+                          document.getElementById("cant").disabled=true;
+                        }
+                      };
+                      document.getElementById('checker1').onchange = function() {
+                        if(this.checked==true){
+                          document.getElementById("cant").value= '';
+                          document.getElementById("cant").disabled=true;
+                        }
+                      };
+                    </script>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <input
-              required
-              type="text"
-              name="isbn"
-              placeholder="Ingrese ISBN"
-              class="form-control mb-2"
-              value="{{old('isbn')}}" 
-            />
-
-            Fecha de lanzamiento:
-            <input
-              required
-              type="date"
-              name="fecha_de_lanzamiento"
-              placeholder="Ingrese fecha de lanzamiento"
-              class="form-control mb-2"
-              value="{{old('fecha_de_lanzamiento')}}" 
-            />
-
-            Fecha de vencimiento:
-            <input
-              required
-              type="date"
-              name="fecha_de_vencimiento"
-              placeholder="Ingrese fecha de vencimiento"
-              class="form-control mb-2"
-              value="{{old('fecha_de_vencimiento')}}" 
-            />
-            
-            Cantidad capitulos:
-            <input
-              required
-              min="1"
-              type="number"
-              name="cantidad_capitulos"
-              class="form-control mb-2"
-              value="{{old('cantidad_capitulos')}}" 
-            />
-
-            <!-- este es el input del archivo (imagen/video):-->
-            <p>
-              Portada: Sólo se aceptan imagenes .png, .jpeg, .jpg, .gif<br>
-              (Tamaño máximo: 41 Megabytes)<br>
-              <input 
-                type="file" 
-                name="portada" 
-                accept="image/png, .jpeg, .jpg, image/gif" 
-                class="form-group"
-              >
-            </p>
             <div class="text-right"> 
               <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">
                 Cancelar

@@ -60,22 +60,11 @@ class LibroController extends Controller
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
-            'cantidad_capitulos' => 'required|numeric',
+            'cantidad_capitulos' => 'numeric',
             'editorial' => 'required',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
         
-        //esto mismo se puede resolver con un simple unique
-        /*
-        if(Libro::where("titulo", $request->titulo)->exists()){
-            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese titulo!');
-        }  
-
-        if(Libro::where("isbn", $request->isbn)->exists()){
-            return redirect()->route('libros.index')->with('mensaje', 'Ya existe un libro con ese ISBN!');
-        }*/ 
-        
-        //mirar los nombres de la tabla de migraciones y los nombres del formulario!!
         $libro = new Libro();
 
         // Handle File Upload
@@ -101,7 +90,13 @@ class LibroController extends Controller
         $libro->isbn = $request->isbn;
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
-        $libro->cantidad_capitulos = $request->cantidad_capitulos;
+        
+        if($request->cantidad_capitulos){
+            $libro->cantidad_capitulos = $request->cantidad_capitulos;
+        } else {
+            $libro->cantidad_capitulos = 1;
+        }
+        return $libro->cantidad_capitulos;
         $libro->save();
         $libro->generos()->sync($request->generos);
         // la linea 56 esta creando las relaciones    
