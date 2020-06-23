@@ -33,4 +33,9 @@ class Perfil extends Authenticatable
     public function librosFavoritos() {
         return $this->belongsToMany(Libro::class, 'libros_favoritos')->withTrashed();
     }
+
+    public function resenias()
+    {
+        return $this->hasMany(Renenia::class);
+    }
 }

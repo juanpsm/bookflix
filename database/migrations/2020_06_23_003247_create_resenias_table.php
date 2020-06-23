@@ -15,6 +15,11 @@ class CreateReseniasTable extends Migration
     {
         Schema::create('resenias', function (Blueprint $table) {
             $table->id();
+            $table->string('comentario');
+            $table->integer('calificacion');
+            $table->integer('perfil_id');
+            $table->integer('libro_id');
+            $table->boolean('es_spoiler')->default(false);
             $table->timestamps();
         });
     }

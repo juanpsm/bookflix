@@ -61,4 +61,9 @@ class Libro extends Model
                 $this->perfilesMiLista()->count() > 0 || 
                 $this->lectores()->count() > 0;
     }
+
+    public function resenias()
+    {
+        return $this->hasMany(Renenia::class);
+    }
 }
