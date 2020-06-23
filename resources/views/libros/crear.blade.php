@@ -10,7 +10,6 @@
         </div>
         <div class="card-body">
           {{--Errores--}}
-      
           @if($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {!! implode('', $errors->all('<div>:message</div>')) !!}
@@ -136,30 +135,35 @@
                 <div class= "row justify-content-center">
                   <div class= "col-lg-6">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-primary active">
-                        <input type="radio" name="completo" id="checker1"> 
+                      <label class="btn btn-primary">
+                        <input type="radio" name="tipolibro" id="checkCompleto" checked
+                                value="completo" required> 
                         Libro Completo
                       </label>
                       <label class="btn btn-primary">
-                        <input type="radio" name="capitulos" id="checker2" for="cantidad_capitulos">
+                        <input type="radio" name="tipolibro" id="checkCapitulos" for="cant"
+                        data-toggle="collapse" data-target="#collapseOne"
+                        value="porcapitulos" required>
                         Por Capítulos
                       </label>
                     </div>
+                    <div class="collapse" id="collapseOne">
+                    </div>
                   </div>
                 </div>
-                <div class= "row justify-content-center">
-                  <div class= "col-lg-7">
+                <div class= "row justify-content-end">
+                  <div class= "col-lg-6">
                     <input id="cant"
                       required
                       min="2"
                       type="number"
                       name="cantidad_capitulos"
                       class="form-control mb-2"
-                      placeholder="Cantidad de capitulos"
+                      placeholder="Cantidad"
                       value="{{old('cantidad_capitulos')}}" 
                       disabled/>
                     <script type="application/javascript">
-                      document.getElementById('checker2').onchange = function() {
+                      document.getElementById('checkCapitulos').onclick = function() {
                         if(this.checked==true){
                           document.getElementById("cant").disabled=false;
                           document.getElementById("cant").focus();
@@ -168,9 +172,8 @@
                           document.getElementById("cant").disabled=true;
                         }
                       };
-                      document.getElementById('checker1').onchange = function() {
+                      document.getElementById('checkCompleto').onchange = function() {
                         if(this.checked==true){
-                          document.getElementById("cant").value= '';
                           document.getElementById("cant").disabled=true;
                         }
                       };

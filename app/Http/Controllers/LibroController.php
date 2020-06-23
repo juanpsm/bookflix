@@ -60,6 +60,7 @@ class LibroController extends Controller
             'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
             'autor' => 'required',
             'generos'=> 'required|array',
+            'tipolibro' => 'required',
             'cantidad_capitulos' => 'numeric',
             'editorial' => 'required',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
@@ -96,7 +97,7 @@ class LibroController extends Controller
         } else {
             $libro->cantidad_capitulos = 1;
         }
-        return $libro->cantidad_capitulos;
+
         $libro->save();
         $libro->generos()->sync($request->generos);
         // la linea 56 esta creando las relaciones    
@@ -172,15 +173,15 @@ class LibroController extends Controller
             'autor' => 'required',
             'generos'=> 'required|array',
             'editorial' => 'required',
-            'cantidad_capitulos' => 'required|numeric|min:1',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
 
-        if ($request->cantidad_capitulos < $libro->capitulos()->count()) {
-            return redirect()->back()->withErrors([
-                'error' => 'La cantidad de capitulos no puede ser inferior a los capitulos publicados'
-            ]);
-        }
+        // Comento esto porque no se puede modificar mas
+        // if ($request->cantidad_capitulos < $libro->capitulos()->count()) {
+        //     return redirect()->back()->withErrors([
+        //         'error' => 'La cantidad de capitulos no puede ser inferior a los capitulos publicados'
+        //     ]);
+        // }
 
         //$libro = Libro::findOrFail($id); ya no hace falta
         // Handle File Upload
@@ -190,8 +191,8 @@ class LibroController extends Controller
                 $filePath = $file->url;
                 $fileExt = $file->ext;
                 
-                if ($novedad->archivo != 'noFile') {
-                    File::delete($novedad->archivo);
+                if ($libro->portada != 'noFile') {
+                    File::delete($libro->portada);
                 }
                 $libro->portada = $filePath;
             } catch (Exception $e) {
@@ -207,7 +208,6 @@ class LibroController extends Controller
         $libro->editorial_id = $request->editorial;
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
-        $libro->cantidad_capitulos = $request->cantidad_capitulos;
         $libro->save();
         $libro->generos()->sync($request->generos);    
         return redirect()->route('libros.index')->with('mensaje', 'libro Actualizado!');

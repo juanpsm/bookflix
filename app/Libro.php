@@ -66,4 +66,23 @@ class Libro extends Model
     {
         return $this->hasMany(Renenia::class);
     }
+
+    public function cantCapCargados() {
+        return $this-> capitulos -> count();
+    }
+
+    public function esCompleto() {
+        return $this -> cantidad_de_capitulos == 1;
+    }
+
+    public function esPorCapitulos() {
+        return $this -> cantidad_de_capitulos > 1;
+    }
+
+    public function terminadoDeCargar() {
+        return ($this -> esCompleto() &&
+                $this -> cantCapCargados() == 1 ) ||
+                ( $this -> esPorCapitulos() &&
+                $this -> cantCapCargados() == $this -> cantidad_de_capitulos);
+    }
 }
