@@ -46,6 +46,12 @@
                 </div>
                 @endforeach
               </div>
+
+              
+              <div>
+              Calificacion promedio {{number_format($libro->calificaciones()->avg('puntaje'), 2, ',', '.')}}
+              </div>
+
               {{-- LEER (solo si tiene capitulos) --}}
               @if($libro->capitulos()->count())
               <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
@@ -59,6 +65,15 @@
                 Leer
               </a>
               @endif
+
+              @if($leido && $calificacion)
+                Lo puntuaste con {{$calificacion->puntaje}}
+              @elseif($leido)
+                <a class="btn btn-warning btn-block" href="#" onclick="calificarLibro()">
+                    Calificar libro
+                </a>
+              @endif
+
               {{-- Trailer (solo si tiene) --}}
               @if($libro->trailer)
                 <a class="btn btn-dark btn-block"
@@ -86,12 +101,93 @@
               </div>
             </div>
           </div>
+          <hr>
+          @if($comentarioPerfil)
+          MI COMENTARIO
+          <div class="">
+              <div>{{$comentarioPerfil->cuerpo}}</div>
+              <hr>
+              <form action="{{url("libros/{$libro->id}/comentarios/{$comentarioPerfil->id}")}}" method="POST"
+              onclick="return confirm('Estas seguro que queres eliminar el comentario?')">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-danger">Eliminar</button>
+              </form>
+          </div>
+          @else
+          <div>
+            <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
+              @csrf
+              <textarea class="form-control" name="cuerpo"></textarea>
+              <button class="btn btn-primary">Comentar</button>
+            </form>
+          </div>
+          @endif
+
+          <!--
+          <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample">
+                Ver comentarios
+                <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                </svg>
+          </button>
+          <div class="collapse" id="collapseExample">
+                
+                <div class="card-body">
+                    @foreach($comentarios as $comentario)
+                    <div>{{$comentario->cuerpo}}</div>
+                    <hr>
+                    @endforeach
+                </div>
+               
+              </div> -->
+          <div class=""> 
+            TODOS LOS COMENTARIOS
+            @foreach($comentarios as $comentario)
+              <div>{{$comentario->cuerpo}}</div>
+              <hr>
+            @endforeach
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<!--
+<form>
+  <p class="clasificacion">
+    <input id="radio1" type="radio" name="estrellas" value="5">
+    <label for="radio1">★</label>
+    <input id="radio2" type="radio" name="estrellas" value="4">
+    <label for="radio2">★</label>
+    <input id="radio3" type="radio" name="estrellas" value="3">
+    <label for="radio3">★</label>
+    <input id="radio4" type="radio" name="estrellas" value="2">
+    <label for="radio4">★</label>
+    <input id="radio5" type="radio" name="estrellas" value="1">
+    <label for="radio5">★</label>
+  </p>
+</form>
+-->
+
 <script>
 $('#collapseExample').collapse('hide');
-</script>
+
+function calificarLibro() {
+  event.preventDefault();
+
+  let r = prompt('Elige un numero de 1 a 5 para calificar al libro')
+  if (r === null)
+    return false
+
+  else if (!r || r < 1 || r > 5) {
+    alert('El numero debe ser entre 1 y 5')
+    return false
+  }
+
+  location.href = `{{url("libros/{$libro->id}/calificar")}}?value=${r}`
+
+  return false;
+}
+</script> 
 @endsection

@@ -7,6 +7,8 @@ use App\Libro;
 use App\Genero;
 use App\Autor;
 use App\Editorial;
+use App\Comentario;
+use App\Calificacion;
 
 use App\Traits\FileUpload;
 use Illuminate\Support\Facades\File;
@@ -229,6 +231,7 @@ class LibroController extends Controller
 
     public function showForUser(Libro $libro) {
         return view('libros.libro', [
+            'perfil' => $this->perfil(),
             'libro' => $libro,
             'isFavorite' => $this->perfil()
                 ->librosFavoritos()
@@ -241,7 +244,16 @@ class LibroController extends Controller
             'leido' => $this->perfil()
                 ->librosLeidos()
                 ->where('libro_id', $libro->id)
-                ->exists()
+                ->exists(),
+            'calificacion' => $libro->calificaciones()
+                ->where('perfil_id', $this->perfil()->id)
+                ->first(),
+            'comentarios' => $libro->comentarios()
+                ->where('perfil_id', '<>', $this->perfil()->id)
+                ->get(),
+            'comentarioPerfil' => $libro->comentarios()
+                ->where('perfil_id', $this->perfil()->id)
+                ->first(),
         ]);
     }
 
@@ -274,5 +286,48 @@ class LibroController extends Controller
         $libro->restore();
         
         return redirect('/libros');
+    }
+
+    public function calificar(Request $request, Libro $libro) {
+        $request->validate([
+            'value' => 'required|numeric|min:1|max:5'
+        ]);
+
+        $perfil = $this->perfil();
+        $exists = $libro->calificaciones()->where('perfil_id', $perfil->id)->exists();
+        if ($exists)
+            abort(400, 'El libro ya fue calificado');
+
+        $cal = new Calificacion();
+        $cal->libro_id = $libro->id;
+        $cal->perfil_id = $perfil->id;
+        $cal->puntaje = $request->value;
+        $cal->save();
+
+        return back();
+    }
+
+    public function crearComentario(Request $request, Libro $libro) {
+        $request->validate([
+            'cuerpo' => 'required'
+        ]);
+
+        $perfil = $this->perfil();
+        $exists = $libro->comentarios()->where('perfil_id', $perfil->id)->exists();
+        if ($exists)
+            abort(400, 'Ya comentaste el libro');
+
+        $com = new Comentario();
+        $com->libro_id = $libro->id;
+        $com->perfil_id = $perfil->id;
+        $com->cuerpo = $request->cuerpo;
+        $com->save();
+
+        return back()->with('mensaje', 'Comentario creado!');
+    }
+
+    public function eliminarComentario(Libro $libro, Comentario $comentario) {
+        $comentario->delete();
+        return back()->with('mensaje', 'Comentario eliminado!');
     }
 }

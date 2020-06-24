@@ -118,6 +118,9 @@ return [
     'url'                  => 'El formato del campo :attribute es inválido.',
     'uuid'                 => 'El campo :attribute debe ser un UUID válido.',
 
+    'card_expiry'          => 'El campo :attribute debe ser una fecha mayor a el mes actual',
+    'card_number'          => 'El campo :attribute es inválido',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -132,6 +135,10 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+            'card-number' => 'número de tarjeta',
+            'card-name' => 'nombre de tarjeta',
+            'card-expiry' => 'fecha de expiración',
+            'card-cvc' => 'codigo de seguridad',
         ],
         'password' => [
             'min' => 'La :attribute debe contener :min o más caracteres',
@@ -185,5 +192,7 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'card-expiry' => 'fecha de expiración',
+        'card-number' => 'número de tarjeta',
     ],
 ];

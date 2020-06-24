@@ -15,6 +15,7 @@
         {{--<script src="{{ asset('js/pdfThumbnails/pdfjs/build/pdf.js') }}"></script>--}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.js"></script>
         <script src="{{ asset('js/pdfThumbnails/pdfThumbnails.js') }}"></script>
+        <script src="{{ asset('js/card.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -23,6 +24,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/nuestro.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/card.css') }}" rel="stylesheet">
     </head>
     <body oncontextmenu="return false;">
         <div id="app">

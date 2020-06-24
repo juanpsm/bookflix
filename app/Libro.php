@@ -62,6 +62,16 @@ class Libro extends Model
                 $this->lectores()->count() > 0;
     }
 
+    public function calificaciones()
+    {
+        return $this->hasMany(Calificacion::class);
+    }
+
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
+
     public function resenias()
     {
         return $this->hasMany(Renenia::class);

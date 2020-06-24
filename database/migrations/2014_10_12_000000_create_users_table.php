@@ -22,6 +22,10 @@ class CreateUsersTable extends Migration
             $table->boolean('es_premium')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('tarjeta_numero')->default('');
+            $table->string('tarjeta_nombre')->default('');
+            $table->string('tarjeta_expiracion')->default('');
+            $table->integer('tarjeta_cvc')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

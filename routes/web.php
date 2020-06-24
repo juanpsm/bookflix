@@ -77,6 +77,10 @@ Route::get('libros/user/{libro}', 'LibroController@showForUser')->name('libros.s
 Route::get('libros/user/{libro}/toggle_favorite', 'LibroController@toggleFavorite');
 Route::post('libros/{id}/restore', 'LibroController@restore');
 
+Route::get('libros/{libro}/calificar', 'LibroController@calificar');
+Route::post('libros/{libro}/comentarios', 'LibroController@crearComentario');
+Route::delete('libros/{libro}/comentarios/{comentario}', 'LibroController@eliminarComentario');
+
 
 //novedad:
 Route::resource('novedades', 'NovedadController');
