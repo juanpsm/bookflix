@@ -14,7 +14,8 @@ class Perfil extends Authenticatable
     ];
 
     protected $table = 'perfiles'; // Esto es porque si no busca la table 'perfils' porque hace el plural en ingles.
-    public function user(){
+    
+    public function user() {
         return $this->belongsTo(User::class); //Pertenece a un Usuario.
     }
 

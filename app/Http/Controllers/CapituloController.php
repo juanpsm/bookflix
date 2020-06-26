@@ -280,6 +280,9 @@ class CapituloController extends Controller
             $this->perfil()->librosMiLista()->detach($libro->id);
         }
 
+        if ($totales === 1)
+            return redirect()->route('libros.showForUser', $libro->id);
+
         return redirect()->route('libro.capitulos', $libro->id);
     }
 }

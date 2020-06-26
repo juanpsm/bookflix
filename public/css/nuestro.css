@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     background-color: rgb(24, 21, 21);
     color: #E50914;
     font-family: 'Nunito', sans-serif;
@@ -10,9 +11,11 @@ html, body {
 .bg-dark {
     background-color: #343a40 !important;
 }
+
 .navbar-brand {
     color: #E50914;
 }
+
 .full-height {
     height: 100vh;
 }
@@ -41,7 +44,7 @@ html, body {
     font-size: 84px;
 }
 
-.links > a {
+.links>a {
     color: #636b6f;
     padding: 0 25px;
     font-size: 13px;
@@ -65,3 +68,33 @@ html, body {
     padding: 20px;
 }
 
+.calificacion {
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    margin-bottom: 0;
+}
+
+.calificacion.disable {
+    pointer-events: none;
+}
+
+.calificacion label {
+    font-size: 40px;
+    margin-bottom: 0;
+    color: grey;
+}
+
+.calificacion input[type="radio"] {
+    display: none;
+}
+
+.calificacion label:hover,
+.calificacion label:hover~label {
+    color: orange;
+}
+
+.calificacion input[type="radio"]:checked~label {
+    color: orange;
+}

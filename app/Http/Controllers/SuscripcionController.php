@@ -32,6 +32,8 @@ class SuscripcionController extends Controller
 
         Validator::extend('card_expiry', function($attribute, $value, $parameters, $validator) {
             $expiry = explode('/', str_replace(' ', '', $value));
+            if ($expiry[0] > 12 || $expiry[0] < 1)
+                return false;
             $expiry = Carbon::createFromDate(2000 + $expiry[1], $expiry[0], 1);
             return Carbon::now()->isBefore($expiry);
         });

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comentario extends Model
 {
+    public function perfil() {
+        return $this->belongsTo(Perfil::class);
+    }
+    
     public function libro (){
         return $this->belongsTo(Libro::class);
     }

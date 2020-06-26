@@ -249,11 +249,12 @@ class LibroController extends Controller
                 ->where('perfil_id', $this->perfil()->id)
                 ->first(),
             'comentarios' => $libro->comentarios()
-                ->where('perfil_id', '<>', $this->perfil()->id)
+                ->orderBy('id', 'DESC')
                 ->get(),
             'comentarioPerfil' => $libro->comentarios()
                 ->where('perfil_id', $this->perfil()->id)
                 ->first(),
+            'promedioCalificacion' => $libro->calificaciones()->avg('puntaje'),
         ]);
     }
 
@@ -290,7 +291,7 @@ class LibroController extends Controller
 
     public function calificar(Request $request, Libro $libro) {
         $request->validate([
-            'value' => 'required|numeric|min:1|max:5'
+            'estrellas' => 'required|numeric|min:1|max:5'
         ]);
 
         $perfil = $this->perfil();
@@ -301,7 +302,7 @@ class LibroController extends Controller
         $cal = new Calificacion();
         $cal->libro_id = $libro->id;
         $cal->perfil_id = $perfil->id;
-        $cal->puntaje = $request->value;
+        $cal->puntaje = $request->estrellas;
         $cal->save();
 
         return back();
