@@ -24,47 +24,52 @@
             </div>
           @endif
           
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($admins as $item)
-              <tr>
-                {{-- ID --}}
-                <th scope="row">{{ $item->id }}</th>
-                {{-- Titulo y link --}}
-                <td>
-                  <a href="{{url("admin/admins/{$item->id}")}}">
-                      {{ $item->name }}
-                  </a>
-                </td>
-                <td>
-                  {{ $item->email }}
-                </td>
-                {{-- Acciones --}}
-                <td>
-                  {{-- COmento el editar porque no tenemos
-                  <a href="{{url("admin/admins/{$item->id}/editar")}}" class="btn btn-primary btn-sm">
-                    editar
-                  </a>--}}
-                  <form action="{{url("admin/admins/{$item->id}")}}" class="d-inline" method="POST"
-                    onclick="return confirm('Estas seguro que queres eliminar el administrador?')">
-                      @method('DELETE')
-                      @csrf
-                      <button type="submit" class="btn btn-danger btn-sm">
-                        eliminar
-                      </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+          @if(count($admins) == 0)
+            No existen otros administradores más que tú.
+          @else
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($admins as $item)
+                <tr>
+                  {{-- ID --}}
+                  <th scope="row">{{ $item->id }}</th>
+                  {{-- Titulo y link --}}
+                  <td>
+                    <a href="{{url("admin/admins/{$item->id}")}}">
+                        {{ $item->name }}
+                    </a>
+                  </td>
+                  <td>
+                    {{ $item->email }}
+                  </td>
+                  {{-- Acciones --}}
+                  <td>
+                    {{-- COmento el editar porque no tenemos
+                    <a href="{{url("admin/admins/{$item->id}/editar")}}" class="btn btn-primary btn-sm">
+                      editar
+                    </a>--}}
+                    <form action="{{url("admin/admins/{$item->id}")}}" class="d-inline" method="POST"
+                      onclick="return confirm('Estas seguro que queres eliminar el administrador?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          eliminar
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          @endif
         {{-- fin card body --}}
         </div>
       </div>

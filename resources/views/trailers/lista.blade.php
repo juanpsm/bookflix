@@ -23,58 +23,61 @@
             </button>
             </div>
           @endif
-          
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-              
-              <th scope="col">Título</th>
-              <th scope="col">Pdf</th>
-              <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($trailers as $item)
-              <tr>
-                {{-- Titulo y link --}}
-                <td>
-                  <a href="{{route('trailers.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
-                      {{ $item -> titulo }}
-                  </a>
-                </td>
-                {{-- PDF --}}
-                {{-- 
-                <img style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}">
-                <iframe src="{{url($item -> pdf)}}#toolbar=0&navpanes=0&scrollbar=0" width="50" height="100"></iframe>
-                --}}
-                <td>
-                  <a href="{{route('trailers.showTrailerAdmin',$item)}}">
-                    <img style="height: 150px; border-radius: 10%;"
-                      data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
-                      src="js\pdfThumbnails\pdf.png">
-                  </a>
-                </td>
-                {{-- Acciones --}}
-                <td>
-                  {{-- Edit --}}
-                  <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
-                    editar
-                  </a>
-                  {{-- Delete --}}
-                  <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
-                  onclick="return confirm('Estas seguro que queres eliminar el Tráiler?')">
-                      @method('DELETE')
-                      @csrf
-                      <button type="submit" class="btn btn-danger btn-sm">
-                        eliminar
-                      </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{$trailers->links()}}
+          @if(count($trailers) == 0)
+            No existen trailers cargados en el sistema.
+          @else
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                
+                <th scope="col">Título</th>
+                <th scope="col">Pdf</th>
+                <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($trailers as $item)
+                <tr>
+                  {{-- Titulo y link --}}
+                  <td>
+                    <a href="{{route('trailers.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                        {{ $item -> titulo }}
+                    </a>
+                  </td>
+                  {{-- PDF --}}
+                  {{-- 
+                  <img style="height: 70px; border-radius: 10%;" src="{{url($item -> pdf)}}">
+                  <iframe src="{{url($item -> pdf)}}#toolbar=0&navpanes=0&scrollbar=0" width="50" height="100"></iframe>
+                  --}}
+                  <td>
+                    <a href="{{route('trailers.showTrailerAdmin',$item)}}">
+                      <img style="height: 150px; border-radius: 10%;"
+                        data-pdf-thumbnail-file="{{url($item -> pdf)}}" 
+                        src="js\pdfThumbnails\pdf.png">
+                    </a>
+                  </td>
+                  {{-- Acciones --}}
+                  <td>
+                    {{-- Edit --}}
+                    <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
+                      editar
+                    </a>
+                    {{-- Delete --}}
+                    <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
+                    onclick="return confirm('Estas seguro que queres eliminar el Tráiler?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          eliminar
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            {{$trailers->links()}}
+          @endif
         {{-- fin card body --}}
         </div>
       </div>

@@ -187,9 +187,9 @@
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
-              Agregar
-            </button>
-          </div>
+                Agregar
+              </button>
+            </div>
           </form>
         </div>
       </div>

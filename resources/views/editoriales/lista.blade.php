@@ -23,48 +23,51 @@
             </button>
             </div>
           @endif
-          
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre </th>
-              <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($editoriales as $item)
-              <tr>
-                {{-- ID --}}
-                <th scope="row">{{ $item->id }}</th>
-                {{-- Titulo y link --}}
-                <td>
-                  <a href="{{route('editoriales.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
-                      {{ $item->nombre }}
-                  </a>
-                </td>
-               
-                {{-- Acciones --}}
-                <td>
-                  {{-- Edit --}}
-                  <a href="{{route('editoriales.edit', $item)}}" class="btn btn-primary btn-sm">
-                    editar
-                  </a>
-                  {{-- Delete --}}
-                  <form action="{{route('editoriales.destroy', $item)}}" class="d-inline" method="POST"
-                  onclick="return confirm('Estas seguro que queres eliminar la editorial?')">
-                      @method('DELETE')
-                      @csrf
-                      <button type="submit" class="btn btn-danger btn-sm">
-                        eliminar
-                      </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{$editoriales->links()}}
+          @if(count($editoriales) == 0)
+            No existen editoriales cargadas en el sistema.
+          @else
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre </th>
+                <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($editoriales as $item)
+                <tr>
+                  {{-- ID --}}
+                  <th scope="row">{{ $item->id }}</th>
+                  {{-- Titulo y link --}}
+                  <td>
+                    <a href="{{route('editoriales.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                        {{ $item->nombre }}
+                    </a>
+                  </td>
+                
+                  {{-- Acciones --}}
+                  <td>
+                    {{-- Edit --}}
+                    <a href="{{route('editoriales.edit', $item)}}" class="btn btn-primary btn-sm">
+                      editar
+                    </a>
+                    {{-- Delete --}}
+                    <form action="{{route('editoriales.destroy', $item)}}" class="d-inline" method="POST"
+                    onclick="return confirm('Estas seguro que queres eliminar la editorial?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          eliminar
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            {{$editoriales->links()}}
+          @endif
         {{-- fin card body --}}
         </div>
       </div>

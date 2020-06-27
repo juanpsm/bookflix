@@ -23,66 +23,69 @@
             </button>
             </div>
           @endif
-          
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-              <th scope="col">#</th>
-              <th scope="col">Título</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Archivo</th>
-              <th scope="col">Publicación</th>
-              <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($novedades as $item)
-              <tr>
-                {{-- ID --}}
-                <th scope="row">{{ $item->id }}</th>
-                {{-- Titulo y link --}}
-                <td>
-                  <a href="{{route('novedades.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
-                      {{ $item->titulo }}
-                  </a>
-                </td>
-                {{-- Cuerpo --}}
-                <td>{{ $item->descripcion }}</td>
-                {{-- imagen/video --}}
-                <td>
-                @if ($item -> es_video)
-                  <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>
-                @else
-                  @if ($item -> archivo != 'noFile')
-                    <img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"> <!--aca deberia mostrar archivo-->
+          @if(count($novedades) == 0)
+            No existen novedades cargadas en el sistema.
+          @else
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Título</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Archivo</th>
+                <th scope="col">Publicación</th>
+                <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($novedades as $item)
+                <tr>
+                  {{-- ID --}}
+                  <th scope="row">{{ $item->id }}</th>
+                  {{-- Titulo y link --}}
+                  <td>
+                    <a href="{{route('novedades.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                        {{ $item->titulo }}
+                    </a>
+                  </td>
+                  {{-- Cuerpo --}}
+                  <td>{{ $item->descripcion }}</td>
+                  {{-- imagen/video --}}
+                  <td>
+                  @if ($item -> es_video)
+                    <video style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"></video>
                   @else
-                    {{$item->archivo}}
+                    @if ($item -> archivo != 'noFile')
+                      <img style="height: 70px; border-radius: 10%;" src="{{url($item -> archivo)}}"> <!--aca deberia mostrar archivo-->
+                    @else
+                      {{$item->archivo}}
+                    @endif
                   @endif
-                @endif
-                </td>
-                {{-- Publicación --}}
-                <td>{{$item->fecha_de_publicacion}}</td>
-                {{-- Acciones --}}
-                <td>
-                  {{-- Edit --}}
-                  <a href="{{route('novedades.edit', $item)}}" class="btn btn-primary btn-sm">
-                    editar
-                  </a>
-                  {{-- Delete --}}
-                  <form action="{{route('novedades.destroy', $item)}}" class="d-inline" method="POST"
-                  onclick="return confirm('Estas seguro que queres eliminar la novedad?')">
-                      @method('DELETE')
-                      @csrf
-                      <button type="submit" class="btn btn-danger btn-sm">
-                        eliminar
-                      </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{$novedades->links()}}
+                  </td>
+                  {{-- Publicación --}}
+                  <td>{{$item->fecha_de_publicacion}}</td>
+                  {{-- Acciones --}}
+                  <td>
+                    {{-- Edit --}}
+                    <a href="{{route('novedades.edit', $item)}}" class="btn btn-primary btn-sm">
+                      editar
+                    </a>
+                    {{-- Delete --}}
+                    <form action="{{route('novedades.destroy', $item)}}" class="d-inline" method="POST"
+                    onclick="return confirm('Estas seguro que queres eliminar la novedad?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          eliminar
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            {{$novedades->links()}}
+          @endif
         {{-- fin card body --}}
         </div>
       </div>

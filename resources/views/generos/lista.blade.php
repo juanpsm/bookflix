@@ -23,48 +23,51 @@
             </button>
             </div>
           @endif
-          
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-              <th scope="col">#</th>
-              <th scope="col">Nombre </th>
-              <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($generos as $item)
-              <tr>
-                {{-- ID --}}
-                <th scope="row">{{ $item->id }}</th>
-                {{-- Titulo y link --}}
-                <td>
-                  <a href="{{route('generos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
-                      {{ $item->nombre }}
-                  </a>
-                </td>
-               
-                {{-- Acciones --}}
-                <td>
-                  {{-- Edit --}}
-                  <a href="{{route('generos.edit', $item)}}" class="btn btn-primary btn-sm">
-                    editar
-                  </a>
-                  {{-- Delete --}}
-                  <form action="{{route('generos.destroy', $item)}}" class="d-inline" method="POST"
-                  onclick="return confirm('Estas seguro que queres eliminar el género?')">
-                      @method('DELETE')
-                      @csrf
-                      <button type="submit" class="btn btn-danger btn-sm">
-                        eliminar
-                      </button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-          {{$generos->links()}}
+          @if(count($generos) == 0)
+            No existen generos cargados en el sistema.
+          @else
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre </th>
+                <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($generos as $item)
+                <tr>
+                  {{-- ID --}}
+                  <th scope="row">{{ $item->id }}</th>
+                  {{-- Titulo y link --}}
+                  <td>
+                    <a href="{{route('generos.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
+                        {{ $item->nombre }}
+                    </a>
+                  </td>
+                
+                  {{-- Acciones --}}
+                  <td>
+                    {{-- Edit --}}
+                    <a href="{{route('generos.edit', $item)}}" class="btn btn-primary btn-sm">
+                      editar
+                    </a>
+                    {{-- Delete --}}
+                    <form action="{{route('generos.destroy', $item)}}" class="d-inline" method="POST"
+                    onclick="return confirm('Estas seguro que queres eliminar el género?')">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">
+                          eliminar
+                        </button>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+            {{$generos->links()}}
+          @endif
         {{-- fin card body --}}
         </div>
       </div>
