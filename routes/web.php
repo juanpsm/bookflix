@@ -128,3 +128,8 @@ Route::get('libros/{libro_id}/caps/{id}/marcarLeido', 'CapituloController@marcar
 // GET          /photos/{photo}/edit    edit    photos.edit
 // PUT/PATCH    /photos/{photo}	        update  photos.update
 // DELETE       /photos/{photo}	        destroy photos.destroy
+
+// estadísticas
+Route::get('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
+Route::post('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
+Route::get('/admin/estadisticas/libros', 'EstadisticasController@indexLibros')->name('estadisticas.libros');

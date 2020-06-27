@@ -61,4 +61,13 @@ class User extends Authenticatable
         // Y tambien encadenar condiciones, por ej
         // $perfil = App\Post::find(1)->perfiles()->where('name', 'foo')->first();
     }
+    /**
+     * Getter para fecha de creacion del registro
+     *
+     * @return string
+     */
+    public function getCreationDate()
+    {
+        return "{$this->created_at->format('d-m-Y')} a las {$this->created_at->format('H:i:s')}";
+    }
 }

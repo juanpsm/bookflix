@@ -56,6 +56,7 @@ class BookflixTableSeeder extends Seeder
             'cuenta_activa' => true,
             'es_premium' => false,
             'password' => bcrypt('123456'),
+            'created_at' => Carbon::now(),
         ]);
             // Perfiles para este user
                 DB::table('perfiles')->insert([
@@ -71,6 +72,7 @@ class BookflixTableSeeder extends Seeder
             'cuenta_activa' => true,
             'es_premium' => true,
             'password' => bcrypt('123456'),
+            'created_at' => Carbon::now(),
         ]);
             // Perfiles para este user
                 DB::table('perfiles')->insert([
@@ -94,6 +96,7 @@ class BookflixTableSeeder extends Seeder
             'cuenta_activa' => true,
             'es_premium' => false,
             'password' => bcrypt('123456'),
+            'created_at' => Carbon::now(),
         ]);
 
         // Inactivo ID 4
@@ -104,6 +107,7 @@ class BookflixTableSeeder extends Seeder
             'cuenta_activa' => false,
             'es_premium' => false,
             'password' => bcrypt('123456'),
+            'created_at' => Carbon::now(),
         ]);
 
     // Administrador ID 1

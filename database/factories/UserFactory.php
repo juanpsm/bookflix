@@ -24,7 +24,7 @@ $factory->define(User::class, function ($faker) {
         'email' => $faker->unique()->freeEmail,
         'email_verified_at' => now(),
         'cuenta_activa' => $faker->boolean,
-        'password' => 'aaa', // password de prueba
+        'password' => '123456', // password de prueba
         'remember_token' => Str::random(10),
     ];
 });
