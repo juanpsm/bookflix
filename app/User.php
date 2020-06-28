@@ -68,6 +68,6 @@ class User extends Authenticatable
      */
     public function getCreationDate()
     {
-        return "{$this->created_at->format('d-m-Y')} a las {$this->created_at->format('H:i:s')}";
+        return "{$this->created_at->format('d/m/Y')} a las {$this->created_at->format('H:i:s')}";
     }
 }

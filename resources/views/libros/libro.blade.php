@@ -87,8 +87,7 @@
                 <!-- end div del colapso -->    
               </div>
 
-              @if($leido && $calificacion)
-                <!-- Lo puntuaste con {{$calificacion->puntaje}} -->
+              @if(($leido && $calificacion) || $promedioCalificacion)
                 <p class="calificacion disable">
                   <input id="radio1" type="radio" name="estrellas" value="5"
                     {{round($promedioCalificacion) == 5 ? 'checked' : ''}}>
@@ -137,11 +136,26 @@
           </div>
           <hr>
           @if($leido && !$comentarioPerfil)
-          <div>
+          <div class="mb-4">
+            @if($errors->any())
+              <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+              {!! implode('', $errors->all('<div>:message</div>')) !!}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+
             <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
               @csrf
               <textarea class="form-control" name="cuerpo"></textarea>
-              <button class="btn btn-primary">Comentar</button>
+              <div class="d-flex">
+                <div class="custom-control custom-switch">
+                  <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1">
+                  <label class="custom-control-label" for="customSwitch1">Es spoiler</label>
+                </div>
+                <button class="btn btn-primary ml-2">Comentar</button>
+              </div>
             </form>
           </div>
           @endif
@@ -164,7 +178,14 @@
                       {{$comentario->created_at->format('d/m/Y H:i:s')}}
                     </td>
                     <td class="w-100">
+                      @if($comentario->es_spoiler && $comentario->perfil_id !== $perfil->id)
+                      <button class="btn btn-warning" onclick="verSpoiler({{$comentario->id}})">Este comentario es un spoiler. Ver?</button>
+                      <div id="comId{{$comentario->id}}" class="d-none">
+                        {{$comentario->cuerpo}}
+                      </div>
+                      @else
                       {{$comentario->cuerpo}}
+                      @endif
                     </td>
                     <td class="text-nowrap">
                       @if($comentario->perfil_id === $perfil->id)
@@ -174,8 +195,6 @@
                           @method('DELETE')
                           <button class="btn btn-danger">Eliminar</button>
                       </form>
-                      @else
-                      <button class="btn btn-danger">Reportar spoiler</button>
                       @endif
                     </td>
                   </tr>
@@ -193,5 +212,10 @@
 <script>
 $('#collapseExample').collapse('hide');
 $('#collapseExample2').collapse('hide');
+
+function verSpoiler(id) {
+  document.getElementById(`comId${id}`).classList.remove('d-none')
+  event.target.remove()
+}
 </script> 
 @endsection

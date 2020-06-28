@@ -310,7 +310,8 @@ class LibroController extends Controller
 
     public function crearComentario(Request $request, Libro $libro) {
         $request->validate([
-            'cuerpo' => 'required'
+            'cuerpo' => 'required',
+            'spoiler' => 'boolean',
         ]);
 
         $perfil = $this->perfil();
@@ -321,6 +322,7 @@ class LibroController extends Controller
         $com = new Comentario();
         $com->libro_id = $libro->id;
         $com->perfil_id = $perfil->id;
+        $com->es_spoiler = $request->spoiler ?? false;
         $com->cuerpo = $request->cuerpo;
         $com->save();
 

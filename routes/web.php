@@ -39,6 +39,8 @@ Route::get('/admin/admins', "AdminsController@index")->middleware('auth:admin');
 Route::get('/admin/admins/{admin}', "AdminsController@show")->middleware('auth:admin');
 Route::delete('/admin/admins/{admin}', "AdminsController@destroy")->middleware('auth:admin');
 
+Route::get('/admin/cobrar', "EfectuarCobroController@index")->middleware('auth:admin')->name('admin.cobrar');
+
 
 Route::resource('tarjetas', 'TarjetaController');
 // el recurso genera todas estas rutas

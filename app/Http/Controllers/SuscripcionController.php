@@ -20,11 +20,11 @@ class SuscripcionController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->cuenta_activa) {
-            return redirect('/home');
-        }
+        // if ($user->cuenta_activa) {
+        //     return redirect('/home');
+        // }
 
-        return view('suscripciones.index');
+        return view('suscripciones.index', ['user' => $user]);
     }
 
     public function elegirSuscripcion(Request $request) {
@@ -40,37 +40,46 @@ class SuscripcionController extends Controller
 
         Validator::extend('card_number', function($attribute, $value, $parameters, $validator) {
             $number = str_replace(' ', '', $value);
-            return ($number % 2 === 0) && strlen($number) >= 15 && strlen($number) <= 16;
+            return ($number % 10 !== 1) && strlen($number) >= 15 && strlen($number) <= 16;
         });
 
         $vData = $request->validate([
-            'tipoCuenta' => 'required',
+            'tipoCuenta' => '',
             'card-number' => 'required|string|card_number',
             'card-name' => 'required|string',
             'card-expiry' => 'required|string|card_expiry',
             'card-cvc' => 'required|numeric',
         ]);
 
-        $esPremium = $vData['tipoCuenta'] == 'premium';
+        $number = str_replace(' ', '', $vData['card-number']);
 
-        if ($user->cuenta_activa) {
-            abort(400, 'La cuenta tiene una suscripcion activa');
-        }
-        
-        if (!$esPremium && $user->perfiles()->count() > 2) {
-            $user->perfiles()->delete();
+        if (isset($vData['tipoCuenta'])) {
+            if ($number % 10 === 2) {
+                return redirect()->back()->withErrors([
+                    'msg' => 'La tarjeta no tiene saldo suficiente'
+                ]);
+            }
+
+            $esPremium = $vData['tipoCuenta'] == 'premium';
+            
+            if (!$esPremium && $user->perfiles()->count() > 2) {
+                $user->perfiles()->delete();
+            }
         }
 
         $user->cuenta_activa = true;
-        $user->es_premium = $esPremium;
-        
-        // 'tarjeta_numero' => str_replace(' ', '', $data['card-number']),
-        // 'tarjeta_nombre' => $data['card-name'],
-        // 'tarjeta_expiracion' => str_replace(' ', '', $data['card-expiry']),
-        // 'tarjeta_cvc' => $data['card-cvc'],
+        if (isset($vData['tipoCuenta']))
+            $user->es_premium = $esPremium;
+        $user->tarjeta_numero = $vData['card-number'];
+        $user->tarjeta_nombre = $vData['card-name'];
+        $user->tarjeta_expiracion = $vData['card-expiry'];
+        $user->tarjeta_cvc = $vData['card-cvc'];
+
         $user->save();
 
-        if ($user->perfiles()->count() > 0)
+        if (!isset($vData['tipoCuenta']))
+            return redirect('home');
+        else if ($user->perfiles()->count() > 0)
             return redirect('seleccionarPerfil');
         else
             return redirect()->route('perfiles.create');

@@ -136,11 +136,11 @@
                                     @endif
 
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            {{--<a class="dropdown-item" href="{{ route('tarjetas.index') }}">
-                                                Tarjetas
-                                            </a>--}}
                                             <a class="dropdown-item" href="{{ route('seleccionar_perfil') }}">
                                                 Cambiar perfil
+                                            </a>
+                                            <a class="dropdown-item" href="{{url('elegirSuscripcion')}}">
+                                                Editar medio de pago
                                             </a>
                                             <a class="dropdown-item" href="#"
                                                 onclick="cancelarSuscripcion()">

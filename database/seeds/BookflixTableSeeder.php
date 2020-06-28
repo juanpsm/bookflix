@@ -57,6 +57,10 @@ class BookflixTableSeeder extends Seeder
             'es_premium' => false,
             'password' => bcrypt('123456'),
             'created_at' => Carbon::now(),
+            'tarjeta_numero' => '1234123412341234',
+            'tarjeta_nombre' => 'Usuario estandar',
+            'tarjeta_expiracion' => '12 / 30',
+            'tarjeta_cvc' => '123',
         ]);
             // Perfiles para este user
                 DB::table('perfiles')->insert([
@@ -73,6 +77,10 @@ class BookflixTableSeeder extends Seeder
             'es_premium' => true,
             'password' => bcrypt('123456'),
             'created_at' => Carbon::now(),
+            'tarjeta_numero' => '1234123412341232', // sin saldo
+            'tarjeta_nombre' => 'Usuario premium',
+            'tarjeta_expiracion' => '12 / 24',
+            'tarjeta_cvc' => '123',
         ]);
             // Perfiles para este user
                 DB::table('perfiles')->insert([
@@ -97,6 +105,10 @@ class BookflixTableSeeder extends Seeder
             'es_premium' => false,
             'password' => bcrypt('123456'),
             'created_at' => Carbon::now(),
+            'tarjeta_numero' => '1234123412341234',
+            'tarjeta_nombre' => 'Usuario estandar',
+            'tarjeta_expiracion' => '12 / 12', // tarjeta vencida
+            'tarjeta_cvc' => '123',
         ]);
 
         // Inactivo ID 4

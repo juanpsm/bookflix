@@ -6,52 +6,62 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span>La cuenta esta inactiva. Por favor elige un tipo de suscripcion para continuar</span>
-        </div>
+        @if(!$user->cuenta_activa)
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>La cuenta esta inactiva. Por favor elige un tipo de suscripcion para continuar</span>
+          </div>
+        @endif
         @if($errors->any())
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
           {!! implode('', $errors->all('<div>:message</div>')) !!}
           </div>
         @endif
         <div class="card-body"> 
-          <form id="suscripcionForm" action="{{url('elegirSuscripcion')}}" method="POST">
+          <form id="suscripcionForm" action="{{url('elegirSuscripcion')}}" method="POST"
+            @if(!$user->cuenta_activa)
+            onsubmit="confirm('Se efectuara el cobro. Continuar?')"
+            @endif
+            >
             <div class="row">
               <div class="col">
                 @csrf
+                @if(!$user->cuenta_activa)
                 <div class="custom-control custom-radio">
-                  <input id="estandar" name="tipoCuenta" type="radio" class="custom-control-input" checked 
-                    value="estandar" required>
+                  <input id="estandar" name="tipoCuenta" type="radio" class="custom-control-input" 
+                    value="estandar" required {{$user->es_premium ? '' : 'checked'}}>
                   <label class="custom-control-label" for="estandar">Estandar</label>
                 </div>
                 <div class="custom-control custom-radio">
                   <input id="premium" name="tipoCuenta" type="radio" class="custom-control-input" 
-                    value="premium" required>
+                    value="premium" required {{$user->es_premium ? 'checked' : ''}}>
                   <label class="custom-control-label" for="premium">Premium</label>
                 </div>
+                @endif
+                @if(!$user->cuenta_activa)
                 <div class="text-danger">
                 Nota: si previamente contaba con una suscripcion premium con mas de 2 perfiles,
                 y ahora selecciona una suscripcion estandar, los perfiles seran eliminados
                 </div>
+                @endif
               </div>
               <div class="col-lg-8">
                 <div class="card-wrapper mb-2"></div>
                 <div class="form-group">
                   <label class="form-label">Numero de tarjeta</label>
                   <input class="form-control" name="card-number" placeholder="Numero de tarjeta" required
-                    value="{{old('card-number')}}">
+                    value="{{old('card-number') ?: $user->tarjeta_numero}}">
                 </div>
                 <div class="form-group">
                   <label class="form-label">Nombre completo</label>
                   <input class="form-control" name="card-name" placeholder="Nombre completo" required 
-                    value="{{old('card-name')}}">
+                    value="{{old('card-name') ?: $user->tarjeta_nombre}}">
                 </div>
                 <div class="row">
                   <div class="col-6">
                     <div class="form-group">
                       <label class="form-label">Expira</label>
                       <input class="form-control" name="card-expiry" placeholder="Expira" required
-                        maxlength="7" value="{{old('card-expiry')}}">
+                        maxlength="7" value="{{old('card-expiry') ?: $user->tarjeta_expiracion}}">
                     </div>
                   </div>
                   <div class="col-6">
@@ -66,8 +76,13 @@
             </div>
             <hr class="mb-4">
             <div class="d-flex">
+              @if($user->cuenta_activa)
+              <button class="btn btn-secondary btn-lg btn-block mr-1" type="button"
+                onclick="window.history.back()">Cancelar</button>
+              @else
               <button class="btn btn-secondary btn-lg btn-block mr-1" type="button"
                 onclick="$('#logout').submit()">Cancelar</button>
+              @endif
               <button class="btn btn-primary btn-lg btn-block ml-1 mt-0" type="submit">Continuar</button>
             </div>
           </form>

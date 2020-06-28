@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('dni');
             $table->string('email')->unique();
             $table->boolean('cuenta_activa')->default(false); // luego poner por defecto false
-            $table->boolean('es_premium')->default(true);
+            $table->boolean('es_premium')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('tarjeta_numero')->default('');
