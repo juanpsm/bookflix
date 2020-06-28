@@ -36,16 +36,29 @@ class Libro extends Model
         return $this->belongsTo(Editorial::class);
     }
 
-    public function lectores() {
+    public function perfiles_historial() {
         return $this->belongsToMany(Perfil::class, 'libros_leidos');
     }
-
-    public function usuariosFavorito() {
-        return $this->belongsToMany(Perfil::class, 'libros_favoritos');
+    public function cantHistoriales() {
+        return $this->perfiles_historial()->count();
     }
 
-    public function perfilesMiLista(){
+    public function perfiles_favorito() {
+        return $this->belongsToMany(Perfil::class, 'libros_favoritos');
+    }
+    public function cantFavoritos() {
+        return $this->perfiles_favorito()->count();
+    }
+
+    public function perfiles_miLista(){
         return $this->belongsToMany(Perfil::class, 'libros_miLista'); //libros_perfil asi se llama en la bd
+    }
+    public function cantMiListas() {
+        return $this->perfiles_miLista()->count();
+    }
+
+    public function cantLectores() {
+        return $this->cantMiListas() + $this->cantHistoriales();
     }
 
     public function capitulos(){
@@ -57,9 +70,8 @@ class Libro extends Model
     }
 
     public function inUse() {
-        return $this->usuariosFavorito()->count() > 0 || 
-                $this->perfilesMiLista()->count() > 0 || 
-                $this->lectores()->count() > 0;
+        return $this->cantFavoritos() > 0 || 
+                $this->cantLectores()  > 0;
     }
 
     public function calificaciones()

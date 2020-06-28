@@ -22,9 +22,9 @@
               <a href="{{route('estadisticas.users')}}"  class="btn btn-primary">
                 Registro de usuarios
               </a>
-              <button class="btn btn-primary" href="{{route('estadisticas.libros')}}">
+              <a href="{{route('estadisticas.libros')}}"  class="btn btn-primary">
                 Libros Mas Leídos
-              </button>
+              </a>
             </div>
           </div>
         </div>

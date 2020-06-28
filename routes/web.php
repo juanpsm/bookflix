@@ -134,4 +134,4 @@ Route::get('libros/{libro_id}/caps/{id}/marcarLeido', 'CapituloController@marcar
 // estadísticas
 Route::get('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
 Route::post('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
-Route::get('/admin/estadisticas/libros', 'EstadisticasController@indexLibros')->name('estadisticas.libros');
+Route::get('/admin/estadisticas/libros', 'EstadisticasController@libros')->name('estadisticas.libros');

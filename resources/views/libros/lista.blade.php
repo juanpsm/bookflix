@@ -29,13 +29,13 @@
             <table class="table table-striped table-hover">
               <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">Título</th>
-                <th scope="col">Autor</th>
-                <th scope="col">Editorial</th>
-                <th scope="col">Generos</th>
-                <th scope="col">Portada</th>
-                <th scope="col">Acción</th>
+                  <th scope="col">#</th>
+                  <th scope="col">Título</th>
+                  <th scope="col">Autor</th>
+                  <th scope="col">Editorial</th>
+                  <th scope="col">Generos</th>
+                  <th scope="col">Portada</th>
+                  <th scope="col">Acción</th>
                 </tr>
               </thead>
               <tbody>
