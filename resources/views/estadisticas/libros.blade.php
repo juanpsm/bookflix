@@ -14,7 +14,7 @@
         </div>
         <div class="card-body">
           @if(count($libros) == 0)
-            No existen usuarios registrados entre esas fechas.
+            Todavía no se han registrado lecturas de libros en el sitio.
           @else
             <table class="table table-striped table-hover">
               <thead>
