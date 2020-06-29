@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Libro extends Model
 {
@@ -78,6 +79,10 @@ class Libro extends Model
     {
         return $this->hasMany(Calificacion::class);
     }
+    public function promedioCalificacion()
+    {
+        return $this->calificaciones()->avg('puntaje');
+    }
 
     public function comentarios()
     {
@@ -94,17 +99,53 @@ class Libro extends Model
     }
 
     public function esCompleto() {
-        return $this -> cantidad_de_capitulos == 1;
+        return $this -> cantidad_capitulos == 1;
     }
 
     public function esPorCapitulos() {
-        return $this -> cantidad_de_capitulos > 1;
+        return $this -> cantidad_capitulos > 1;
     }
 
     public function terminadoDeCargar() {
         return ($this -> esCompleto() &&
                 $this -> cantCapCargados() == 1 ) ||
                 ( $this -> esPorCapitulos() &&
-                $this -> cantCapCargados() == $this -> cantidad_de_capitulos);
+                $this -> cantCapCargados() == $this -> cantidad_capitulos);
+    }
+
+    public function recomendados() {
+        // Tomamos los generos del libro
+        $generos = $this-> generos;
+        // creo una colleccion vacía
+        $libros_rec = new Collection;
+        // voy agregando todos los libros de cada genero
+        foreach ($generos as $genero)
+        {
+            $libros_rec = $libros_rec -> concat($genero-> libros);
+        };
+        // saco duplicados
+        $libros_rec = $libros_rec->unique('id');
+        // filtro por calificacion y a si mismo
+        $libros_rec = $libros_rec->reject(function ($each) {
+            return $each->promedioCalificacion() <= 4 ||
+                    $each-> id == $this-> id;
+        });
+
+        //$libros_rec = Libro::all();
+        //$libros_rec = $libros_rec->reject(function ($each) {
+        //    return $each-> id == $this->id;
+        //});
+        return $libros_rec->slice(0, 6);
+    }
+    public function tieneRecomendados() {
+        return $this -> recomendados() -> count() > 0;
+    }
+
+    public function cantComentarios() {
+        return $this -> comentarios -> count();
+    }
+
+    public function tieneComentarios() {
+        return $this -> cantComentarios() > 0;
     }
 }

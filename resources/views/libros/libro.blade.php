@@ -24,43 +24,40 @@
           @endif
         </div>
         <div class="card-body">
-          <div class="row">
-            <div class="col-md-8">
-              {{-- Portada --}}
+          <div class="row">{{-- Row Portada y botones--}}
+            <div class="col-md-8">{{-- Portada --}}
               @if (!($libro-> portada  == 'noFile'))
                 <img style="width:100%; border-radius: 2%;" src="{{url($libro -> portada)}}">
               @endif 
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4">{{-- Botones--}}
               {{-- Generos --}}
-              <div class="row" style="padding: 10px">
-                @foreach($libro->generos as $genero)
-                <div class="p-2">
-                  <div class="genero-libro" 
-                        style="border-radius: 10px;
-                              border: 1px solid #E50914;
-                              background-color: #ca1d2642;
-                              padding: 5px;"> 
-                    {{$genero->nombre}}
+              <div class="row d-flex justify-content-around">
+                  @foreach($libro->generos as $genero)
+                  <div class="p-2">
+                    <div class="genero-libro p-1" 
+                          style="border-radius: 10px;
+                                border: 1px solid #E50914;
+                                background-color: #ca1d2642;
+                                padding: 5px;"> 
+                      {{$genero->nombre}}
+                    </div>
                   </div>
-                </div>
-                @endforeach
+                  @endforeach
               </div>
-
               {{-- LEER (solo si tiene capitulos) --}}
               @if($libro->capitulos()->count())
-              <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
-                    @if ($libro->capitulos()->count()==1)
-                      {{-- si tiene capitulos uno solo muestra directamente el pdf (elemento 0 del array)) --}}
-                      href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$libro->capitulos[0] ])}}"
-                    @else
-                      {{-- si tiene mas muestra la lista de capitulos --}}
-                      href="{{route('libro.capitulos', $libro->id)}}"
-                    @endif>
-                Leer
-              </a>
+                <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
+                      @if ($libro->capitulos()->count()==1)
+                        {{-- si tiene capitulos uno solo muestra directamente el pdf (elemento 0 del array)) --}}
+                        href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$libro->capitulos[0] ])}}"
+                      @else
+                        {{-- si tiene mas muestra la lista de capitulos --}}
+                        href="{{route('libro.capitulos', $libro->id)}}"
+                      @endif>
+                  Leer
+                </a>
               @endif
-
               {{-- Trailer (solo si tiene) --}}
               @if($libro->trailer)
                 <a class="btn btn-dark btn-block"
@@ -69,13 +66,13 @@
                 </a>
               @endif
               {{-- Más información --}}
-              <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample">
+              <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseInfo">
                 Más información
                 <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                 </svg>
               </button>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse" id="collapseInfo">
                 <!-- mas informacion: colapso -->
                 <div class="card-body">
                   <h6>Autor: {{$libro -> autor -> nombre}} </h6>
@@ -86,7 +83,7 @@
                 </div>
                 <!-- end div del colapso -->    
               </div>
-
+              {{-- Calif --}}
               @if(($leido && $calificacion) || $promedioCalificacion)
                 <p class="calificacion disable">
                   <input id="radio1" type="radio" name="estrellas" value="5"
@@ -109,109 +106,130 @@
                     {{round($promedioCalificacion) == 1 ? 'checked' : ''}}>
                   <label for="radio5">★</label>
                 </p>
-                <div>
+                <div class="container">
                   Calificacion promedio {{number_format($promedioCalificacion, 2, ',', '.')}}
                 </div>
               @elseif($leido)
-              <form action="{{url("libros/{$libro->id}/calificar")}}" method="POST">
-                @csrf
-                <p class="calificacion">
-                  <input id="radio1" type="radio" name="estrellas" value="5">
-                  <label for="radio1">★</label>
-                  <input id="radio2" type="radio" name="estrellas" value="4">
-                  <label for="radio2">★</label>
-                  <input id="radio3" type="radio" name="estrellas" value="3">
-                  <label for="radio3">★</label>
-                  <input id="radio4" type="radio" name="estrellas" value="2">
-                  <label for="radio4">★</label>
-                  <input id="radio5" type="radio" name="estrellas" value="1">
-                  <label for="radio5">★</label>
-                </p>
-                <button class="btn btn-warning btn-block">
-                    Calificar libro
-                </button>
-              </form>
+                <form action="{{url("libros/{$libro->id}/calificar")}}" method="POST">
+                  @csrf
+                  <p class="calificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5">
+                    <label for="radio1">★</label>
+                    <input id="radio2" type="radio" name="estrellas" value="4">
+                    <label for="radio2">★</label>
+                    <input id="radio3" type="radio" name="estrellas" value="3">
+                    <label for="radio3">★</label>
+                    <input id="radio4" type="radio" name="estrellas" value="2">
+                    <label for="radio4">★</label>
+                    <input id="radio5" type="radio" name="estrellas" value="1">
+                    <label for="radio5">★</label>
+                  </p>
+                  <button class="btn btn-warning btn-block">
+                      Calificar libro
+                  </button>
+                </form>
               @endif
-            </div>
-          </div>
-          <hr>
-          @if($leido && !$comentarioPerfil)
-          <div class="mb-4">
-            @if($errors->any())
-              <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
-              {!! implode('', $errors->all('<div>:message</div>')) !!}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-            @endif
 
-            <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
-              @csrf
-              <textarea class="form-control" name="cuerpo"></textarea>
-              <div class="d-flex">
-                <div class="custom-control custom-switch">
-                  <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1">
-                  <label class="custom-control-label" for="customSwitch1">Es spoiler</label>
+              {{-- Recomendados --}}
+              @if($libro->tieneRecomendados())
+                <div class="row d-flex justify-content-around mt-5"
+                  style="border-radius: 10px;
+                  border: 1px solid #E50914;
+                  padding: 5px;">
+                Recomendados para éste título:
+                  @foreach($libro->recomendados() as $libro_recom)
+                  <div class="col-lg-4">
+                    <a href="{{route('libros.showForUser',$libro_recom)}}">
+                      <figure class="figure">
+                        <img src="{{url($libro_recom -> portada)}}" class="figure-img img-fluid rounded"
+                        alt="La portada de un libro.">
+                      </figure>
+                    </a>
+                  </div>
+                  @endforeach
                 </div>
-                <button class="btn btn-primary ml-2">Comentar</button>
-              </div>
-            </form>
-          </div>
+              @endif
+            </div>{{-- End col Botones--}}
+          </div>{{-- End Row Portada y botones--}}
+          <hr>
+          {{-- Publicar Comentario--}}
+          @if($leido && !$comentarioPerfil)
+            <div class="mb-4">
+              @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+                  {!! implode('', $errors->all('<div>:message</div>')) !!}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              @endif
+              <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
+                @csrf
+                <textarea class="form-control" name="cuerpo"></textarea>
+                <div class="d-flex">
+                  <div class="custom-control custom-switch">
+                    <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <label class="custom-control-label" for="customSwitch1">Es spoiler</label>
+                  </div>
+                  <button class="btn btn-primary ml-2">Comentar</button>
+                </div>
+              </form>
+            </div>
           @endif
-
-          
-          @if($comentarios->count() > 0)
-          <button class="btn btn-info btn-block" type="button" data-toggle="collapse" data-target="#collapseExample2">
+          {{-- Ver Comentarios--}}
+          @if($libro->tieneComentarios())
+            <div class="row d-flex justify-content-around mt-1">
+              <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseComentarios">
                 Ver comentarios
                 <svg class="bi bi-chevron-down" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                 </svg>
-          </button>
-          <div class="collapse" id="collapseExample2">
+              </button>
+            </div>
+            <div class="collapse" id="collapseComentarios">
               <table class="table table-stripped text-white mt-2">
                 <tbody>
-                @foreach($comentarios as $comentario)
-                  <tr>
-                    <td class="text-nowrap small">
-                      {{$comentario->perfil->nombre}} ({{$comentario->perfil->user->name}})<br>
-                      {{$comentario->created_at->format('d/m/Y H:i:s')}}
-                    </td>
-                    <td class="w-100">
-                      @if($comentario->es_spoiler && $comentario->perfil_id !== $perfil->id)
-                      <button class="btn btn-warning" onclick="verSpoiler({{$comentario->id}})">Este comentario es un spoiler. Ver?</button>
-                      <div id="comId{{$comentario->id}}" class="d-none">
-                        {{$comentario->cuerpo}}
-                      </div>
-                      @else
-                      {{$comentario->cuerpo}}
-                      @endif
-                    </td>
-                    <td class="text-nowrap">
-                      @if($comentario->perfil_id === $perfil->id)
-                      <form action="{{url("libros/{$libro->id}/comentarios/{$comentario->id}")}}" method="POST"
-                      onclick="return confirm('Estas seguro que queres eliminar el comentario?')">
-                          @csrf
-                          @method('DELETE')
-                          <button class="btn btn-danger">Eliminar</button>
-                      </form>
-                      @endif
-                    </td>
-                  </tr>
-                @endforeach
+                  @foreach($comentarios as $comentario)
+                    <tr>
+                      <td class="text-nowrap small">
+                        {{$comentario->perfil->nombre}} ({{$comentario->perfil->user->name}})<br>
+                        {{$comentario->created_at->format('d/m/Y H:i:s')}}
+                      </td>
+                      <td class="w-100">
+                        @if($comentario->es_spoiler && $comentario->perfil_id !== $perfil->id)
+                          <button class="btn btn-warning" onclick="verSpoiler({{$comentario->id}})">Este comentario es un spoiler. Ver?</button>
+                          <div id="comId{{$comentario->id}}" class="d-none">
+                            {{$comentario->cuerpo}}
+                          </div>
+                        @else
+                          {{$comentario->cuerpo}}
+                        @endif
+                      </td>
+                      <td class="text-nowrap">
+                        @if($comentario->perfil_id === $perfil->id)
+                          <form action="{{url("libros/{$libro->id}/comentarios/{$comentario->id}")}}" method="POST"
+                            onclick="return confirm('Estas seguro que queres eliminar el comentario?')">
+                            @csrf
+                            @method('DELETE')
+                              <button class="btn btn-danger">Eliminar</button>
+                          </form>
+                        @endif
+                      </td>
+                    </tr>
+                  @endforeach
                 </tbody>
               </table>
-          </div>
+            </div>
           @endif
-        </div>
+        </div>{{-- End card body--}}
       </div>
     </div>
   </div>
 </div>
 
 <script>
-$('#collapseExample').collapse('hide');
-$('#collapseExample2').collapse('hide');
+$('#collapseInfo').collapse('hide');
+$('#collapseComentarios').collapse('hide');
 
 function verSpoiler(id) {
   document.getElementById(`comId${id}`).classList.remove('d-none')

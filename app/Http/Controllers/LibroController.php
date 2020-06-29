@@ -254,7 +254,7 @@ class LibroController extends Controller
             'comentarioPerfil' => $libro->comentarios()
                 ->where('perfil_id', $this->perfil()->id)
                 ->first(),
-            'promedioCalificacion' => $libro->calificaciones()->avg('puntaje'),
+            'promedioCalificacion' => $libro->promedioCalificacion(),
         ]);
     }
 
