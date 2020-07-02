@@ -65,12 +65,14 @@ class SuscripcionController extends Controller
             if (!$esPremium && $user->perfiles()->count() > 2) {
                 $user->perfiles()->delete();
             }
+
+            $user->ultimo_cobro = Carbon::now();
         }
 
         $user->cuenta_activa = true;
         if (isset($vData['tipoCuenta']))
             $user->es_premium = $esPremium;
-        $user->tarjeta_numero = $vData['card-number'];
+        $user->tarjeta_numero = $number;
         $user->tarjeta_nombre = $vData['card-name'];
         $user->tarjeta_expiracion = $vData['card-expiry'];
         $user->tarjeta_cvc = $vData['card-cvc'];

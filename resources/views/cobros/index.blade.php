@@ -11,14 +11,14 @@
                 <div class="col">
                     <h3>Exitosos</h3>
                     @foreach($ok as $item)
-                    <div>{{$item}}</div>
+                    <div>{!!$item!!}</div>
                     <hr>
                     @endforeach
                 </div>
                 <div class="col">
-                    <h3>Fallidos</h3>
+                    <h3>Fallidos (se deshabilitaron las cuentas)</h3>
                     @foreach($err as $item)
-                    <div>{{$item}}</div>
+                    <div>{!!$item!!}</div>
                     <hr>
                     @endforeach
                 </div>
