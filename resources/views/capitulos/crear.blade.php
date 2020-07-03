@@ -32,7 +32,7 @@
           {{-- Formulario --}}
           <form method="POST" action="{{route('capitulos.store', $libro->id)}}" enctype="multipart/form-data">
             @csrf
-
+            {{-- Titulo --}}
             <input
               type="text"
               name="titulo"
@@ -40,29 +40,30 @@
               class="form-control mb-2"
               value="{{old('titulo')}}"
             />
+            {{-- Fechas solo si es por caps --}}
+            @if ($libro->esPorCapitulos())
+              Fecha de lanzamiento: (posterior a la del libro que es 
+                <b>{{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
+              <input
+                required
+                type="date"
+                name="fecha_de_lanzamiento"
+                placeholder="Ingrese fecha de lanzamiento"
+                class="form-control mb-2"
+                value="{{old('fecha_de_lanzamiento')}}" 
+              />
 
-            Fecha de lanzamiento: (posterior a la del libro que es 
-              <b>{{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
-            <input
-              required
-              type="date"
-              name="fecha_de_lanzamiento"
-              placeholder="Ingrese fecha de lanzamiento"
-              class="form-control mb-2"
-              value="{{old('fecha_de_lanzamiento')}}" 
-            />
-
-            Fecha de vencimiento: (posterior a la del libro que es 
-            <b>{{$libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
-            <input
-              required
-              type="date"
-              name="fecha_de_vencimiento"
-              placeholder="Ingrese fecha de vencimiento"
-              class="form-control mb-2"
-              value="{{old('fecha_de_vencimiento')}}" 
-            />
-
+              Fecha de vencimiento: (anterior a la del libro que es 
+              <b>{{$libro -> fecha_de_vencimiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
+              <input
+                required
+                type="date"
+                name="fecha_de_vencimiento"
+                placeholder="Ingrese fecha de vencimiento"
+                class="form-control mb-2"
+                value="{{old('fecha_de_vencimiento')}}" 
+              />
+            @endif
             <!-- este es el input del pdf:-->
             <div>Archivo PDF:</div>
             <input 
