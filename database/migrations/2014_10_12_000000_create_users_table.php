@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('tarjeta_nombre')->default('');
             $table->string('tarjeta_expiracion')->default('');
             $table->integer('tarjeta_cvc')->default(0);
+            $table->timestamp('ultimo_cobro')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

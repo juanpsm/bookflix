@@ -82,7 +82,8 @@
                             </li>
                         </ul>
 
-                        <a class="btn btn-outline-primary ml-2" href="{{route('admin.cobrar')}}">Efectuar cobro</a>
+                        <a class="btn btn-outline-primary ml-2" href="{{route('admin.cobrar')}}"
+                            onclick="return confirm('Se efectuaran los cobros pendientes del mes. Aquellos usuarios que ya fueron cobrados no seran procesados hasta el mes siguiente')">Efectuar cobro</a>
 
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">

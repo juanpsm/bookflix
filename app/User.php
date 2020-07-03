@@ -35,6 +35,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'ultimo_cobro' => 'datetime',
     ];
 
     public function tarjetas()
