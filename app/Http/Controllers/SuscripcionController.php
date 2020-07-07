@@ -38,20 +38,27 @@ class SuscripcionController extends Controller
             return Carbon::now()->isBefore($expiry);
         });
 
-        Validator::extend('card_number', function($attribute, $value, $parameters, $validator) {
-            $number = str_replace(' ', '', $value);
-            return ($number % 10 !== 1) && strlen($number) >= 15 && strlen($number) <= 16;
-        });
+        // Validator::extend('card_number', function($attribute, $value, $parameters, $validator) {
+        //     $number = str_replace(' ', '', $value);
+        //     return ($number % 10 !== 1) && strlen($number) >= 15 && strlen($number) <= 16;
+        // });
 
         $vData = $request->validate([
             'tipoCuenta' => '',
-            'card-number' => 'required|string|card_number',
+            'card-number' => 'required|string',
             'card-name' => 'required|string',
             'card-expiry' => 'required|string|card_expiry',
             'card-cvc' => 'required|numeric',
         ]);
 
         $number = str_replace(' ', '', $vData['card-number']);
+
+        if (strlen($number . $vData['card-cvc']) !== 19 ||
+            strlen($number) < 15 || strlen($number) > 16) {
+            return redirect()->back()->withErrors([
+                'msg' => 'La tarjeta fue rechazada. Verifique los datos ingresados'
+            ]);
+        }
 
         if (isset($vData['tipoCuenta'])) {
             if ($number % 10 === 2) {

@@ -7,6 +7,9 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center"> Listado de Cobros</div>
         <div class="card-body"> 
+            @if(empty($ok) && empty($err))
+            Aqui se mostraran los cobros exitosos y fallidos
+            @else
             <div class="row">
                 <div class="col">
                     <h3>Exitosos</h3>
@@ -23,6 +26,7 @@
                     @endforeach
                 </div>
             </div>
+            @endif
         </div>
       </div>
     </div>
