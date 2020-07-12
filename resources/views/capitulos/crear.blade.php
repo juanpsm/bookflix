@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Agregar capitulo para libro: {{$libro -> titulo}}</span>
+          <span>Agregar archivo para libro: {{$libro -> titulo}}</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
@@ -78,7 +78,7 @@
                 Cancelar
               </a>
               <button class="btn btn-primary btn-sm" type="submit">
-                Agregar Capitulo
+                Agregar Archivo
               </button>
             </div>
           </form>

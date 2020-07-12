@@ -82,7 +82,7 @@
               </div>
             </div>
             <div class= "row">
-              <div class= "col-lg-6">
+              <div class= "col-lg-7">
                 <div class= "row">
                   <div class= "col-lg-6">
                     Fecha de lanzamiento:
@@ -131,22 +131,23 @@
                   </div>
                 </div>
               </div>              
-              <div class= "col-lg-6 align-self-center">
+              <div class= "col-lg-5 align-self-center">
                 <div class= "row justify-content-center">
                   <div class= "col-lg-6">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-primary">
+                      <label id='labelcheckCompleto' class="btn btn-success">
                         <input type="radio" name="tipolibro" id="checkCompleto" checked
                                 value="completo" required> 
                         Libro Completo
                       </label>
-                      <label class="btn btn-primary">
+                      <label id="labelcheckCapitulos" class="btn btn-success">
                         <input type="radio" name="tipolibro" id="checkCapitulos" for="cant"
                         data-toggle="collapse" data-target="#collapseOne"
                         value="porcapitulos" required>
                         Por Capítulos
                       </label>
                     </div>
+
                     <div class="collapse" id="collapseOne">
                     </div>
                   </div>
@@ -165,6 +166,11 @@
                     <script type="application/javascript">
                       document.getElementById('checkCapitulos').onclick = function() {
                         if(this.checked==true){
+                          document.getElementById("labelcheckCompleto").classList.remove("btn-success");
+                          document.getElementById("labelcheckCompleto").classList.add("btn-secondary");
+                          
+                          document.getElementById("labelcheckCapitulos").classList.remove("btn-secondary");
+                          document.getElementById("labelcheckCapitulos").classList.add("btn-success");
                           document.getElementById("cant").disabled=false;
                           document.getElementById("cant").focus();
                         }
@@ -174,6 +180,10 @@
                       };
                       document.getElementById('checkCompleto').onchange = function() {
                         if(this.checked==true){
+                          document.getElementById("labelcheckCompleto").classList.remove("btn-secondary");
+                          document.getElementById("labelcheckCompleto").classList.add("btn-success");
+                          document.getElementById("labelcheckCapitulos").classList.remove("btn-success");
+                          document.getElementById("labelcheckCapitulos").classList.add("btn-secondary");
                           document.getElementById("cant").disabled=true;
                         }
                       };

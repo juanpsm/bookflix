@@ -106,12 +106,23 @@ class Libro extends Model
         return $this -> cantidad_capitulos > 1;
     }
 
+    public static $terminadoDeCargar = FALSE;
+
+    public function finalizar() {
+        self::$terminadoDeCargar = TRUE;
+    }
+
+    public function finalizado() {
+        return self::$terminadoDeCargar;
+    }
+
     public function terminadoDeCargar() {
         return ($this -> esCompleto() &&
                 $this -> cantCapCargados() == 1 ) ||
                 ( $this -> esPorCapitulos() &&
                 $this -> cantCapCargados() == $this -> cantidad_capitulos);
     }
+
 
     public function recomendados() {
         // Tomamos los generos del libro

@@ -81,7 +81,7 @@
                   </tr>
                   <tr>
                     <td>
-                      Cantidad capitulos:
+                      Cantidad de archivos:
                     </td>
                     <td>
                       {{$libro->capitulos->count()}} / {{$libro->cantidad_capitulos}}
@@ -196,7 +196,7 @@
                     <h4 class="p-4">No se ha cargado ninguno todavía</h4>
                   </div>
                 @endif
-                @if(!$libro-> terminadoDeCargar())
+                @if(!$libro-> finalizado())
                   {{-- Agregar Capítulo/Archivo --}}
                   <div class="col-sm-3 p-4">
                       <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
@@ -206,6 +206,9 @@
                         @else
                           Capítulo
                         @endif
+                      </a>
+                      <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
+                        Finalizar carga
                       </a>
                   </div>
                 @endif

@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Editar Tráiler: {{ $capitulo->id }}</span>
+          <span>Editar Capitulo: {{ $capitulo->id }}</span>
         </div>
         <div class="card-body">
           {{--Errores--}}
