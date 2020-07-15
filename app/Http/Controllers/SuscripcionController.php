@@ -53,10 +53,21 @@ class SuscripcionController extends Controller
 
         $number = str_replace(' ', '', $vData['card-number']);
 
-        if (strlen($number . $vData['card-cvc']) !== 19 ||
-            strlen($number) < 15 || strlen($number) > 16) {
+        if (strlen($number) < 15 || strlen($number) > 16) {
+            return redirect()->back()->withErrors([
+                'msg' => 'El numero de la tarjeta de credito debe tener entre 15 y 16 digitos'
+            ]);
+        }
+
+        if (strlen($number . $vData['card-cvc']) !== 19) {
             return redirect()->back()->withErrors([
                 'msg' => 'La tarjeta fue rechazada. Verifique los datos ingresados'
+            ]);
+        }
+
+        if ($number % 10 === 1) {
+            return redirect()->back()->withErrors([
+                'msg' => 'La tarjeta fue rechazada'
             ]);
         }
 

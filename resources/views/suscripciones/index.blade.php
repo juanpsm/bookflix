@@ -19,7 +19,7 @@
         <div class="card-body"> 
           <form id="suscripcionForm" action="{{url('elegirSuscripcion')}}" method="POST"
             @if(!$user->cuenta_activa)
-            onsubmit="confirm('Se efectuara el cobro. Continuar?')"
+            onsubmit="validarCobro()"
             @endif
             >
             <div class="row">
@@ -117,5 +117,11 @@
   $('input[name=card-name]')[0].dispatchEvent(new Event('change'));
   $('input[name=card-expiry]')[0].dispatchEvent(new Event('change'));
   $('input[name=card-cvc]')[0].dispatchEvent(new Event('change'));
+
+  function validarCobro() {
+    let r = confirm('Se efectuara el cobro. Continuar?')
+    if (!r)
+      event.preventDefault()
+  }
   </script>
 @endsection

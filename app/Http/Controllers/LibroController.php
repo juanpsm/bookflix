@@ -295,9 +295,12 @@ class LibroController extends Controller
         ]);
 
         $perfil = $this->perfil();
-        $exists = $libro->calificaciones()->where('perfil_id', $perfil->id)->exists();
-        if ($exists)
-            abort(400, 'El libro ya fue calificado');
+        $cal = $libro->calificaciones()->where('perfil_id', $perfil->id)->first();
+        if ($cal) {
+            $cal->puntaje = $request->estrellas;
+            $cal->save();
+            return back();
+        }
 
         $cal = new Calificacion();
         $cal->libro_id = $libro->id;
@@ -315,9 +318,13 @@ class LibroController extends Controller
         ]);
 
         $perfil = $this->perfil();
-        $exists = $libro->comentarios()->where('perfil_id', $perfil->id)->exists();
-        if ($exists)
-            abort(400, 'Ya comentaste el libro');
+        $com = $libro->comentarios()->where('perfil_id', $perfil->id)->first();
+        if ($com) {
+            $com->es_spoiler = $request->spoiler ?? false;
+            $com->cuerpo = $request->cuerpo;
+            $com->save();
+            return back()->with('mensaje', 'Comentario editado!');
+        }
 
         $com = new Comentario();
         $com->libro_id = $libro->id;

@@ -84,32 +84,33 @@
                 <!-- end div del colapso -->    
               </div>
               {{-- Calif --}}
-              @if(($leido && $calificacion) || $promedioCalificacion)
+              @if($promedioCalificacion)
                 <p class="calificacion disable">
-                  <input id="radio1" type="radio" name="estrellas" value="5"
+                  <input id="radio1_a" type="radio" name="estrellas" value="5"
                     {{round($promedioCalificacion) == 5 ? 'checked' : ''}}>
-                  <label for="radio1">★</label>
+                  <label for="radio1_a">★</label>
 
-                  <input id="radio2" type="radio" name="estrellas" value="4"
+                  <input id="radio2_a" type="radio" name="estrellas" value="4"
                     {{round($promedioCalificacion) == 4 ? 'checked' : ''}}>
-                  <label for="radio2">★</label>
+                  <label for="radio2_a">★</label>
 
-                  <input id="radio3" type="radio" name="estrellas" value="3"
+                  <input id="radio3_a" type="radio" name="estrellas" value="3"
                     {{round($promedioCalificacion) == 3 ? 'checked' : ''}}>
-                  <label for="radio3">★</label>
+                  <label for="radio3_a">★</label>
 
-                  <input id="radio4" type="radio" name="estrellas" value="2"
+                  <input id="radio4_a" type="radio" name="estrellas" value="2"
                     {{round($promedioCalificacion) == 2 ? 'checked' : ''}}>
-                  <label for="radio4">★</label>
+                  <label for="radio4_a">★</label>
 
-                  <input id="radio5" type="radio" name="estrellas" value="1"
+                  <input id="radio5_a" type="radio" name="estrellas" value="1"
                     {{round($promedioCalificacion) == 1 ? 'checked' : ''}}>
-                  <label for="radio5">★</label>
+                  <label for="radio5_a">★</label>
                 </p>
                 <div class="container">
                   Calificacion promedio {{number_format($promedioCalificacion, 2, ',', '.')}}
                 </div>
-              @elseif($leido)
+              @endif
+              @if($leido && !$calificacion)
                 <form action="{{url("libros/{$libro->id}/calificar")}}" method="POST">
                   @csrf
                   <p class="calificacion">
@@ -126,6 +127,30 @@
                   </p>
                   <button class="btn btn-warning btn-block">
                       Calificar libro
+                  </button>
+                </form>
+              @elseif($calificacion)
+                <form action="{{url("libros/{$libro->id}/calificar")}}" method="POST">
+                  @csrf
+                  <p class="calificacion">
+                    <input id="radio1" type="radio" name="estrellas" value="5"
+                      {{$calificacion->puntaje == 5 ? 'checked' : ''}}>
+                    <label for="radio1">★</label>
+                    <input id="radio2" type="radio" name="estrellas" value="4"
+                      {{$calificacion->puntaje == 4 ? 'checked' : ''}}>
+                    <label for="radio2">★</label>
+                    <input id="radio3" type="radio" name="estrellas" value="3"
+                      {{$calificacion->puntaje == 3 ? 'checked' : ''}}>
+                    <label for="radio3">★</label>
+                    <input id="radio4" type="radio" name="estrellas" value="2"
+                      {{$calificacion->puntaje == 2 ? 'checked' : ''}}>
+                    <label for="radio4">★</label>
+                    <input id="radio5" type="radio" name="estrellas" value="1"
+                      {{$calificacion->puntaje == 1 ? 'checked' : ''}}>
+                    <label for="radio5">★</label>
+                  </p>
+                  <button class="btn btn-warning btn-block">
+                      Editar calificacion
                   </button>
                 </form>
               @endif
@@ -175,6 +200,29 @@
                 </div>
               </form>
             </div>
+          @elseif($comentarioPerfil)
+          <div id="editarComentario" class="mb-4 d-none">
+              @if($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
+                  {!! implode('', $errors->all('<div>:message</div>')) !!}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              @endif
+              <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
+                @csrf
+                <textarea class="form-control" name="cuerpo">{{$comentarioPerfil->cuerpo}}</textarea>
+                <div class="d-flex">
+                  <div class="custom-control custom-switch">
+                    <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1"
+                      {{$comentarioPerfil->es_spoiler ? 'checked' : ''}}>
+                    <label class="custom-control-label" for="customSwitch1">Es spoiler</label>
+                  </div>
+                  <button class="btn btn-primary ml-2">Comentar</button>
+                </div>
+              </form>
+            </div>
           @endif
           {{-- Ver Comentarios--}}
           @if($libro->tieneComentarios())
@@ -207,7 +255,8 @@
                       </td>
                       <td class="text-nowrap">
                         @if($comentario->perfil_id === $perfil->id)
-                          <form action="{{url("libros/{$libro->id}/comentarios/{$comentario->id}")}}" method="POST"
+                          <button class="btn btn-warning mr-2" type="button" onclick="editarComentario()">Editar</button>
+                          <form class="d-inline" action="{{url("libros/{$libro->id}/comentarios/{$comentario->id}")}}" method="POST"
                             onclick="return confirm('Estas seguro que queres eliminar el comentario?')">
                             @csrf
                             @method('DELETE')
@@ -234,6 +283,10 @@ $('#collapseComentarios').collapse('hide');
 function verSpoiler(id) {
   document.getElementById(`comId${id}`).classList.remove('d-none')
   event.target.remove()
+}
+
+function editarComentario() {
+  document.getElementById(`editarComentario`).classList.remove('d-none')
 }
 </script> 
 @endsection
