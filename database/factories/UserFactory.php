@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 require_once 'vendor/autoload.php';
 use App\User;
+use Carbon\Carbon;
 use Faker\Factory;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Str;
 */
 $faker = Faker\Factory::create('es_AR');
 $factory->define(User::class, function ($faker) {
+    $date = Carbon::now();
     return [
         'name' => $faker->name,
         'dni'=> $faker->randomNumber($nbDigits = 8, $strict = true), // 79907610
@@ -26,5 +28,7 @@ $factory->define(User::class, function ($faker) {
         'cuenta_activa' => $faker->boolean,
         'password' => '123456', // password de prueba
         'remember_token' => Str::random(10),
+        'created_at' =>$date->subWeeks(rand(1, 52)),
+        'updated_at' =>Carbon::now(),
     ];
 });
