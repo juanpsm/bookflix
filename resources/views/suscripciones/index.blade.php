@@ -13,7 +13,7 @@
         @endif
         @if($errors->any())
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          {!! implode('', $errors->all('<div>:message</div>')) !!}
+          {!! implode('La tarjeta fue rechazada. Verifique los datos ingresados', $errors->all('<div>:message</div>')) !!}
           </div>
         @endif
         <div class="card-body"> 

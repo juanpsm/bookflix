@@ -61,13 +61,13 @@ class SuscripcionController extends Controller
 
         if (strlen($number . $vData['card-cvc']) !== 19) {
             return redirect()->back()->withErrors([
-                'msg' => 'La tarjeta fue rechazada. Verifique los datos ingresados'
+                'msg' => 'La tarjeta fue rechazada. La suma de los digitos del numero de tarjeta y el CVC debe dar 19'
             ]);
         }
 
         if ($number % 10 === 1) {
             return redirect()->back()->withErrors([
-                'msg' => 'La tarjeta fue rechazada'
+                'msg' => 'La tarjeta es inválida'
             ]);
         }
 
