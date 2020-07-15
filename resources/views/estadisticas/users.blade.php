@@ -31,10 +31,10 @@
                     <input
                       required
                       type="date"
-                      name="from"
-                      id="from"
+                      name="desde"
+                      id="desde"
                       class="form-control mb-2"
-                      value="<?php echo $_POST['from'] ?? ''; ?>" 
+                      value="<?php echo $_POST['desde'] ?? ''; ?>" 
                     />
                   </div>
                   <div class="col-md-4">
@@ -42,10 +42,10 @@
                     <input
                       required
                       type="date"
-                      name="to"
-                      id="to"
+                      name="hasta"
+                      id="hasta"
                       class="form-control mb-2"
-                      value="<?php echo $_POST['to'] ?? ''; ?>" 
+                      value="<?php echo $_POST['hasta'] ?? ''; ?>" 
                     />
                   </div>
                   <div class="col-md-4">
@@ -65,6 +65,26 @@
           </div>
         </div>
         <div class="card-body">
+          {{--Errores--}}
+          @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {!! implode('', $errors->all('<div>:message</div>')) !!}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          @endif
+
+          {{--Exito--}}    
+          @if ( session('mensaje') )
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{session('mensaje')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+          @endif
+
           @if($usersTotal == 0)
             No existen usuarios registrados en el sistema.
           @else

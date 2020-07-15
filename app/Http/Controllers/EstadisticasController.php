@@ -27,9 +27,14 @@ class EstadisticasController extends Controller
         $users = User::paginate(50);
         $usersTotal = count(User::all());
 
-        if($request->has('from')){
-            $users = User::where('created_at','>=',$request->from)
-            ->where('created_at','<=',Carbon::create($request->to)->addDay())
+        if($request->has('desde')){
+
+            $request->validate([
+                'desde' => 'required|date_format:Y-m-d',
+                'hasta' => 'required|date_format:Y-m-d|after_or_equal:desde'
+            ]);
+            $users = User::where('created_at','>=',$request->desde)
+            ->where('created_at','<=',Carbon::create($request->hasta)->addDay())
             ->orderBy('created_at')
         ->paginate(50);
         }
