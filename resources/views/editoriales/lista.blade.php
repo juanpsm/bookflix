@@ -66,7 +66,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$editoriales->links()}}
+            <div class="row d-flex justify-content-center"> 
+              {{$editoriales->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

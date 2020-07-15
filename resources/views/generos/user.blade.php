@@ -34,6 +34,9 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="row d-flex justify-content-center">
+                        {{$libros->links()}}
+                    </div>
                     @endif
                 </div>
             </div>

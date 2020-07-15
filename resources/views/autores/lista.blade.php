@@ -23,6 +23,7 @@
             </button>
             </div>
           @endif
+
           @if(count($autores) == 0)
             No existen autores cargados en el sistema.
           @else
@@ -66,7 +67,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$autores->links()}}
+            <div class="row d-flex justify-content-center"> 
+                {{$autores->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

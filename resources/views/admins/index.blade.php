@@ -6,10 +6,10 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Lista de administradores:</span>
+          <span>Lista de Administradores:</span>
           {{-- Agregar --}}
           <a href="{{url('register/admin')}}" class="btn btn-primary btn-sm btn-icon">
-            Crear administrador
+            Crear Administrador
           </a>
         </div>
         <div class="card-body"> 
@@ -56,6 +56,7 @@
                     <a href="{{url("admin/admins/{$item->id}/editar")}}" class="btn btn-primary btn-sm">
                       editar
                     </a>--}}
+                    {{-- Delete --}}
                     <form action="{{url("admin/admins/{$item->id}")}}" class="d-inline" method="POST"
                       onclick="return confirm('Estas seguro que queres eliminar el administrador?')">
                         @method('DELETE')
@@ -69,6 +70,9 @@
                 @endforeach
               </tbody>
             </table>
+            <div class="row d-flex justify-content-center"> 
+              {{$admins->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

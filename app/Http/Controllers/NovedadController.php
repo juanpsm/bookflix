@@ -22,7 +22,7 @@ class NovedadController extends Controller
      */
     public function index()
     {
-        $novedades = Novedad::paginate(50);
+        $novedades = Novedad::paginate(5);
         return view('novedades.lista', compact('novedades'));
     }
 
@@ -199,7 +199,7 @@ class NovedadController extends Controller
         $novedades = Novedad::
             where('fecha_de_publicacion', '<', now())
             ->orderByDesc('fecha_de_publicacion')
-            ->paginate(50);
+            ->paginate(5);
 
         return view('novedades.user', compact('novedades'));
     }

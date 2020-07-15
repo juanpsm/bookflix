@@ -76,7 +76,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$trailers->links()}}
+            <div class="row d-flex justify-content-center">
+              {{$trailers->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

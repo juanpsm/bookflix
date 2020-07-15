@@ -75,7 +75,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$generos->links()}}
+            <div class="row d-flex justify-content-center"> 
+              {{$generos->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

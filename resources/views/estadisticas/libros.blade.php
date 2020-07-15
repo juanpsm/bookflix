@@ -34,7 +34,7 @@
           @endif
 
           @if(count($libros) == 0)
-            Todavía no se han registrado lecturas de libros en el sitio.
+            Todavía no se han registrado libros en el sitio.
           @else
             <table class="table table-striped table-hover">
               <thead>
@@ -72,7 +72,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{--$libros->links()--}}
+            {{--<div class="row d-flex justify-content-center"> 
+              {{$libros->links()}}
+            </div>--}}
           @endif
         {{-- fin card body --}}
         </div>

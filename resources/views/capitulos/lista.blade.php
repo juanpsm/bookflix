@@ -73,7 +73,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$capitulos->links()}}
+            <div class="row d-flex justify-content-center"> 
+              {{$capitulos->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

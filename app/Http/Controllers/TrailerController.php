@@ -24,7 +24,7 @@ class TrailerController extends Controller
      */
     public function index()
     {
-        $trailers = Trailer::paginate(50);
+        $trailers = Trailer::paginate(3);
         return view('trailers.lista', compact('trailers'));
     }
 
@@ -277,7 +277,7 @@ class TrailerController extends Controller
      */
     public function showListaUser()
     {
-        $trailers = Trailer::orderByDesc('created_at')->paginate(50);
+        $trailers = Trailer::orderByDesc('created_at')->paginate(3);
 
         return view('trailers.user', compact('trailers'));
     }

@@ -24,7 +24,7 @@ class GeneroController extends Controller
      */
     public function index()
     {
-        $generos = Genero::paginate(50);
+        $generos = Genero::paginate(5);
         return view('generos.lista',compact('generos')); 
     }
 
@@ -133,7 +133,7 @@ class GeneroController extends Controller
     public function showGenero($id)
     {   
         $genero = Genero::findOrFail($id);
-        $libros = $genero->libros()->get();
+        $libros = $genero->libros()->paginate(8);
         return view('generos.user', compact('libros'),compact('genero'));
     }
 }

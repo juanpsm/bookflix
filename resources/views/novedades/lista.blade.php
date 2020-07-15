@@ -84,7 +84,9 @@
                 @endforeach
               </tbody>
             </table>
-            {{$novedades->links()}}
+            <div class="row d-flex justify-content-center">
+              {{$novedades->links()}}
+            </div>
           @endif
         {{-- fin card body --}}
         </div>

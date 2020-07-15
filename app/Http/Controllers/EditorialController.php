@@ -20,7 +20,7 @@ class EditorialController extends Controller
      */
     public function index()
     {
-        $editoriales = Editorial::paginate(50);
+        $editoriales = Editorial::paginate(5);
         return view('editoriales.lista',compact('editoriales')); 
     }
 

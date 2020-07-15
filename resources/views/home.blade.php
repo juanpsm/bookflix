@@ -17,7 +17,7 @@
                     {{--Esto en realidad iria en el HomeController pero por ahora queda acá--}}
                     <?php
                     use App\Libro;
-                    $libros = Libro::get();
+                    $libros = Libro::paginate(8);
                     ?>
                     <div class="row text-center text-lg-left">
                         @foreach ($libros as $item)
@@ -35,6 +35,9 @@
                                 <div class="titulo">{{$item->titulo}}</div>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        {{$libros->links()}}
                     </div>
                 </div>
             </div>

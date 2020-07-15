@@ -139,9 +139,11 @@
                   @endforeach
                 </tbody>
               </table>
-              {{$users->links()}}
+              <div class="row d-flex justify-content-center"> 
+                {{$users->links()}}
+              </div>
             @endif
-        @endif
+          @endif
         {{-- fin card body --}}
         </div>
       </div>

@@ -24,7 +24,7 @@ class CapituloController extends Controller
      */
     public function index()
     {
-        $capitulos = Capitulo::paginate(50);
+        $capitulos = Capitulo::paginate(5);
         return view('capitulos.lista', compact('capitulos'));
     }
 
@@ -218,7 +218,7 @@ class CapituloController extends Controller
     public function showCapitulos($id_libro)
     {
         $libro = Libro::findOrFail($id_libro);
-        $capitulos = $libro->capitulos; // tambien funca $libro->capitulos()->get()
+        $capitulos = $libro->capitulos()->paginate(5); // tambien funca $libro->capitulos()->get()
         return view('capitulos.user', compact('capitulos'), [
             'libro' => $libro,
             'perfil' => $this->perfil(),
