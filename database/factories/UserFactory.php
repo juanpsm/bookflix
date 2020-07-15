@@ -30,5 +30,9 @@ $factory->define(User::class, function ($faker) {
         'remember_token' => Str::random(10),
         'created_at' =>$date->subWeeks(rand(1, 52)),
         'updated_at' =>Carbon::now(),
+        'tarjeta_numero' => '1234123412341234',
+        'tarjeta_nombre' => $faker->name,
+        'tarjeta_expiracion' => '12 / 30',
+        'tarjeta_cvc' => '123',
     ];
 });

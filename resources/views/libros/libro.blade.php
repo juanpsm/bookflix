@@ -177,20 +177,20 @@
             </div>{{-- End col Botones--}}
           </div>{{-- End Row Portada y botones--}}
           <hr>
-          {{-- Publicar Comentario--}}
-          @if($leido && !$comentarioPerfil)
-            <div class="mb-4">
-              @if($errors->any())
+          @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
                   {!! implode('', $errors->all('<div>:message</div>')) !!}
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-              @endif
+          @endif
+          {{-- Publicar Comentario--}}
+          @if($leido && !$comentarioPerfil)
+            <div class="mb-4">
               <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
                 @csrf
-                <textarea class="form-control" name="cuerpo"></textarea>
+                <textarea required class="form-control" name="cuerpo"></textarea>
                 <div class="d-flex">
                   <div class="custom-control custom-switch">
                     <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -202,17 +202,9 @@
             </div>
           @elseif($comentarioPerfil)
           <div id="editarComentario" class="mb-4 d-none">
-              @if($errors->any())
-                <div class="alert alert-danger alert-dismissible fade show mb-2" role="alert">
-                  {!! implode('', $errors->all('<div>:message</div>')) !!}
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              @endif
               <form action="{{url("libros/{$libro->id}/comentarios")}}" method="POST">
                 @csrf
-                <textarea class="form-control" name="cuerpo">{{$comentarioPerfil->cuerpo}}</textarea>
+                <textarea required class="form-control" name="cuerpo">{{$comentarioPerfil->cuerpo}}</textarea>
                 <div class="d-flex">
                   <div class="custom-control custom-switch">
                     <input name="spoiler" value="1" type="checkbox" class="custom-control-input" id="customSwitch1"
