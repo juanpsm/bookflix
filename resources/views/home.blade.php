@@ -28,7 +28,7 @@
                                             src="{{$item->portada}}" alt="">
                                     </a>
                                     @if (!$item -> finalizado())
-                                        <div class="ribbon">Proximamente</div>
+                                        <div class="ribbon">Próximamente</div>
                                         <div class="embed-cover"></div>
                                     @endif
                                 </div>

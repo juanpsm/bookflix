@@ -10,7 +10,9 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/nuestro.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/portadas.css') }}" rel="stylesheet">
 
     </head>
     <body>
@@ -44,29 +46,40 @@
 
                 </div> --}}
 
-                <main role="main">
-
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <h3>Los más Leídos</h3>
-                        <ol class="carousel-indicators">
-
-
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" >
-                                <div class="carrusel">
-                                <?php
-                                use App\Libro;
-                                $libros = Libro::limit(6)->get();
-                                ?>
-                                @foreach ($libros as $item)
-                                    <a class="" href="#">
-                                        <img style="height: 150px; border-radius: 10%;" src="{{$item->portada}}" alt="" class="" >
-                                    </a>
-                                @endforeach
+                <main class="py-4">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+                                <div class="card card-dark bg-dark">
+                                    <div class="card-header">
+                                        Los más Leídos
+                                    </div>
+                                    <div class="card-body justify-content-center">
+                                        <?php
+                                        use App\Libro;
+                                        $libros = Libro::limit(6)->get();
+                                        ?>
+                                        <div class="row text-center text-lg-left">
+                                            @foreach ($libros as $item)
+                                                <div class="col-lg-2 col-md-2 col-2 book">
+                                                    <div class="portada">
+                                                        <a href="{{route("libros.showForUser", $item)}}" class="d-block mb-4 h-100">
+                                                            <img class="img-fluid" style="border-radius: 5%;"
+                                                                src="{{$item->portada}}" alt="">
+                                                        </a>
+                                                        @if (!$item -> finalizado())
+                                                            <div class="ribbon">Próximamente</div>
+                                                            <div class="embed-cover"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="titulo"><small>{{$item->titulo}}</small></div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                     </div>
                 </main>
             </div>
