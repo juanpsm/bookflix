@@ -131,8 +131,7 @@ class GeneroController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function showGenero($id)
-    {
-        
+    {   
         $genero = Genero::findOrFail($id);
         $libros = $genero->libros()->get();
         return view('generos.user', compact('libros'),compact('genero'));

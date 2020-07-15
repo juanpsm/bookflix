@@ -24,7 +24,7 @@
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/nuestro.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/card.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/portadas.css') }}" rel="stylesheet">
     </head>
     <body oncontextmenu="return false;">
         <div id="app">
