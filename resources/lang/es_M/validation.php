@@ -118,7 +118,7 @@ return [
     'url'                  => 'El formato del campo :attribute es inválido.',
     'uuid'                 => 'El campo :attribute debe ser un UUID válido.',
 
-    'card_expiry'          => 'El campo :attribute debe ser una fecha mayor a el mes actual',
+    'card_expiry'          => 'El campo :attribute debe ser una fecha mayor al mes actual',
     'card_number'          => 'El campo :attribute es inválido',
 
     /*
