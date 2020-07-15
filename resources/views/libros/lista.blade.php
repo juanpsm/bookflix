@@ -88,9 +88,11 @@
                   {{-- Acciones --}}
                   <td>
                     {{-- Edit --}}
-                    <a href="{{route('libros.edit', $item)}}" class="btn btn-primary btn-sm">
-                      editar
-                    </a>
+                    @if (!$item -> finalizado())
+                      <a href="{{route('libros.edit', $item)}}" class="btn btn-primary btn-sm">
+                        editar
+                      </a>
+                    @endif
                     {{-- Delete --}}
                     @if($item->deleted_at)
                     <form action="{{url("libros/{$item->id}/restore")}}" class="d-inline" method="POST"

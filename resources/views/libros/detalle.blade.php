@@ -21,9 +21,11 @@
       <div class="card">
         <div class="card-header d-flex align-items-center">
           <span class="mr-auto">Libro #{{$libro -> id}}</span>
-          <a href="{{route('libros.edit', $libro)}}" class="btn btn-primary btn-sm mr-2">
-            editar
-          </a>
+          @if (!$libro -> finalizado())
+            <a href="{{route('libros.edit', $libro)}}" class="btn btn-primary btn-sm mr-2">
+              editar
+            </a>
+          @endif
           <a href="{{route('libros.index')}}" class="btn btn-primary btn-sm">Volver</a>
         </div>
         <div class="card-body">
@@ -84,7 +86,7 @@
                       Cantidad de archivos:
                     </td>
                     <td>
-                      {{$libro->capitulos->count()}} / {{$libro->cantidad_capitulos}}
+                      {{$libro->cantCapCargados()}} / {{$libro->cantidad_capitulos}}
                     </td>
                   </tr>
                   <tr>
@@ -189,7 +191,7 @@
           <div class="tab-content">
             {{-- Tab Capitulos --}}
             <div class="tab-pane active" id="capitulos" role="tabpanel">
-              <div class="row justify-content-between p-2">
+              <div class="row justify-content-end p-2">
                 @if ($libro->cantCapCargados() == 0)
                   {{-- Vacio capitulos --}}
                   <div class="col-sm-8">
@@ -198,20 +200,51 @@
                 @endif
                 @if(!$libro-> finalizado())
                   {{-- Agregar Capítulo/Archivo --}}
+                  @if(!$libro-> lleno())
+                    <div class="col-sm-3 p-4">
+                        <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
+                          Agregar 
+                          @if ( $libro-> esCompleto() )
+                            Archivo
+                          @else
+                            Capítulo
+                          @endif
+                        </a>
+                    </div>
+                  @else
+                    <div class="col-sm-3 p-4">
+                      <a href="{{route('capitulos.finalizar', $libro -> id)}}" class="btn btn-danger btn-sm btn-icon"
+                        onclick="return confirm('¿Estás seguro que queres finalizar el libro? Ten en cuenta que luego no podrás editar sus capitulos o archivos.')">
+                        Finalizar Libro
+                      </a>
+                    </div>
+                  @endif
+                @else
                   <div class="col-sm-3 p-4">
-                      <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
-                        Agregar 
-                        @if ( $libro-> esCompleto() )
-                          Archivo
-                        @else
-                          Capítulo
-                        @endif
-                      </a>
-                      <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
-                        Finalizar carga
-                      </a>
+                    <a href="{{route('capitulos.desfinalizar', $libro -> id)}}" class="btn btn-warning btn-sm btn-icon">
+                      Desfinalizar libro (esto luego se saca)
+                    </a>
                   </div>
                 @endif
+                {{--<table class="table table-hover table-sm table-striped">
+                  <tbody>
+                    <tr><td>cargados</td><td>{{$libro->cantCapCargados()}}</td></tr>
+                    <tr><td>max</td><td>{{$libro->cantidad_capitulos}}</td></tr>
+                    <tr><td>es completo?</td><td>{{$libro -> esCompleto()}}</td></tr>
+                    <tr><td>cargados == 1?</td><td>{{$libro -> cantCapCargados() == 1}}</td></tr>
+                    <tr><td>esPorCapitulos?</td><td>{{$libro -> esPorCapitulos()}}</td></tr>
+                    <tr><td>cargados == max?</td><td>{{$libro -> cantCapCargados() == $libro -> cantidad_capitulos}}</td></tr>
+                    <tr><td>esCompleto() && Cargados() == 1?</td><td>{{$libro -> esCompleto() && $libro -> cantCapCargados() == 1 }}</td></tr>
+                    <tr><td>esPorCapitulos() && Cargados() == max?</td><td>{{$libro -> esPorCapitulos() && $libro -> cantCapCargados() == $libro -> cantidad_capitulos}}</td></tr>
+                    <tr><td>||</td><td>{{ ($libro->esCompleto() && $libro->cantCapCargados() == 1 ) || ( $libro->esPorCapitulos() && $libro->cantCapCargados() == $libro->cantidad_capitulos)}}</td></tr>
+                    <tr><td>lleno?</td><td>{{$libro -> lleno()}}</td></tr>
+                    <tr><td> IF lleno?</td><td>@if ($libro -> lleno())
+                        lleno
+                    @else
+                        no lleno
+                    @endif</td></tr>
+                  </tbody>
+                </table>--}}
               </div>
               @if ($libro->cantCapCargados() > 0)
                 {{-- Tabla de Capitulos --}}
@@ -220,7 +253,9 @@
                     <tr>
                       <th scope="col">Título</th>
                       <th scope="col">Pdf</th>
-                      <th scope="col">Acciónes</th>
+                      @if(!$libro-> finalizado())
+                        <th scope="col">Acciones</th>
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -240,21 +275,23 @@
                           </a>
                         </td>
                         {{-- Acciones --}}
-                        <td>
-                          {{-- Edit --}}
-                          <a href="{{route('capitulos.edit', $capitulo)}}" class="btn btn-primary btn-sm">
-                            editar
-                          </a>
-                          {{-- Delete --}}
-                          <form action="{{route('capitulos.destroy', $capitulo)}}" class="d-inline" method="POST"
-                          onclick="return confirm('Estas seguro que queres eliminar el Capitulo?')">
-                              @method('DELETE')
-                              @csrf
-                              <button type="submit" class="btn btn-danger btn-sm">
-                                eliminar
-                              </button>
-                          </form>
-                        </td>
+                        @if(!$libro-> finalizado())
+                          <td>
+                            {{-- Edit --}}
+                            <a href="{{route('capitulos.edit', $capitulo)}}" class="btn btn-primary btn-sm">
+                              editar
+                            </a>
+                            {{-- Delete --}}
+                            <form action="{{route('capitulos.destroy', $capitulo)}}" class="d-inline" method="POST"
+                            onclick="return confirm('Estas seguro que queres eliminar el Capitulo?')">
+                                @method('DELETE')
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                  eliminar
+                                </button>
+                            </form>
+                          </td>
+                        @endif
                       </tr>
                     @endforeach
                   </tbody>

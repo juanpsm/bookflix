@@ -333,4 +333,31 @@ class LibroController extends Controller
         $comentario->delete();
         return back()->with('mensaje', 'Comentario eliminado!');
     }
+
+    /**
+     * Finalizar carga de archivos/ capitulos
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function finalizar($id)
+    {
+        $libro = Libro::findOrFail($id);
+        if ($libro-> lleno()){
+            $libro-> terminado_de_cargar = TRUE;
+            $libro->save();
+        } else{
+            return back()->with('mensaje', 'Todavia no terminaste de cargar el libro');
+        }
+        
+        return back()->with('mensaje', 'Libro finalizado!');
+    }
+
+    public function desfinalizar($id)
+    {
+        $libro = Libro::findOrFail($id);
+        $libro-> terminado_de_cargar = FALSE;
+        $libro->save();
+        return back()->with('mensaje', 'Libro desfinalizado!');
+    }
 }

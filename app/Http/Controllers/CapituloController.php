@@ -96,13 +96,15 @@ class CapituloController extends Controller
         if ($libro-> esPorCapitulos()){
             $capitulo->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
             $capitulo->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+            $msg = 'Capitulo Creado!';
         } else{
             $capitulo->fecha_de_lanzamiento = $libro->fecha_de_lanzamiento;
             $capitulo->fecha_de_vencimiento = $libro->fecha_de_vencimiento;
+            $msg = 'Archivo cargado!';
         }
         $capitulo->save();
     
-        return redirect()->route('libros.show',$libro_id)->with('mensaje', 'Capitulo Creado!');
+        return redirect()->route('libros.show',$libro_id)->with('mensaje', $msg);
     }
 
     /**
@@ -172,9 +174,15 @@ class CapituloController extends Controller
         $capitulo->titulo = $request->titulo;
         $capitulo->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $capitulo->fecha_de_vencimiento = $request->fecha_de_vencimiento;
+
+        if ($libro-> esPorCapitulos()){
+            $msg = 'Capitulo Actualizado!';
+        } else{
+            $msg = 'Archivo Actualizado!';
+        }
         $capitulo->save();
 
-        return redirect()->route('libros.show', $capitulo->libro->id)->with('mensaje', 'Capitulo Actualizado!');
+        return redirect()->route('libros.show', $capitulo->libro->id)->with('mensaje', $msg);
     }
 
     /**
@@ -189,10 +197,16 @@ class CapituloController extends Controller
         if ($capitulo->pdf != 'noFile') {
             File::delete($capitulo->pdf);
         }
-        $id = $capitulo -> libro -> id; //guardo el id para volver
+        $libro = $capitulo -> libro;
+        $id = $libro -> id; //guardo el id para volver
         $capitulo->delete();
 
-        return redirect()->route('libros.show',$id)->with('mensaje', 'Capitulo Eliminado!');
+        if ($libro-> esPorCapitulos()){
+            $msg = 'Capitulo Eliminado!';
+        } else{
+            $msg = 'Archivo Eliminado!';
+        }
+        return redirect()->route('libros.show',$id)->with('mensaje', $msg);
     }
 
     /**

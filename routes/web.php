@@ -119,6 +119,8 @@ Route::resource('capitulos', 'CapituloController');
 Route::get('showCapituloAdmin/{id}','CapituloController@showCapituloAdmin')->name('capitulos.showCapituloAdmin');
 Route::get('/libros/{libro_id}/agregarCapitulo','CapituloController@createWithBook')->name('capitulos.createWithBook');
 Route::post('/libros/{libro_id}/capitulos','CapituloController@store')->name('capitulos.store');
+Route::get('/libros/{libro_id}/finalizar','LibroController@finalizar')->name('capitulos.finalizar');
+Route::get('/libros/{libro_id}/desfinalizar','LibroController@desfinalizar')->name('capitulos.desfinalizar');
 // Capitulos User
 Route::get('libros/{libro_id}/caps','CapituloController@showCapitulos')->name('libro.capitulos');
 Route::get('libros/{libro_id}/caps/{id}','CapituloController@capituloReader')->name('capitulo.reader');
