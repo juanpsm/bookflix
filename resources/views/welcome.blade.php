@@ -57,7 +57,10 @@
                                     <div class="card-body justify-content-center">
                                         <?php
                                         use App\Libro;
-                                        $libros = Libro::limit(6)->get();
+                                        
+                                        $libros = Libro::withTrashed()->get();
+                                        $libros = $libros->sortByDesc(function($libro){return $libro->cantLectores();});
+                                        $libros = $libros->take(6);
                                         ?>
                                         <div class="row text-center text-lg-left">
                                             @foreach ($libros as $item)
