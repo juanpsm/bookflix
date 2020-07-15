@@ -31,6 +31,7 @@
                 <tr>
                 
                 <th scope="col">Título</th>
+                <th scope="col">Libro</th>
                 <th scope="col">Pdf</th>
                 <th scope="col">Acción</th>
                 </tr>
@@ -43,6 +44,16 @@
                     <a href="{{route('trailers.show',$item)}}"> {{--Tengo que pasar como parametro el item --}}
                         {{ $item -> titulo }}
                     </a>
+                  </td>
+                  {{-- Libro --}}
+                  <td>
+                    @if ($item -> libro)
+                      <a href="{{route("libros.show", $item)}}">
+                        {{$item -> libro -> titulo}}
+                      </a>
+                    @else
+                      No tiene libro asignado
+                    @endif
                   </td>
                   {{-- PDF --}}
                   {{-- 
