@@ -15,11 +15,6 @@
             @endif
           </span>
           <div class="col-5 d-flex">
-            @if(!$leido)
-            <a href="{{route('capitulo.marcarLeido', ['libro_id'=>$libro->id, 'id'=>$capitulo->id])}}" class= "btn btn-primary ml-auto" >
-              Marcar como leido
-            </a>
-            @endif
             <a href="{{route("libros.showForUser", $libro)}}" class= "btn btn-secondary ml-auto">
               Volver
             </a>
