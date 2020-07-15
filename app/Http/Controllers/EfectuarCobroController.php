@@ -40,6 +40,13 @@ class EfectuarCobroController extends Controller
                 continue;
             }
 
+            if ($number % 10 === 1) {
+                array_push($err, "{$user->email}: <span class=\"text-danger\">la tarjeta de credito fue rechazada</span>");
+                $user->cuenta_activa = false;
+                $user->save();
+                continue;
+            }
+
             $user->ultimo_cobro = $fecha_cobro;
             $user->save();
 
