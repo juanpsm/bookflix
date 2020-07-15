@@ -32,9 +32,13 @@
                   {{-- Libro --}}
                   <td>
                     @if ($item -> libro)
-                      <a href="{{route("libros.showForUser", $item)}}">
-                        {{$item -> libro -> titulo}}
-                      </a>
+                      @if ($item -> libro -> finalizado())
+                        <a href="{{route("libros.showForUser", $item)}}">
+                          {{$item -> libro -> titulo}}
+                        </a>
+                      @else
+                        {{$item -> libro -> titulo}} (Próximamente)
+                      @endif
                     @else
                       Próximamente
                     @endif
