@@ -64,7 +64,10 @@
                   </td>
                   {{-- Editorial --}}
                   <td>
+                    @if ($item->editorial)
                     {{ $item->editorial->nombre }}
+                    
+                    @endif
                   </td>
                   {{-- Generos --}}
                   <td>

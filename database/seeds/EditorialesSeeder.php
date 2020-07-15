@@ -17,23 +17,25 @@ class EditorialesSeeder extends Seeder
 
         // Editorial #1
         $editorial = new Editorial();
-        $editorial->nombre = "Gnome Press";
+        $editorial->nombre = "EditorialNoAsignada";
         $editorial->save();
         // Editorial #2
         $editorial = new Editorial();
-        $editorial->nombre = "Garbo";
+        $editorial->nombre = "Gnome Press";
         $editorial->save();
         // Editorial #3
         $editorial = new Editorial();
-        $editorial->nombre = "Viking Press";
+        $editorial->nombre = "Garbo";
         $editorial->save();
         // Editorial #4
         $editorial = new Editorial();
-        $editorial->nombre = "Bloomsbury Publishing";
+        $editorial->nombre = "Viking Press";
         $editorial->save();
         // Editorial #5
         $editorial = new Editorial();
-        $editorial->nombre = "EditorialNoAsignada";
+        $editorial->nombre = "Bloomsbury Publishing";
         $editorial->save();
+
+        factory(Editorial::class, 15)->create();
     }
 }

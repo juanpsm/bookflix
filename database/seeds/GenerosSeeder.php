@@ -49,5 +49,7 @@ class GenerosSeeder extends Seeder
         $genero = new Genero();
         $genero->nombre = "GeneroNoAsignado";
         $genero->save();
+
+        factory(Genero::class, 10)->create();
     }
 }

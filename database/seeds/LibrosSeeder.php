@@ -55,6 +55,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 2;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
             // Trailer para este libro
@@ -92,6 +93,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 1;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([2, 6]);
             // Trailer para este libro
@@ -120,6 +122,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 2;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([4, 5]);
             // Trailer para este libro
@@ -156,6 +159,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 1;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([1,7]);
             // Trailer para este libro
@@ -184,6 +188,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 1;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([1]);
             // Trailer para este libro
@@ -212,6 +217,7 @@ class LibrosSeeder extends Seeder
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->cantidad_capitulos = 6;
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([7]);
             // Trailer para este libro
@@ -280,6 +286,7 @@ class LibrosSeeder extends Seeder
         $libro->cantidad_capitulos = 1;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
         
         // Novedades
@@ -313,6 +320,8 @@ class LibrosSeeder extends Seeder
         $novedad->descripcion = "Una novedad con fecha de publicacion futura";
         $novedad->fecha_de_publicacion = (Carbon::now()->addYear());
         $novedad->save();
+    
+        factory(Libro::class, 100)->create();
     }
     public function guardarArchivo($file){
         //$file = "novedades/edward.jpg";
