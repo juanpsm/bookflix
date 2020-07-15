@@ -102,15 +102,5 @@ class UsuariosBasicosSeeder extends Seeder
             'password' => bcrypt('123456'),
             'created_at' => Carbon::now(),
         ]);
-
-    // Administrador ID 1
-    Admin::truncate();
-
-        // Admin 1
-        DB::table('admins')->insert([
-            'name' => 'admin1',
-            'email' => 'admin1@bookflix.com',
-            'password' => bcrypt('123456'),
-        ]);
     }
 }
