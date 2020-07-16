@@ -154,7 +154,7 @@
                 </div>
                 <div class= "row justify-content-end">
                   <div class= "col-lg-6">
-                    <input id="cant"
+                    {{-- <input id="cant"
                       required
                       min="2"
                       type="number"
@@ -162,7 +162,7 @@
                       class="form-control mb-2"
                       placeholder="Cantidad"
                       value="{{old('cantidad_capitulos')}}" 
-                      disabled/>
+                      disabled/> --}}
                     <script type="application/javascript">
                       document.getElementById('checkCapitulos').onclick = function() {
                         if(this.checked==true){
@@ -171,11 +171,11 @@
                           
                           document.getElementById("labelcheckCapitulos").classList.remove("btn-secondary");
                           document.getElementById("labelcheckCapitulos").classList.add("btn-success");
-                          document.getElementById("cant").disabled=false;
-                          document.getElementById("cant").focus();
-                        }
-                        else{
-                          document.getElementById("cant").disabled=true;
+                        //   document.getElementById("cant").disabled=false;
+                        //   document.getElementById("cant").focus();
+                        // }
+                        // else{
+                        //   document.getElementById("cant").disabled=true;
                         }
                       };
                       document.getElementById('checkCompleto').onchange = function() {
@@ -184,7 +184,7 @@
                           document.getElementById("labelcheckCompleto").classList.add("btn-success");
                           document.getElementById("labelcheckCapitulos").classList.remove("btn-success");
                           document.getElementById("labelcheckCapitulos").classList.add("btn-secondary");
-                          document.getElementById("cant").disabled=true;
+                          // document.getElementById("cant").disabled=true;
                         }
                       };
                     </script>

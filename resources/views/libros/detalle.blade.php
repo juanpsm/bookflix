@@ -86,7 +86,7 @@
                       Cantidad de archivos:
                     </td>
                     <td>
-                      {{$libro->cantCapCargados()}} / {{$libro->cantidad_capitulos}}
+                      {{$libro->cantCapCargados()}} {{--/ {{$libro->CANTCAP}}--}}
                     </td>
                   </tr>
                   <tr>
@@ -199,30 +199,32 @@
                   </div>
                 @endif
                 @if(!$libro-> finalizado())
-                  {{-- Agregar Capítulo/Archivo --}}
-                  @if(!$libro-> lleno())
-                    <div class="col-sm-3 p-4">
-                        <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
-                          Agregar 
-                          @if ( $libro-> esCompleto() )
-                            Archivo
-                          @else
-                            Capítulo
-                          @endif
-                        </a>
-                    </div>
-                  @else
+                  @if($libro-> lleno())
                     <div class="col-sm-3 p-4">
                       <a href="{{route('capitulos.finalizar', $libro -> id)}}" class="btn btn-danger btn-sm btn-icon"
-                        onclick="return confirm('¿Estás seguro que queres finalizar el libro? Ten en cuenta que luego no podrás editar sus capitulos o archivos.')">
+                        onclick="return confirm('¿Estás seguro que queres finalizar el libro? Los usuarios podrán comenzar a leer el libro.')">
                         Finalizar Libro
+                      </a>
+                    </div>
+                  @endif
+                  {{-- Agregar Capítulo/Archivo --}}
+                  @if(!$libro-> lleno() || $libro-> esPorCapitulos())
+                    <div class="col-sm-3 p-4">
+                      <a href="{{route('capitulos.createWithBook', $libro -> id)}}" class="btn btn-primary btn-sm btn-icon">
+                        Agregar 
+                        @if ( $libro-> esCompleto() )
+                          Archivo
+                        @else
+                          Capítulo
+                        @endif
                       </a>
                     </div>
                   @endif
                 @else
                   <div class="col-sm-3 p-4">
-                    <a href="{{route('capitulos.desfinalizar', $libro -> id)}}" class="btn btn-warning btn-sm btn-icon">
-                      Desfinalizar libro (vamo lo pibe!!)
+                    <a href="{{route('capitulos.desfinalizar', $libro -> id)}}" class="btn btn-warning btn-sm btn-icon"
+                      onclick="return confirm('Los usuarios no podran leer hasta que finalices la carga nuevamente.')">
+                      Reanudar Carga de Archivos
                     </a>
                   </div>
                 @endif

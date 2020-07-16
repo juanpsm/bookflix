@@ -100,11 +100,11 @@ class Libro extends Model
     }
 
     public function esCompleto() {
-        return $this -> cantidad_capitulos == 1;
+        return $this -> es_completo;
     }
 
     public function esPorCapitulos() {
-        return ($this->cantidad_capitulos >= 2);
+        return !$this -> es_completo;
     }
 
     public function finalizado() {
@@ -139,9 +139,10 @@ class Libro extends Model
 
     public function lleno() {
         return ($this -> esCompleto() &&
-                $this -> cantCapCargados() == 1 ) ||
+                $this -> cantCapCargados() == 1 )
+                ||
                 ( $this -> esPorCapitulos() &&
-                $this -> cantCapCargados() == $this -> cantidad_capitulos);
+                $this -> cantCapCargados() >= 1);//$this -> cantidad_capitulos);
     }
 
     public function recomendados() {

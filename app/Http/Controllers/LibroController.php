@@ -63,7 +63,6 @@ class LibroController extends Controller
             'autor' => 'required',
             'generos'=> 'required|array',
             'tipolibro' => 'required',
-            'cantidad_capitulos' => 'numeric',
             'editorial' => 'required',
             'portada' => 'nullable|mimes:jpeg,png,jpg,gif|max:41000'
         ]);
@@ -94,10 +93,16 @@ class LibroController extends Controller
         $libro->fecha_de_lanzamiento = $request->fecha_de_lanzamiento;
         $libro->fecha_de_vencimiento = $request->fecha_de_vencimiento;
         
-        if($request->cantidad_capitulos){
-            $libro->cantidad_capitulos = $request->cantidad_capitulos;
+        // if($request->cantidad_capitulos){
+        //     $libro->cantidad_capitulos = $request->cantidad_capitulos;
+        // } else {
+        //     $libro->cantidad_capitulos = 1;
+        // }
+
+        if($request->tipolibro == 'completo'){
+            $libro->es_completo = TRUE;
         } else {
-            $libro->cantidad_capitulos = 1;
+            $libro->es_completo = FALSE;
         }
 
         $libro->save();

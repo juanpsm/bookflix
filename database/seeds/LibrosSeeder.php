@@ -54,7 +54,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 1;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 2;
+        $libro->es_completo = TRUE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([4, 5]); //Relacionar el libro a dos etiquetas
@@ -92,7 +92,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 2;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 1;
+        $libro->es_completo = FALSE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([2, 6]);
@@ -121,7 +121,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 2;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 2;
+        $libro->es_completo = TRUE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([4, 5]);
@@ -158,7 +158,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 1;
+        $libro->es_completo = FALSE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([1,7]);
@@ -187,7 +187,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 3;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 1;
+        $libro->es_completo = FALSE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([1]);
@@ -216,7 +216,7 @@ class LibrosSeeder extends Seeder
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->cantidad_capitulos = 6;
+        $libro->es_completo = TRUE;
         $libro->terminado_de_cargar = TRUE;
         $libro->save();
         $libro->generos()->attach([7]);
@@ -283,7 +283,7 @@ class LibrosSeeder extends Seeder
         $libro->isbn = "1234567896";
         $libro->autor_id = 5;
         $libro->editorial_id = 4;
-        $libro->cantidad_capitulos = 1;
+        $libro->es_completo = FALSE;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->terminado_de_cargar = FALSE;
@@ -321,7 +321,7 @@ class LibrosSeeder extends Seeder
         $novedad->fecha_de_publicacion = (Carbon::now()->addYear());
         $novedad->save();
     
-        factory(Libro::class, 100)->create();
+        factory(Libro::class, 5)->create();
     }
     public function guardarArchivo($file){
         //$file = "novedades/edward.jpg";
