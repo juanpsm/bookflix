@@ -219,12 +219,12 @@
                       </a>
                     </div>
                   @endif
-                {{-- @else
+                @else
                   <div class="col-sm-3 p-4">
                     <a href="{{route('capitulos.desfinalizar', $libro -> id)}}" class="btn btn-warning btn-sm btn-icon">
-                      Desfinalizar libro (esto luego se saca)
+                      Desfinalizar libro (vamo lo pibe!!)
                     </a>
-                  </div> --}}
+                  </div>
                 @endif
                 {{--<table class="table table-hover table-sm table-striped">
                   <tbody>
