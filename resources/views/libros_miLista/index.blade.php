@@ -30,7 +30,7 @@
                       @endif
                     </td>
                     <td>
-                      @if($item->deleted_at)
+                      @if($item->deleted_at || $item->vencido())
                         {{ $item->titulo }}<br>
                         <small>Este libro ya no se encuentra disponible</small>
                       @else

@@ -31,7 +31,7 @@ class LibroController extends Controller
     public function index()
     {
 
-        $libros = Libro::withTrashed()->paginate(5);
+        $libros = Libro::withTrashed()->orderByDesc('updated_at')->paginate(5);
         return view('libros.lista',compact('libros')); 
     }
 

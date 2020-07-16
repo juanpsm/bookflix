@@ -50,37 +50,41 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-md-12">
-                                <div class="card card-dark bg-dark">
-                                    <div class="card-header">
-                                        Los más Leídos
-                                    </div>
-                                    <div class="card-body justify-content-center">
-                                        <?php
-                                        use App\Libro;
-                                        
-                                        $libros = Libro::withTrashed()->get();
-                                        $libros = $libros->sortByDesc(function($libro){return $libro->cantLectores();});
-                                        $libros = $libros->take(6);
-                                        ?>
-                                        <div class="row text-center text-lg-left">
-                                            @foreach ($libros as $item)
-                                                <div class="col-lg-2 col-md-2 col-2 book">
-                                                    <div class="portada">
-                                                        <a href="{{route("libros.showForUser", $item)}}" class="d-block mb-4 h-100">
-                                                            <img class="img-fluid" style="border-radius: 5%;"
-                                                                src="{{$item->portada}}" alt="">
-                                                        </a>
-                                                        @if (!$item -> finalizado())
-                                                            <div class="ribbon">Próximamente</div>
-                                                            <div class="embed-cover"></div>
-                                                        @endif
+                                <?php
+                                    use App\Libro;
+                                    use Carbon\Carbon;
+                                    $libros = Libro::where('fecha_de_vencimiento','>',Carbon::now())->get();
+                                    $libros = $libros->sortByDesc(function($libro){return $libro->cantLectores();});
+                                    $libros = $libros->take(6);
+                                ?>
+                                @if(count($libros) == 0)
+                                    
+                                @else
+                                    <div class="card card-dark bg-dark">
+                                        <div class="card-header">
+                                            Los más Leídos
+                                        </div>
+                                        <div class="card-body justify-content-center">
+                                            <div class="row text-center text-lg-left">
+                                                @foreach ($libros as $item)
+                                                    <div class="col-lg-2 col-md-2 col-2 book">
+                                                        <div class="portada">
+                                                            <a href="{{route("libros.showForUser", $item)}}" class="d-block mb-4 h-100">
+                                                                <img class="img-fluid" style="border-radius: 5%;"
+                                                                    src="{{$item->portada}}" alt="">
+                                                            </a>
+                                                            @if (!$item -> finalizado())
+                                                                <div class="ribbon">Próximamente</div>
+                                                                <div class="embed-cover"></div>
+                                                            @endif
+                                                        </div>
+                                                        <div class="titulo"><small>{{$item->titulo}}</small></div>
                                                     </div>
-                                                    <div class="titulo"><small>{{$item->titulo}}</small></div>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>

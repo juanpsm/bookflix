@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class Libro extends Model
 {
@@ -108,6 +109,32 @@ class Libro extends Model
 
     public function finalizado() {
         return $this -> terminado_de_cargar;
+    }
+
+    public function eliminado() {
+        return $this -> trashed();
+    }
+
+    public function preLanzamiento() {
+        return $this->fecha_de_lanzamiento >= Carbon::now();
+    }
+
+    public function vencido() {
+        return $this->fecha_de_vencimiento <= Carbon::now()->subDay();
+    }
+
+    public function proximamente() {
+        return (!$this->finalizado() || $this->preLanzamiento());
+    }
+
+    public function publicado() {
+        return $this->finalizado() &&
+                !$this->preLanzamiento() &&
+                !$this->vencido();
+    }
+
+    public function noDisponible() {
+        return $this -> eliminado() || $this -> vencido();
     }
 
     public function lleno() {

@@ -286,7 +286,7 @@ class LibrosSeeder extends Seeder
         $libro->cantidad_capitulos = 1;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->terminado_de_cargar = TRUE;
+        $libro->terminado_de_cargar = FALSE;
         $libro->save();
         
         // Novedades

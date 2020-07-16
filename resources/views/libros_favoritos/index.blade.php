@@ -30,9 +30,11 @@
                       @endif
                     </td>
                     <td>
-                      @if($item->deleted_at)
+                      @if($item->deleted_at || $item->vencido())
                         {{ $item->titulo }}<br>
                         <small>Este libro ya no se encuentra disponible</small>
+                      @elseif($item->proximamente())
+                        <small>Proximamente...</small>
                       @else
                       <a href="{{url("libros/user/{$item->id}")}}"> {{--Tengo que pasar como parametro el item --}}
                         {{ $item->titulo }}

@@ -24,7 +24,7 @@ class EstadisticasController extends Controller
      */
     public function users(Request $request)
     {
-        $users = User::orderBy('created_at')->paginate(10);
+        $users = User::orderByDesc('created_at')->paginate(10);
         $usersTotal = count(User::all());
 
         if($request->has('desde')){
@@ -35,7 +35,7 @@ class EstadisticasController extends Controller
             ]);
             $users = User::where('created_at','>=',$request->desde)
             ->where('created_at','<=',Carbon::create($request->hasta)->addDay())
-            ->orderBy('created_at')->paginate(10);
+            ->orderByDesc('created_at')->paginate(10);
         }
         return view('estadisticas.users', compact('users'))->with(compact('usersTotal')); 
     }
@@ -68,7 +68,7 @@ class EstadisticasController extends Controller
         // no funciona porque ya no es un objeto
 
         // así funciona con los links pero ordena mal (solo por historiales)
-        //$libros = Libro::withTrashed()->withCount('perfiles_historial')->orderBy('perfiles_historial_count', 'desc')->paginate(10);
+        $libros = Libro::withTrashed()->withCount('perfiles_historial')->orderBy('perfiles_historial_count', 'desc')->paginate(10);
         return view('estadisticas.libros', compact('libros'))->with(compact('perfilesTotal')); 
     }
 }

@@ -60,9 +60,19 @@
                 {{-- Acciones --}}
                 <td>
                   {{-- Leer --}}
+                  @if($item->preLanzamiento())
+                    Estreno: {{$item->lanzamiento()}}
+                  @elseif($item->vencido())
+                    Este capítulo ya no se encuentra disponible :(
+                  @else
                   <a href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$item->id])}}" class="btn btn-primary btn-sm">
-                    Leer
+                    @if($item->leido())
+                      Leer otra vez
+                    @else
+                      Leer
+                    @endif
                   </a>
+                  @endif
                 </td>
               </tr>
               @endforeach

@@ -27,7 +27,12 @@
           <div class="row">{{-- Row Portada y botones--}}
             <div class="col-md-8">{{-- Portada --}}
               @if (!($libro-> portada  == 'noFile'))
-                <img style="width:100%; border-radius: 2%;" src="{{url($libro -> portada)}}">
+                <div class="book">
+                  <img style="width:100%; border-radius: 2%;" src="{{url($libro -> portada)}}">
+                  @if ($libro -> proximamente())
+                    <div class="ribbon">Próximamente</div>
+                  @endif
+                </div>
               @endif 
             </div>
             <div class="col-md-4">{{-- Botones--}}
@@ -45,11 +50,15 @@
                   </div>
                   @endforeach
               </div>
-              {{-- LEER (solo si tiene capitulos) --}}
-              @if($libro->capitulos()->count())
+              {{-- LEER (solo si esta publicado) --}}
+              {{-- pub:{{$libro->publicado()}}
+              ven:{{$libro->vencido()}}
+              prox:{{$libro->proximamente()}}
+              pre:{{$libro->preLanzamiento()}} --}}
+              @if($libro->publicado())
                 <a class="btn btn-lg btn-block" style="color: black; background-color: #E50914"
-                      @if ($libro->capitulos()->count()==1)
-                        {{-- si tiene capitulos uno solo muestra directamente el pdf (elemento 0 del array)) --}}
+                      @if ($libro->esCompleto())
+                        {{-- si tiene un solo capitulo muestra directamente el pdf (elemento 0 del array)) --}}
                         href="{{route('capitulo.reader', ['libro_id'=>$libro->id, 'id'=>$libro->capitulos[0] ])}}"
                       @else
                         {{-- si tiene mas muestra la lista de capitulos --}}

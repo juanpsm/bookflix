@@ -136,7 +136,7 @@
                   <div class= "col-lg-6">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
                       <label id='labelcheckCompleto' class="btn btn-success">
-                        <input type="radio" name="tipolibro" id="checkCompleto" checked
+                        <input type="radio" name="tipolibro" id="checkCompleto"
                                 value="completo" required> 
                         Libro Completo
                       </label>

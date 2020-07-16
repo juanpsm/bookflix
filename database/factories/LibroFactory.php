@@ -16,11 +16,11 @@ $factory->define(Libro::class, function (Faker $faker) {
         'isbn'=> $faker->unique()->isbn10(),
         'autor_id' => factory(App\Autor::class),
         'editorial_id' => rand(2, 15), // son las 15 que creo en el seeder, la 1 es no asignada
-        'fecha_de_lanzamiento' => $date = Carbon::now()->addDays(rand(1, 20)),
-        'fecha_de_vencimiento' => $date = Carbon::now()->addYears(rand(1, 3)),
+        'fecha_de_lanzamiento' => Carbon::now()->addDays(rand(1, 20)),
+        'fecha_de_vencimiento' => Carbon::now()->addYears(rand(1, 3)),
         'cantidad_capitulos' => $cant_capitulos,
-        'created_at' => $date,
-        'updated_at' => $date,
+        'created_at' => Carbon::now(),
+        'updated_at' => Carbon::now(),
         //'terminado_de_cargar'=> $faker->boolean($chanceOfGettingTrue = 90),
     ];
     
