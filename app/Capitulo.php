@@ -20,7 +20,7 @@ class Capitulo extends Model
     }
 
     public function preLanzamiento() {
-        return $this->fecha_de_lanzamiento < Carbon::now();
+        return $this->fecha_de_lanzamiento > Carbon::now();
     }
 
     public function proximamente() {
