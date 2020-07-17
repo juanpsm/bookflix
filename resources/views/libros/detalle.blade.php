@@ -123,6 +123,7 @@
                                 src="js\pdfThumbnails\pdf.png">
                             </a>
                           </div>
+                          @if (session('editar'))
                           <div class="col-md-6">
                             <div class="row">
                               <div class="col-md-1">
@@ -146,6 +147,7 @@
                               </div>
                             </div>
                           </div>
+                          @endif
                         </div>
                       @endif
                     </td>
@@ -256,7 +258,7 @@
                       <th scope="col">Título</th>
                       <th scope="col">Pdf</th>
                       <th scope="col">Fechas</th>
-                      @if(!$libro-> finalizado())
+                      @if(!$libro-> finalizado() && session('editar'))
                         <th scope="col">Acciones</th>
                       @endif
                     </tr>
@@ -283,7 +285,7 @@
                           {{ $capitulo->vencimiento()}}
                         </td>
                         {{-- Acciones --}}
-                        @if(!$libro-> finalizado())
+                        @if(!$libro-> finalizado() && session('editar'))
                           <td>
                             {{-- Edit --}}
                             <a href="{{route('capitulos.edit', $capitulo)}}" class="btn btn-primary btn-sm">

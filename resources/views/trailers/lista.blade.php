@@ -33,7 +33,9 @@
                 <th scope="col">Título</th>
                 <th scope="col">Libro</th>
                 <th scope="col">Pdf</th>
-                <th scope="col">Acción</th>
+                @if (session('editar'))
+                  <th scope="col">Acción</th>
+                @endif
                 </tr>
               </thead>
               <tbody>
@@ -68,21 +70,23 @@
                     </a>
                   </td>
                   {{-- Acciones --}}
-                  <td>
-                    {{-- Edit --}}
-                    <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
-                      editar
-                    </a>
-                    {{-- Delete --}}
-                    <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
-                    onclick="return confirm('Estas seguro que queres eliminar el Tráiler?')">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-sm">
-                          eliminar
-                        </button>
-                    </form>
-                  </td>
+                  @if (session('editar'))
+                    <td>
+                      {{-- Edit --}}
+                      <a href="{{route('trailers.edit', $item)}}" class="btn btn-primary btn-sm">
+                        editar
+                      </a>
+                      {{-- Delete --}}
+                      <form action="{{route('trailers.destroy', $item)}}" class="d-inline" method="POST"
+                      onclick="return confirm('Estas seguro que queres eliminar el Tráiler?')">
+                          @method('DELETE')
+                          @csrf
+                          <button type="submit" class="btn btn-danger btn-sm">
+                            eliminar
+                          </button>
+                      </form>
+                    </td>
+                  @endif
                 </tr>
                 @endforeach
               </tbody>

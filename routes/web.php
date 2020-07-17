@@ -137,3 +137,12 @@ Route::get('libros/{libro_id}/caps/{id}/marcarLeido', 'CapituloController@marcar
 Route::get('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
 Route::post('/admin/estadisticas/users', 'EstadisticasController@users')->name('estadisticas.users');
 Route::get('/admin/estadisticas/libros', 'EstadisticasController@libros')->name('estadisticas.libros');
+
+Route::get('editar', function () {
+    if (session('editar')){
+        session(['editar' => FALSE]);
+    } else {
+        session(['editar' => TRUE]);
+    }
+    return back();
+})->name('editar333');

@@ -94,4 +94,7 @@
     </div>
   </div>
 </div>
+<a href="{{route('editar333')}}">
+  editar333
+</a>
 @endsection
