@@ -12,7 +12,7 @@ class Capitulo extends Model
     }
 
     public function vencido() {
-        return $this->fecha_de_vencimiento < Carbon::now();
+        return $this->fecha_de_vencimiento <= Carbon::now()->subDay();
     }
 
     public function lanzamiento() {
@@ -24,7 +24,7 @@ class Capitulo extends Model
     }
 
     public function preLanzamiento() {
-        return $this->fecha_de_lanzamiento > Carbon::now();
+        return $this->fecha_de_lanzamiento >= Carbon::now();
     }
 
     public function proximamente() {

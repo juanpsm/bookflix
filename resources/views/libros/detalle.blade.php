@@ -198,7 +198,6 @@
                     <h4 class="p-4">No se ha cargado ninguno todavía</h4>
                   </div>
                 @endif
-                porcaps{{$libro-> esPorCapitulos()}}
                 @if(!$libro-> finalizado())
                   @if($libro-> lleno())
                     <div class="col-sm-3 p-4">
