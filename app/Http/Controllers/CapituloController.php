@@ -61,9 +61,12 @@ class CapituloController extends Controller
     {
         $libro= Libro::findOrFail($libro_id);
         if ($libro-> esPorCapitulos()){
+            
+            $desde = $libro->fecha_de_lanzamiento->format('d-m-Y');
+            $hasta = $libro->fecha_de_vencimiento->format('d-m-Y');//->isoFormat("DD \d\\e MMMM \d\\e  YYYY");
             $request->validate([
-                'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$libro->fecha_de_lanzamiento}",
-                'fecha_de_vencimiento' => "required|date_format:Y-m-d|after:fecha_de_lanzamiento|before_or_equal:{$libro->fecha_de_vencimiento}"
+                'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$desde}",
+                'fecha_de_vencimiento' => "required|date_format:Y-m-d|after_or_equal:fecha_de_lanzamiento|before_or_equal:{$hasta}|after:hoy"
                 ]);
         }
         $request->validate([
@@ -144,10 +147,17 @@ class CapituloController extends Controller
         // Valido datos
         $capitulo = Capitulo::findOrFail($id);
         $libro= Libro::findOrFail($capitulo->libro_id);
+        if ($libro-> esPorCapitulos()){
+            
+            $desde = $libro->fecha_de_lanzamiento->format('d-m-Y');
+            $hasta = $libro->fecha_de_vencimiento->format('d-m-Y');//->isoFormat("DD \d\\e MMMM \d\\e  YYYY");
+            $request->validate([
+                'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$desde}",
+                'fecha_de_vencimiento' => "required|date_format:Y-m-d|after_or_equal:fecha_de_lanzamiento|before_or_equal:{$hasta}|after:hoy"
+                ]);
+        }
         $request->validate([
             'titulo' => 'required',
-            'fecha_de_lanzamiento' => "required|date_format:Y-m-d|after_or_equal:{$libro->fecha_de_lanzamiento}",
-            'fecha_de_vencimiento' => "required|date_format:Y-m-d|after:fecha_de_lanzamiento|before_or_equal:{$libro->fecha_de_vencimiento}",
             'pdf' => 'mimes:pdf|max:10000' //el max no arregla el error porque se rompe antes cuando hace el POST
         ]);
 

@@ -116,7 +116,7 @@ class Libro extends Model
     }
 
     public function preLanzamiento() {
-        return $this->fecha_de_lanzamiento >= Carbon::now();
+        return $this->fecha_de_lanzamiento > Carbon::today();
     }
 
     public function vencido() {

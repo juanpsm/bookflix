@@ -58,8 +58,8 @@ class LibroController extends Controller
         $request->validate([
             'titulo' => 'required|unique:App\Libro',
             'isbn' => 'required|unique:App\Libro|digits:10',
-            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
-            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d|before_or_equal:fecha_de_vencimiento',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:hoy',
             'autor' => 'required',
             'generos'=> 'required|array',
             'tipolibro' => 'required',
@@ -175,8 +175,8 @@ class LibroController extends Controller
         $request->validate([
             'titulo' => "required|unique:App\Libro,titulo,{$libro->id}",
             'isbn' => "required|unique:App\Libro,isbn,{$libro->id}|digits:10",
-            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d',
-            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:fecha_de_lanzamiento',
+            'fecha_de_lanzamiento' => 'required|date_format:Y-m-d|before_or_equal:fecha_de_vencimiento',
+            'fecha_de_vencimiento' => 'required|date_format:Y-m-d|after:hoy',
             'autor' => 'required',
             'generos'=> 'required|array',
             'editorial' => 'required',

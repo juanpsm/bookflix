@@ -19,13 +19,13 @@
             </div>
           @endif
 
-          {{--Exito--}}    
+          {{--Exito--}}
           @if ( session('mensaje') )
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               {{session('mensaje')}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
           @endif
 
@@ -43,7 +43,7 @@
             {{-- Fechas solo si es por caps --}}
             @if ($libro->esPorCapitulos())
               Fecha de lanzamiento: (posterior a la del libro que es 
-                <b>{{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
+              <b>{{$libro -> fecha_de_lanzamiento->isoFormat("DD \d\\e MMMM \d\\e YYYY")}}</b>)
               <input
                 required
                 type="date"
@@ -69,10 +69,10 @@
             <input 
               type="file" 
               name="pdf" 
-              accept="application/pdf,application/vnd.ms-excel" 
+              accept="application/pdf,application/vnd.ms-excel"
               class="form-group"
             >
-
+            
             <div class="text-right"> 
               <a href="{{ route('libros.show', $libro -> id) }}" class="btn btn-secondary btn-sm">
                 Cancelar

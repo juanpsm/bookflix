@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span>Detalle de Capitulo</span>
-          <a href="{{ url()->previous() }}" class="btn btn-primary btn-sm">Volver</a>
+          <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Volver</a>
         </div>
         <div class="card-body">
           <h4>Título: {{$capitulo -> titulo}} </h4>

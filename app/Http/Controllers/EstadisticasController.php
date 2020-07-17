@@ -30,8 +30,8 @@ class EstadisticasController extends Controller
         if($request->has('desde')){
 
             $request->validate([
-                'desde' => 'required|date_format:Y-m-d',
-                'hasta' => 'required|date_format:Y-m-d|after_or_equal:desde'
+                'desde' => 'required|date_format:Y-m-d|before:mañana',
+                'hasta' => 'required|date_format:Y-m-d|after_or_equal:desde|before:mañana'
             ]);
             $users = User::where('created_at','>=',$request->desde)
             ->where('created_at','<=',Carbon::create($request->hasta)->addDay())

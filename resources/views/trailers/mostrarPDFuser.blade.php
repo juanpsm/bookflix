@@ -19,7 +19,11 @@
               </span>
             </div>
             <div class="d-flex justify-content-end">
-            <a href="{{route('trailers.showListaUser')}}" class= "btn btn-secondary ml-auto" >
+              @if ($trailer -> libro)
+                <a href="{{route("libros.showForUser", $trailer-> libro)}}" class= "btn btn-secondary ml-auto" >
+              @else
+                <a href="{{route('trailers.showListaUser')}}" class= "btn btn-secondary ml-auto" >
+              @endif
                 Volver
               </a>
             </div>

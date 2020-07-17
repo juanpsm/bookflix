@@ -83,11 +83,13 @@
                   {{--Portada--}}
                   <td>
                     @if ($item ->portada != 'noFile')
+                      <a href="{{route('libros.show',$item)}}">
                         <img style="height: 70px; border-radius: 10%;" src="{{url($item ->portada)}}">
-                      @else
-                        {{$item->portada}}
-                      @endif
-                    </td>
+                      </a>
+                    @else
+                      {{$item->portada}}
+                    @endif
+                  </td>
                   {{-- Acciones --}}
                   <td>
                     {{-- Edit --}}

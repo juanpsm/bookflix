@@ -26,7 +26,7 @@
               editar
             </a>
           @endif
-          <a href="{{route('libros.index')}}" class="btn btn-primary btn-sm">Volver</a>
+          <a href="{{route('libros.index')}}" class="btn btn-secondary btn-sm">Volver</a>
         </div>
         <div class="card-body">
           <div class="row"> {{-- Portada y Tabla Info --}}
