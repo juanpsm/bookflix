@@ -12,15 +12,19 @@ class Capitulo extends Model
     }
 
     public function vencido() {
-        return $this->fecha_de_vencimiento > Carbon::now();
+        return $this->fecha_de_vencimiento < Carbon::now();
     }
 
     public function lanzamiento() {
         return Carbon::createFromFormat('Y-m-d', $this-> fecha_de_lanzamiento)->isoFormat("DD \d\\e MMMM \d\\e YYYY");
     }
 
+    public function vencimiento() {
+        return Carbon::createFromFormat('Y-m-d', $this-> fecha_de_vencimiento)->isoFormat("DD \d\\e MMMM \d\\e YYYY");
+    }
+
     public function preLanzamiento() {
-        return $this->fecha_de_lanzamiento < Carbon::now();
+        return $this->fecha_de_lanzamiento > Carbon::now();
     }
 
     public function proximamente() {
