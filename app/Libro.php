@@ -159,7 +159,7 @@ class Libro extends Model
         $libros_rec = $libros_rec->unique('id');
         // filtro por calificacion y a si mismo
         $libros_rec = $libros_rec->reject(function ($each) {
-            return $each->promedioCalificacion() <= 4 ||
+            return $each->promedioCalificacion() <= 3 ||
                     $each-> id == $this-> id;
         });
 
