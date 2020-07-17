@@ -19,7 +19,7 @@
                 <tr>
                 <th scope="col">Título</th>
                 <th scope="col">Libro</th>
-                <th scope="col">Trailers</th>
+                <th scope="col">Trailer</th>
                 </tr>
               </thead>
               <tbody>
