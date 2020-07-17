@@ -49,7 +49,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "Harry Potter y el Príncipe Mestizo";
         $libro->portada = $this->guardarArchivo('portadas/hp6.jpg');
-        $libro->isbn = "1234567891";
+        $libro->isbn = "0000000001";
         $libro->autor_id = 4;
         $libro->editorial_id = 1;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -87,7 +87,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "Diario de una Jovencita";
         $libro->portada = $this->guardarArchivo('portadas/anne.jpg');
-        $libro->isbn = "1234567892";
+        $libro->isbn = "0000000002";
         $libro->autor_id = 2;
         $libro->editorial_id = 2;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -116,7 +116,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "El Hobbit";
         $libro->portada = $this->guardarArchivo('portadas/hobbit.jpg');
-        $libro->isbn = "1234567893";
+        $libro->isbn = "0000000003";
         $libro->autor_id = 1;
         $libro->editorial_id = 2;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -153,7 +153,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "The Connections In Our Brain";
         $libro->portada = $this->guardarArchivo('portadas/connection.jpg');
-        $libro->isbn = "1234567894";
+        $libro->isbn = "0000000004";
         $libro->autor_id = 5;
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -182,7 +182,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "Yo, robot";
         $libro->portada = $this->guardarArchivo('portadas/robot.jpg');
-        $libro->isbn = "1234567895";
+        $libro->isbn = "0000000005";
         $libro->autor_id = 6;
         $libro->editorial_id = 3;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -211,7 +211,7 @@ class LibrosSeeder extends Seeder
         $libro = new Libro();
         $libro->titulo = "Elementos";
         $libro->portada = $this->guardarArchivo('portadas/euclides.jpg');
-        $libro->isbn = "1234567896";
+        $libro->isbn = "0000000006";
         $libro->autor_id = 7;
         $libro->editorial_id = 4;
         $libro->fecha_de_lanzamiento = Carbon::now();
@@ -278,29 +278,113 @@ class LibrosSeeder extends Seeder
         
         // Libro #7
         $libro = new Libro();
-        $libro->titulo = "LibroCompletoSinTrailerNiArchivo";
-        $libro->portada = $this->guardarArchivo('portadas/question.jpg');
-        $libro->isbn = "1234567896";
+        $libro->titulo = "COMPLETO FUTURO";
+        $libro->portada = $this->guardarArchivo('portadas/garciamarquez.jpeg');
+        $libro->isbn = "0000000007";
         $libro->autor_id = 5;
         $libro->editorial_id = 4;
         $libro->es_completo = TRUE;
-        $libro->fecha_de_lanzamiento = Carbon::now();
-        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
-        $libro->terminado_de_cargar = FALSE;
+        $libro->fecha_de_lanzamiento = Carbon::now()->addYear();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYears(2);
+        $libro->terminado_de_cargar = TRUE;
         $libro->save();
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "TRAILER LIBRO FUTURO";
+            $trailer->pdf = $this->guardarArchivo('trailers/sample.pdf');
+            $trailer->libro_id = 7;
+            $trailer->save();
+            // Capitulos
+                //Capítulo 1
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "UNICO";
+                $capitulo->pdf = $this->guardarArchivo('trailers/sample.pdf');
+                $capitulo->fecha_de_lanzamiento = $libro->fecha_de_lanzamiento;
+                $capitulo->fecha_de_vencimiento = $libro->fecha_de_vencimiento; 
+                $capitulo->libro_id = 7;
+                $capitulo->save();
 
-        // Libro #7
+        // Libro #8
         $libro = new Libro();
-        $libro->titulo = "LibroPorCapsSinTrailerNiCapitulos";
-        $libro->portada = $this->guardarArchivo('portadas/question.jpg');
-        $libro->isbn = "1234567896";
+        $libro->titulo = "POR CAPITULOS PAS / PRES / FUT";
+        $libro->portada = $this->guardarArchivo('portadas/garciamarquez.jpeg');
+        $libro->isbn = "0000000008";
         $libro->autor_id = 5;
         $libro->editorial_id = 4;
         $libro->es_completo = FALSE;
         $libro->fecha_de_lanzamiento = Carbon::now();
         $libro->fecha_de_vencimiento = Carbon::now()->addYear();
+        $libro->terminado_de_cargar = TRUE;
+        $libro->save();
+            // Capitulos
+                //Capítulo PASADO
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "PASADO";
+                $capitulo->pdf = $this->guardarArchivo('trailers/sample.pdf');
+                $capitulo->fecha_de_lanzamiento = $libro->fecha_de_lanzamiento;
+                $capitulo->fecha_de_vencimiento = Carbon::now()->subWeek();
+                $capitulo->libro_id = 8;
+                $capitulo->save();
+                //Capítulo PRESENTE
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "PRESENTE";
+                $capitulo->pdf = $this->guardarArchivo('trailers/sample.pdf');
+                $capitulo->fecha_de_lanzamiento = Carbon::now()->subWeek();
+                $capitulo->fecha_de_vencimiento = Carbon::now()->addWeek();
+                $capitulo->libro_id = 8;
+                $capitulo->save();
+                //Capítulo FUTURO
+                $capitulo = new Capitulo();
+                $capitulo->titulo = "FUTURO";
+                $capitulo->pdf = $this->guardarArchivo('trailers/sample.pdf');
+                $capitulo->fecha_de_lanzamiento = Carbon::now()->addWeek();
+                $capitulo->fecha_de_vencimiento = $libro->fecha_de_vencimiento; 
+                $capitulo->libro_id = 8;
+                $capitulo->save();
+
+        // Libro #9
+        $libro = new Libro();
+        $libro->titulo = "SIN FINALIZAR";
+        $libro->portada = $this->guardarArchivo('portadas/garciamarquez.jpeg');
+        $libro->isbn = "0000000009";
+        $libro->autor_id = 5;
+        $libro->editorial_id = 4;
+        $libro->es_completo = FALSE;
+        $libro->fecha_de_lanzamiento = Carbon::now()->subYear();
+        $libro->fecha_de_vencimiento = Carbon::now()->addYear();
         $libro->terminado_de_cargar = FALSE;
         $libro->save();
+            // Trailer para este libro
+            $trailer = new Trailer();
+            $trailer->titulo = "TRAILER DE LIBRO SIN FINALIZAR";
+            $trailer->pdf = $this->guardarArchivo('trailers/sample.pdf');
+            $trailer->libro_id = 9;
+            $trailer->save();
+
+        // Libro #10
+        $libro = new Libro();
+        $libro->titulo = "VENCIDO";
+        $libro->portada = $this->guardarArchivo('portadas/garciamarquez.jpeg');
+        $libro->isbn = "0000000010";
+        $libro->autor_id = 5;
+        $libro->editorial_id = 4;
+        $libro->es_completo = FALSE;
+        $libro->fecha_de_lanzamiento = Carbon::now()->subYears(2);
+        $libro->fecha_de_vencimiento = Carbon::now()->subYear();
+        $libro->terminado_de_cargar = TRUE;
+        $libro->save();
+            // Trailer para este libro NO SE VE BIEN LO SACO
+            // $trailer = new Trailer();
+            // $trailer->titulo = "TRAILER VENCIDO";
+            // $trailer->pdf = $this->guardarArchivo('trailers/sample.pdf');
+            // $trailer->libro_id = 11;
+            // $trailer->save();
+
+        // TRAILER SIN LIBRO
+        $trailer = new Trailer();
+        $trailer->titulo = "TRAILER SIN LIBRO";
+        $trailer->pdf = $this->guardarArchivo('trailers/sample.pdf');
+        $trailer->save();
         
         // Novedades
         $novedad = new Novedad();
@@ -334,7 +418,7 @@ class LibrosSeeder extends Seeder
         $novedad->fecha_de_publicacion = (Carbon::now()->addYear());
         $novedad->save();
     
-        factory(Libro::class, 5)->create();
+        //factory(Libro::class, 5)->create();
     }
     public function guardarArchivo($file){
         //$file = "novedades/edward.jpg";
